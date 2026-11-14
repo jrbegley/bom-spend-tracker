@@ -1,5 +1,5 @@
-import { useMemo, useState, type ReactNode } from 'react';
-import { nextSort, pageBounds, sortRows, type SortState } from '../lib/sort';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { effectivePage, highlightPage, nextSort, pageBounds, sortRows, type SortState } from '../lib/sort';
 import { Pagination } from './Pagination';
 
 export type Column<T> = {
@@ -22,6 +22,10 @@ type Props<T> = {
   collapsedCount?: number;
   caption: string;
   itemLabel?: string;
+  /** rowKey of a row to open on, scroll to and tint for 2s. Unknown keys are ignored. */
+  highlightKey?: string;
+  /** When this value changes the table returns to page 1. */
+  resetPageOn?: unknown;
 };
 
 /** One sortable column header: <th scope="col"> with aria-sort and a button. */
@@ -40,10 +44,21 @@ export function SortHeader<T>({ column: c, sort, onSort }: { column: Column<T>; 
 }
 
 export function SortableTable<T>({
-  columns, rows, rowKey, defaultSort, pageSize, rowClassName, collapsedCount, caption, itemLabel = 'rows',
+  columns, rows, rowKey, defaultSort, pageSize, rowClassName, collapsedCount, caption, itemLabel = 'rows', highlightKey, resetPageOn,
 }: Props<T>) {
   const [sort, setSort] = useState<SortState>(defaultSort);
-  const [page, setPage] = useState(1);
+  const [pageState, setPageState] = useState(() => {
+    let page = 1;
+    if (highlightKey !== undefined && pageSize) {
+      const col = columns.find((c) => c.key === defaultSort.key);
+      const ordered = col ? sortRows(rows, col.value, defaultSort.dir) : rows;
+      page = highlightPage(ordered.findIndex((r) => rowKey(r) === highlightKey), pageSize);
+    }
+    return { page, token: resetPageOn };
+  });
+  const page = effectivePage(pageState, resetPageOn);
+  const [tinted, setTinted] = useState(highlightKey !== undefined);
+  const wrapRef = useRef<HTMLDivElement>(null);
   const [expanded, setExpanded] = useState(false);
 
   const sorted = useMemo(() => {
@@ -59,11 +74,18 @@ export function SortableTable<T>({
 
   const onHeader = (c: Column<T>) => {
     setSort((s) => nextSort(s, c.key, !!c.numeric));
-    setPage(1);
+    setPageState({ page: 1, token: resetPageOn });
   };
 
+  useEffect(() => {
+    if (highlightKey === undefined) return;
+    wrapRef.current?.querySelector('[data-highlight]')?.scrollIntoView({ block: 'center' });
+    const t = setTimeout(() => setTinted(false), 2000);
+    return () => clearTimeout(t);
+  }, [highlightKey]);
+
   return (
-    <div>
+    <div ref={wrapRef}>
       <div className="overflow-x-auto">
         <table className="w-full border-collapse text-[13px]">
           <caption className="sr-only">{caption}</caption>
@@ -76,7 +98,12 @@ export function SortableTable<T>({
           </thead>
           <tbody>
             {visible.map((row) => (
-              <tr key={rowKey(row)} className={`border-b border-rule last:border-b-0 hover:bg-group-row ${rowClassName?.(row) ?? ''}`}>
+              <tr
+                key={rowKey(row)}
+                data-row-key={rowKey(row)}
+                data-highlight={tinted && rowKey(row) === highlightKey ? 'true' : undefined}
+                className={`border-b border-rule last:border-b-0 hover:bg-group-row ${rowClassName?.(row) ?? ''} ${tinted && rowKey(row) === highlightKey ? 'bg-accent-tint' : ''}`}
+              >
                 {columns.map((c) => (
                   <td key={c.key} className={`px-4 py-2.5 align-top ${c.numeric ? 'text-right tabular-nums whitespace-nowrap' : 'text-left'}`}>{c.render ? c.render(row) : c.value(row)}</td>
                 ))}
@@ -91,8 +118,8 @@ export function SortableTable<T>({
           end={bounds.end}
           total={sorted.length}
           itemLabel={itemLabel}
-          onPrev={() => setPage(Math.max(1, bounds.page - 1))}
-          onNext={() => setPage(Math.min(Math.max(1, bounds.pageCount), bounds.page + 1))}
+          onPrev={() => setPageState({ page: Math.max(1, bounds.page - 1), token: resetPageOn })}
+          onNext={() => setPageState({ page: Math.min(Math.max(1, bounds.pageCount), bounds.page + 1), token: resetPageOn })}
         />
       )}
       {!bounds && collapsible && (

@@ -27,3 +27,12 @@ it('pageBounds clamps at both ends', () => {
   expect(pageBounds(86, 8, 12)).toEqual({ page: 11, pageCount: 11, start: 80, end: 86 });
   expect(pageBounds(0, 8, 1)).toEqual({ page: 1, pageCount: 0, start: 0, end: 0 });
 });
+
+import { effectivePage, highlightPage } from './sort';
+it('effectivePage resets to 1 when the token changes', () => {
+  expect(effectivePage({ page: 4, token: '' }, '')).toBe(4);
+  expect(effectivePage({ page: 4, token: '' }, 'pro')).toBe(1);
+});
+it('highlightPage', () => {
+  expect(highlightPage(26, 8)).toBe(4); expect(highlightPage(0, 8)).toBe(1); expect(highlightPage(-1, 8)).toBe(1);
+});

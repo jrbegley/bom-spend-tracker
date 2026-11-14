@@ -4,9 +4,10 @@ import { money, pct, singleSource, vsCheapest } from '../lib/format';
 import { vendorsForParts } from '../lib/vendorsForParts';
 import { vsCls } from '../lib/vsCls';
 
+type Extras = { highlightId?: string; resetPageOn?: unknown };
 type Props =
-  | { mode: 'all'; vendors: Vendor[]; title: string }
-  | { mode: 'parts'; partIds: string[]; parts: Record<string, Part>; title: string };
+  | ({ mode: 'all'; vendors: Vendor[]; title: string } & Extras)
+  | ({ mode: 'parts'; partIds: string[]; parts: Record<string, Part>; title: string } & Extras);
 
 type Row = {
   id: string; name: string; spend: number; ppv: number; vsCheapest: number; rejectRate: number; singleSource: number;
@@ -53,6 +54,8 @@ export function VendorTable(props: Props) {
         itemLabel="vendors"
         rowClassName={(r) => (r.vsCheapest > 0.2 ? 'bg-warn-tint' : '')}
         caption={props.title}
+        highlightKey={props.highlightId}
+        resetPageOn={props.resetPageOn}
       />
     </section>
   );

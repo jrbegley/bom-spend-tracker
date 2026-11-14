@@ -30,3 +30,13 @@ export function pageBounds(total: number, pageSize: number, page: number) {
   const start = Math.min((p - 1) * pageSize, total);
   return { page: p, pageCount, start, end: Math.min(start + pageSize, total) };
 }
+
+/** The page to show: the stored page while `token` is unchanged, otherwise page 1. */
+export function effectivePage(stored: { page: number; token: unknown }, token: unknown): number {
+  return stored.token === token ? stored.page : 1;
+}
+
+/** The 1-based page holding the row at `index`; 1 when the row is not in the list. */
+export function highlightPage(index: number, pageSize: number): number {
+  return index < 0 ? 1 : Math.floor(index / pageSize) + 1;
+}
