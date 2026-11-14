@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useRef } from 'react';
-import { BrowserRouter, Link, Route, Routes, useLocation, useNavigationType } from 'react-router-dom';
+import { BrowserRouter, Link, Navigate, Route, Routes, useLocation, useNavigationType } from 'react-router-dom';
 import { shouldScrollTop } from './lib/scroll';
 import { AppShell } from './components/AppShell';
 import { DataProvider } from './lib/data';
@@ -18,7 +18,7 @@ function NotFound() {
   return (
     <>
       <h1 className="text-[24px] font-semibold">Page not found</h1>
-      <Link to="/" className="text-primary hover:text-primary/80">Back to Overview</Link>
+      <Link to="/" className="text-primary hover:text-primary/80">Back to Product costs</Link>
     </>
   );
 }
@@ -47,7 +47,8 @@ export function AppRoutes() {
         <Route path="/products" element={<Products />} />
         <Route path="/products/:productId/*" element={<LevelPage />} />
         <Route path="/parts/:partId" element={<PartDetail />} />
-        <Route path="/opportunities" element={<Opportunities />} />
+        <Route path="/savings" element={<Opportunities title="Savings" />} />
+        <Route path="/opportunities" element={<Navigate to="/savings" replace />} />
         <Route path="/vendors" element={<Vendors />} />
         <Route path="/match-review" element={<MatchReview />} />
         {DevPage && <Route path="/dev" element={<Suspense fallback={<p>Loading…</p>}><DevPage /></Suspense>} />}

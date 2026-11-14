@@ -1,5 +1,4 @@
 import { useSearchParams } from 'react-router-dom';
-import { GlobalSearch } from '../components/GlobalSearch';
 import { LinePpvCard } from '../components/LinePpvCard';
 import { MatchQueueCard } from '../components/MatchQueueCard';
 import { ProductTable } from '../components/ProductTable';
@@ -21,7 +20,6 @@ export function OverviewView({ core, line = null, onLineChange = () => {} }: Pro
           <h1 className="text-[24px] font-semibold">Spend overview</h1>
           <p className="mt-1 text-muted-foreground">{`${periodLabel(s.periodStart, s.periodEnd)} · purchased material · blended prices`}</p>
         </div>
-        <GlobalSearch core={core} />
       </header>
 
       <div className="grid grid-cols-2 gap-4">

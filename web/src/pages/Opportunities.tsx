@@ -20,9 +20,9 @@ const columns: Column<Opportunity>[] = [
   { key: 'worstPrice', label: 'Highest price', numeric: true, value: (o) => o.worstPrice, render: (o) => unitMoney(o.worstPrice) },
 ];
 
-type Props = { opportunities: Opportunity[]; lever: LeverFilter; onLeverChange: (l: LeverFilter) => void };
+type Props = { opportunities: Opportunity[]; lever: LeverFilter; onLeverChange: (l: LeverFilter) => void; title?: string };
 
-export function OpportunitiesView({ opportunities, lever, onLeverChange }: Props) {
+export function OpportunitiesView({ opportunities, lever, onLeverChange, title = 'Opportunities' }: Props) {
   const filtered = filterByLever(opportunities, lever);
   const total = filtered.reduce((a, o) => a + o.savings, 0);
   const chips: { value: LeverFilter; label: string }[] = [
@@ -32,7 +32,7 @@ export function OpportunitiesView({ opportunities, lever, onLeverChange }: Props
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-[24px] font-semibold">Opportunities</h1>
+        <h1 className="text-[28px] font-semibold tracking-tight">{title}</h1>
         <p className="mt-1 text-muted-foreground">Price gaps across all products</p>
       </div>
       <div className="flex gap-2">
@@ -50,7 +50,7 @@ export function OpportunitiesView({ opportunities, lever, onLeverChange }: Props
   );
 }
 
-export default function Opportunities() {
+export default function Opportunities({ title }: { title?: string }) {
   const [lever, setLever] = useState<LeverFilter>('all');
-  return <OpportunitiesView opportunities={useCoreData().opportunities} lever={lever} onLeverChange={setLever} />;
+  return <OpportunitiesView opportunities={useCoreData().opportunities} lever={lever} onLeverChange={setLever} title={title} />;
 }
