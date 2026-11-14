@@ -104,6 +104,11 @@ export type CoreData = {
 const CORE = ['summary', 'products', 'vendors', 'parts', 'opportunities'] as const;
 const CoreContext = createContext<CoreData | null>(null);
 
+/** Supplies already-loaded core data. DataProvider uses it; tests use it directly. */
+export function CoreDataProvider({ value, children }: { value: CoreData; children: ReactNode }) {
+  return createElement(CoreContext.Provider, { value }, children);
+}
+
 /** Loads the five core files once at app start. */
 export function DataProvider({ children }: { children: ReactNode }) {
   const [core, setCore] = useState<CoreData | null>(null);
@@ -121,7 +126,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
 
   if (error) return createElement('p', { className: 'p-8 text-text-secondary', role: 'alert' }, `Could not load data: ${error.message}`);
   if (!core) return createElement('p', { className: 'p-8 text-text-muted' }, 'Loading data…');
-  return createElement(CoreContext.Provider, { value: core }, children);
+  return createElement(CoreDataProvider, { value: core, children });
 }
 
 export function useCoreData(): CoreData {

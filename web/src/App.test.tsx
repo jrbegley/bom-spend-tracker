@@ -2,7 +2,10 @@ import { it, expect } from 'vitest';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { MemoryRouter } from 'react-router-dom';
 import { AppRoutes } from './App';
-const at = (url: string) => renderToStaticMarkup(<MemoryRouter initialEntries={[url]}><AppRoutes /></MemoryRouter>);
+import { CoreDataProvider } from './lib/data';
+import { loadCore } from './test/realData';
+const core = loadCore();
+const at = (url: string) => renderToStaticMarkup(<CoreDataProvider value={core}><MemoryRouter initialEntries={[url]}><AppRoutes /></MemoryRouter></CoreDataProvider>);
 
 it.each([['/', 'Spend overview'], ['/products', 'Products'], ['/opportunities', 'Opportunities'],
          ['/vendors', 'Vendors'], ['/match-review', 'Match review'], ['/parts/513', 'Part 513'], ['/nope', 'Page not found']])
