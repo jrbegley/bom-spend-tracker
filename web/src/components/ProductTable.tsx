@@ -45,7 +45,7 @@ export function ProductTable({ products, collapsedPerGroup }: { products: Produc
           return (
             <tbody key={g.line}>
               <tr className="bg-group-row">
-                <td className="px-4 py-2.5 font-medium">{`${g.line} · ${g.bikes.length} bikes`}</td>
+                <td className="px-4 py-2.5 font-medium whitespace-nowrap">{`${g.line} · ${g.bikes.length} bikes`}</td>
                 <td className={num}>{count(g.units)}</td>
                 <td /><td />
                 <td className={`${num} text-ppv`}>{money(g.ppv)}</td>

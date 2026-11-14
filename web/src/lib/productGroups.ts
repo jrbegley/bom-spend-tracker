@@ -32,3 +32,9 @@ export function groupProducts(products: Product[], sort: SortState): ProductGrou
     default: return sortRows(groups, (g) => g.ppv, 'desc');
   }
 }
+
+/** Trimmed, case-insensitive substring match on `name`. An empty query returns every row. */
+export function filterByName<T extends { name: string }>(rows: T[], query: string): T[] {
+  const q = query.trim().toLowerCase();
+  return q ? rows.filter((r) => r.name.toLowerCase().includes(q)) : rows;
+}

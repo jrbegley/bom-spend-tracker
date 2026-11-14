@@ -24,3 +24,10 @@ it('other keys keep groups in PPV desc whatever the direction; bikes still sort'
   const t = groupProducts(P, { key: 'costUnit', dir: 'asc' })[2].bikes;
   expect(t[0].costUnit).toBeLessThanOrEqual(t[1].costUnit);
 });
+
+import { filterByName } from './productGroups';
+it('filterByName', () => {
+  expect(filterByName(P, '')).toHaveLength(97);
+  expect(filterByName(P, ' ROAD-650 ')).toHaveLength(12);
+  expect(filterByName(P, 'zzz')).toHaveLength(0);
+});

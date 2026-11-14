@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { VendorTable } from '../components/VendorTable';
 import { useCoreData, type Vendor } from '../lib/data';
+import { filterByName } from '../lib/productGroups';
 
 type Props = { vendors: Vendor[]; query: string; onQueryChange: (q: string) => void; highlightId?: string };
 
 export function VendorsView({ vendors, query, onQueryChange, highlightId }: Props) {
-  const q = query.trim().toLowerCase();
-  const filtered = q ? vendors.filter((v) => v.name.toLowerCase().includes(q)) : vendors;
+  const filtered = filterByName(vendors, query);
   return (
     <div className="space-y-6">
       <h1 className="text-[24px] font-semibold">Vendors</h1>
