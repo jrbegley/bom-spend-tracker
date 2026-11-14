@@ -97,6 +97,9 @@ export function SortableTable<T>({
             </tr>
           </thead>
           <tbody>
+            {visible.length === 0 && (
+              <tr><td colSpan={columns.length} className="px-4 py-3 text-text-muted">Nothing to show</td></tr>
+            )}
             {visible.map((row) => (
               <tr
                 key={rowKey(row)}
@@ -112,7 +115,7 @@ export function SortableTable<T>({
           </tbody>
         </table>
       </div>
-      {bounds && (
+      {bounds && sorted.length > 0 && (
         <Pagination
           start={bounds.start}
           end={bounds.end}

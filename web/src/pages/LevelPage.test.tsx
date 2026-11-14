@@ -58,6 +58,7 @@ const body = (productId: string, bomState: object) => r(<MemoryRouter><LevelPage
 it('LevelPageBody states', () => {
   expect(body('zzz', { loading: true })).toMatch(/<h1[^>]*>Product not found<\/h1>/);
   expect(body('969', { loading: false, error: new Error('Failed to load bom/969.json (500)') })).toContain('Could not load this product');
-  expect(body('969', { loading: true })).toContain('Loading…');
+  expect(body('969', { loading: true })).toMatch(/role="status"[^>]*>Loading…/);
+  expect(body('969', { loading: false, error: new Error('x') })).toContain('role="alert"');
   expect(body('969', { loading: false, data: bom })).toMatch(/<h1[^>]*>Touring-1000 Blue, 60<\/h1>/);
 });

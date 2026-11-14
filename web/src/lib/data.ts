@@ -1,5 +1,6 @@
 // JSON contracts (BUILD_SPEC.md section 4.4) and data loading (section 8.1).
 import { createContext, createElement, useContext, useEffect, useState, type ReactNode } from 'react';
+import { StatusMessage } from '../components/StatusMessage';
 
 export type LineSummary = { line: string; bikes: number; units: number; ppv: number; savings: number };
 export type Summary = {
@@ -124,8 +125,8 @@ export function DataProvider({ children }: { children: ReactNode }) {
     return () => { live = false; };
   }, []);
 
-  if (error) return createElement('p', { className: 'p-8 text-text-secondary', role: 'alert' }, `Could not load data: ${error.message}`);
-  if (!core) return createElement('p', { className: 'p-8 text-text-muted' }, 'Loading data…');
+  if (error) return createElement('div', { className: 'p-8' }, createElement(StatusMessage, { kind: 'error', children: `Could not load data: ${error.message}` }));
+  if (!core) return createElement('div', { className: 'p-8' }, createElement(StatusMessage, { kind: 'loading', children: 'Loading data…' }));
   return createElement(CoreDataProvider, { value: core }, children);
 }
 

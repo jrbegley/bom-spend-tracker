@@ -3,6 +3,7 @@ import { Breadcrumb } from '../components/Breadcrumb';
 import { ComponentsTable } from '../components/ComponentsTable';
 import { CostSummary } from '../components/CostSummary';
 import { InsightBanner } from '../components/InsightBanner';
+import { StatusMessage } from '../components/StatusMessage';
 import { VendorTable } from '../components/VendorTable';
 import { boughtRedirect, findNode, levelMeta, levelTrail } from '../lib/bom';
 import { useCoreData, useJson, type BomNode, type CoreData, type JsonState } from '../lib/data';
@@ -59,12 +60,12 @@ export function LevelPageBody({ core, productId, nodePath, bom }: BodyProps) {
     return (
       <>
         <h1 className="text-[24px] font-semibold">Could not load this product</h1>
-        <p className="text-text-secondary">{bom.error.message}</p>
+        <StatusMessage kind="error">{bom.error.message}</StatusMessage>
         <Link to="/" className={link}>Back to Overview</Link>
       </>
     );
   }
-  if (bom.loading || !bom.data) return <p className="text-text-muted">Loading…</p>;
+  if (bom.loading || !bom.data) return <StatusMessage kind="loading">Loading…</StatusMessage>;
   // Keyed by location so drilling into an assembly starts with fresh table sort and expansion state.
   return <LevelView key={[productId, ...nodePath].join('/')} core={core} bom={bom.data} path={nodePath} />;
 }

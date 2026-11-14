@@ -45,3 +45,9 @@ it('renders headerExtra inside the header button', () => {
     rowKey={r => r.id} defaultSort={{ key: 'ppv', dir: 'desc' }} caption="T" />);
   expect(h).toMatch(/>PPV<span aria-hidden="true"[^>]*>↓<\/span><i>X<\/i><\/button>/);
 });
+it('an empty row set renders one full-width "Nothing to show" row and no pager', () => {
+  const h = html({ rows: [], pageSize: 8, itemLabel: 'vendors' });
+  expect(bodyRows(h)).toBe(1);
+  expect(h).toMatch(/<td colSpan="2"[^>]*>Nothing to show<\/td>/i);
+  expect(h).not.toContain('Previous');
+});
