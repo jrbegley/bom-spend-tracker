@@ -8,6 +8,7 @@ import PartDetail from './pages/PartDetail';
 import Opportunities from './pages/Opportunities';
 import Vendors from './pages/Vendors';
 import MatchReview from './pages/MatchReview';
+import DevPage from './pages/DevPage';
 
 function NotFound() {
   return (
@@ -29,6 +30,7 @@ export function AppRoutes() {
         <Route path="/opportunities" element={<Opportunities />} />
         <Route path="/vendors" element={<Vendors />} />
         <Route path="/match-review" element={<MatchReview />} />
+        <Route path="/dev" element={<DevPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </AppShell>
