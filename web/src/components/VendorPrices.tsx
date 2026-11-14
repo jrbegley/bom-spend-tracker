@@ -28,7 +28,8 @@ export function VendorPrices({ part }: { part: Part }) {
     <section className="rounded-card border border-border bg-surface">
       <h2 className="px-4 pt-4 pb-2 text-[15px] font-semibold">Vendor prices</h2>
       <SortableTable columns={columns} rows={part.vendors} rowKey={(v) => v.vendorId}
-        defaultSort={{ key: 'ppv', dir: 'desc' }} itemLabel="vendors" caption={`Vendor prices for ${part.name}`} />
+        defaultSort={{ key: 'ppv', dir: 'desc' }} itemLabel="vendors"
+        rowClassName={(v) => (vendorVsCheapest(v) > 0.2 ? 'bg-warn-tint' : '')} caption={`Vendor prices for ${part.name}`} />
     </section>
   );
 }

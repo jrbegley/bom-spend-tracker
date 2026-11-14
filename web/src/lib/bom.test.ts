@@ -32,3 +32,10 @@ it('childHref', () => {
   expect(childHref([bom], c.node)).toBe('/products/969/821');
   expect(childHref(c.chain, findNode(bom, ['821', '513'])!.node)).toBe('/parts/513');
 });
+
+it('levelMeta uses singular "part" for one purchased part', () => {
+  const one = { ...findNode(bom, ['821'])!.node, qty: 2, leafParts: [{ partId: '513', qtyPerUnit: 2 }] };
+  expect(levelMeta([bom, one], parts, P)).toBe('Made in-house · 1 purchased part · 2 per bike');
+  const bike = { ...bom, leafParts: [{ partId: '1', qtyPerUnit: 1 }] }; // Adjustable Race: one vendor
+  expect(levelMeta([bike], parts, P)).toBe('1,116 units built · 1 purchased part · 1 vendor · April 2022 to September 2025');
+});

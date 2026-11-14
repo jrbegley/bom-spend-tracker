@@ -54,5 +54,6 @@ export default function LevelPage() {
     );
   }
   if (loading || !data) return <p className="text-text-muted">Loading…</p>;
-  return <LevelView core={core} bom={data} path={nodePath} />;
+  // Keyed by location so drilling into an assembly starts with fresh table sort and expansion state.
+  return <LevelView key={[productId, ...nodePath].join('/')} core={core} bom={data} path={nodePath} />;
 }

@@ -34,9 +34,9 @@ export function levelMeta(chain: BomNode[], parts: Record<string, Part>, period:
   const n = node.leafParts.length;
   if (chain.length === 1) {
     const vendors = vendorsForParts(node.leafParts.map((l) => l.partId), parts).length;
-    return `${count(node.units ?? 0)} units built · ${n} purchased parts · ${vendors} vendors · ${period}`;
+    return `${count(node.units ?? 0)} units built · ${n} purchased ${n === 1 ? 'part' : 'parts'} · ${vendors} ${vendors === 1 ? 'vendor' : 'vendors'} · ${period}`;
   }
-  return `Made in-house · ${n} purchased parts · ${Number(node.qty.toFixed(2))} per bike`;
+  return `Made in-house · ${n} purchased ${n === 1 ? 'part' : 'parts'} · ${Number(node.qty.toFixed(2))} per bike`;
 }
 
 /** Second line under a component name (plan decision D5). */

@@ -43,3 +43,9 @@ it('edge parts: single vendor, not on a BOM, unknown id', () => {
   const off = html('341'); expect(off).toContain('Not on a BOM'); expect(off).toContain('Not used on any bike&#x27;s BOM');
   expect(html('zzz')).toMatch(/<h1[^>]*>Part not found<\/h1>/);
 });
+
+it('vendor prices row gets the warn tint when vs cheapest is over 20% (spec 5.4)', () => {
+  const h = html('513');
+  expect(rowOf(h, 'Premier Sport, Inc.')).toContain('bg-warn-tint');
+  expect(rowOf(h, "Anderson&#x27;s Custom Bikes")).not.toContain('bg-warn-tint');
+});

@@ -45,5 +45,6 @@ export default function PartDetail() {
   const { partId = '' } = useParams();
   const state = useLocation().state as { trail?: unknown } | null;
   const trail = Array.isArray(state?.trail) ? (state!.trail as Crumb[]) : undefined;
-  return <PartView core={useCoreData()} partId={partId} trail={trail} />;
+  // Keyed so slider and table state reset when moving from one part to another.
+  return <PartView key={partId} core={useCoreData()} partId={partId} trail={trail} />;
 }
