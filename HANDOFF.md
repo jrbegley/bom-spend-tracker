@@ -1,72 +1,89 @@
-> **Update 2026-11-14:** `SPEC_REVISION_2.md` now applies and wins wherever it disagrees with `BUILD_SPEC.md` or the decisions below. **Phase 5a is in progress** (port the Lovable look onto current data): plan `docs/superpowers/plans/2026-11-14-phase-5a-lovable-look.md`, branch `phase-5a`. Phases 5b and 5c wait on the method questions in `SPEC_REVISION_2.md` section 3.6.
-
 # Handoff: where to pick up
 
-Spendline (BOM to spend cube explorer). `BUILD_SPEC.md` is the binding spec. This file says where the build stands. Read the spec's sections 1, 2, 9 and 11 first, then this file.
+Spendline (BOM to spend cube explorer). Read in this order:
+1. `BUILD_SPEC.md` sections 1, 2, 4 and 5 (the original spec and the data method).
+2. `SPEC_REVISION_2.md`. **It wins wherever it disagrees with `BUILD_SPEC.md` or with older decisions below.** Its section 10 covers the Lovable design port.
+3. This file.
 
-## Status (branch `main`; phase 4 merged from `phase-4`)
+## Status (branch `main`)
 
 | Phase | State |
 |---|---|
-| 0 Data pipeline | Done. `python3 data/check_outputs.py web/public/data` → `ALL CHECKS PASSED` (65 checks against spec 4.5). |
-| 1 Shell and shared components | Done. |
-| 2 Demo path (Overview, Level page, Part detail) | Done, walked through in Chrome. |
-| 3 Supporting screens (Opportunities, Products, Vendors, GlobalSearch, line filter, insight banner) | Done, walked through in Chrome. |
-| 4 Concept screen and polish | Built and merged (plan: `docs/superpowers/plans/2026-11-14-phase-4-concept-and-polish.md`). **Not yet walked through in a browser.** |
+| 0–4 | Done: pipeline, shell, demo path, supporting screens, Match review concept, polish. Plans are in `docs/superpowers/plans/`. |
+| **5a Lovable look, current data** | **Done and merged** (`docs/superpowers/plans/2026-11-14-phase-5a-lovable-look.md`). Walked through in Chrome with no console errors. An Opus whole-branch review was still running at merge time. Any fixes from it land as follow-up commits after `ae8728a`. |
+| **5b Data** (`SPEC_REVISION_2.md` 10.4) | **Not started. Blocked on the team settling `SPEC_REVISION_2.md` section 3.6.** |
+| 5c Finance features | Not started (depends on 5b). |
 
-147 tests pass (`cd web && npm test`), build and `npx oxlint src` are clean.
+164 tests pass (`cd web && npm test`). `npm run build` and `npx oxlint src` are clean. `python3 data/check_outputs.py web/public/data` prints `ALL CHECKS PASSED`.
 
-## Phase 4: what was built
+## What 5a changed
 
-- **Match review** (`pages/MatchReview.tsx`, `lib/matchReview.ts`): Illustrative badge, 6-card queue with Accept/Reject/Undo in local state, a progress line, and the "How matching works" 5-step flow. `public/data/match_examples.json` is hand-written; `lib/matchReview.test.ts` checks it against `parts.json` and `unmapped.json`.
-- **States:** `StatusMessage` (role `status` / `alert`) for loading and errors in DataProvider, LevelPage and Match review. Empty tables show "Nothing to show". Focus uses the global 2px `:focus-visible` ring; nothing suppresses it.
-- **README** with run commands and the method summary (spec 4.3).
-- **Deferred minors closed:**
-  - scroll to top on new paths (`lib/scroll.ts`; not on Back/Forward or query-only changes)
-  - search: ArrowDown after Escape opens on the first hit (`nextActive` in `lib/search.ts`)
-  - `aria-controls` is set only while the list shows; hovering moves the active option, so only one row looks selected
-  - no `div` inside `LinePpvCard` buttons
-  - `syncPageState` replaces `effectivePage`, so going back to an earlier filter value no longer restores its old page
-  - Vendors drops `?highlight` from the URL on the first filter change
-- Decisions D12 to D16 are recorded in the plan: rejected cards collapse too (with Undo), progress line, scroll rules, no jsdom, one-time highlight.
+- **Tokens and fonts:** `web/src/index.css` now holds the tokens from `design/lovable-tokens.css` (oklch palette, radius scale, `num`, `eyebrow` and animation utilities). Inter is used for everything, with Newsreader only for the "Spendline" wordmark. Every old class name was renamed to the new token names. Use `text-primary` for links (Lovable's `accent` is a pale neutral). `bg-ppv` and `bg-savings` are bar fills; `text-ppv-ink` and `text-savings-ink` are their text colors.
+- **Shell:** the nav is Product costs `/`, Savings `/savings` and Match review. The top bar holds search, a disabled year selector ("All years") and a disabled Assumptions button, both placeholders for 5c. Navigation state comes from `lib/nav.ts`.
+- **Product costs `/`** (replaces Overview):
+  - three stats: standard cost, total variance, verified
+  - bikes ranked by PPV dollars, with PPV-only driver bars and line chips (`?line=`)
+  - the top 10, then "Show all"
+  - logic in `lib/productCosts.ts`
+- **Level page** (`/products/:id/...`), in this order:
+  - three stats: actual, variance per bike, total variance
+  - the Standard → PPV → Actual bridge (`lib/bridge.ts`, `components/CostBridge.tsx`)
+  - the components table
+  - the data-driven insight banner
+  - vendors collapsed in `<details>`
+- **Part page:**
+  - vendor cards on price and reject rate (`components/VendorComparison.tsx`)
+  - the simulator, shown only when `hasSaving(part)`
+  - where-used collapsed
+  - Edge cases: single source (part 1), and a tie at the same price with no saving (part 908).
+- **Shared look:** `components/primitives.tsx` holds PageHeader, StatRow/Stat, Panel, FilterChips and Chip.
+- **Retired:** the Overview page, LinePpvCard, TopOpportunities, MatchQueueCard, CostSummary and VendorPrices. `/opportunities` redirects to `/savings`. `/products` and `/vendors` still work but are off the nav.
 
-## Still open
+## Next steps
 
-1. **Browser walk-through of phase 4:** Match review (accept, reject, undo); scroll reset (the insight banner's "Open Touring Rim"); search arrows after Escape; Vendors highlight, then filter, then clear.
-2. **Spec 10 by hand:** no console errors on any page; Tab through every page (keyboard behavior is unverified, see Gotchas).
-3. **jsdom** for testing the highlight scroll/fade effect: still not added (a new dev dependency needs the team's OK).
+1. **Settle `SPEC_REVISION_2.md` section 3.6 with the team before writing the 5b plan:**
+   - Are rejects already inside actual cost? (double-count risk)
+   - Inventory build inside product cost: should there be a "bought, not yet consumed" step?
+   - The per-bike price on the part page.
+   - Fiscal-year allocation: same-year purchases, or a rolling blend?
+2. **Write the 5b plan** (`build_synthetic.py`, warranty, spares, pending lines, per-year aggregates, plus checks for the two planted stories). Then 5c.
+3. **By hand:** Tab through every page. Keyboard behavior has never been verified with real keystrokes (see Gotchas). Also, Match review's accept, reject and undo haven't been clicked through in a browser.
+4. **Optional:** jsdom for effect tests (scroll, fade). It's a new dev dependency, so ask first.
 
 ## Run it
 
 ```bash
-python3 -m venv .venv && source .venv/bin/activate && pip install pandas
-# only needed to regenerate data; web/public/data is committed
-mkdir -p data/raw   # then download and unzip AdventureWorks per BUILD_SPEC.md section 3
-python3 data/build_data.py data/raw web/public/data
-cd web && npm install && npm run dev      # app on http://localhost:5173
+cd web && npm install && npm run dev      # http://localhost:5173
 npm test && npm run build && npx oxlint src
+# to regenerate data (web/public/data is committed, so usually not needed):
+python3 -m venv .venv && source .venv/bin/activate && pip install pandas
+python3 data/build_data.py data/raw web/public/data   # data/raw: AdventureWorks CSVs, see BUILD_SPEC.md section 3
 ```
 
-`/dev` is a component test page available only in dev builds.
+`/dev` is a component test page that exists only in dev builds.
 
-## Decisions already made (do not reopen)
+## Decisions in force
 
-- **D1: `money()` follows spec 5.3 literally.** So the Overview shows `$63.79M`, `$890.0K`, `$523.8K`, where spec 10 writes `$63.8M` and `$890K`. Tests pin the literal output (assertions tagged `// D1` in the original plan).
-- Product views use blended prices; PPV and best-price savings are never added together; costs are purchased material only (spec section 2).
-- The line crumb links to `/?line=<line>`, and the Overview line filter lives in the URL.
-- Opportunities pages 20 rows at a time; the insight sentence is built from data; the banner is last on level pages; no "Compare with" link.
-- Vitest is the only addition beyond the spec's stack (dev dependency).
+- **Money format (D1):** `money()` follows spec 5.3 literally, so the app shows `$57.73M`, `$79.5K` and `$890.0K` rather than `$57.7M` or `$890K`. Tests pin this.
+- **Cost basis:** blended prices in product views, purchased material only, and PPV and best-price savings never added together.
+- **Fiscal years:** the year selector says "All years" until 5c, because the data covers April 2022 to September 2025.
+- **Savings page:** `/savings` is the old Opportunities table, retitled and still ranked by price-gap savings, until the real Savings page in 5c.
+- **Level page order** follows the Lovable concept: banner after the components, vendors collapsed. This replaces the older "banner last" decision.
+- **No new dependencies without the team's OK:** no Radix, lucide-react or recharts. Charts are divs or inline SVG.
+- **No sample data:** never use numbers from the Lovable concept's sample data. Every figure comes from `web/public/data`.
 
-## How the work was done (keep doing it this way)
+## How the work is done (keep doing it this way)
 
-- Each phase: a plan in `docs/superpowers/plans/` written with the superpowers `writing-plans` skill, executed task by task test-first with `executing-plans`, one whole-branch review at the end, then merge. Plans for phases 0–1, 2, 3 and 4 are there and show the format.
-- Pure logic lives in `web/src/lib/` and is unit tested. Pages split into a pure `…View` (props in) and a thin default export (hooks), so tests render the View to HTML against the real pipeline JSON (`web/src/test/realData.ts`: `loadCore()`, `readData()`).
+- **One plan per phase:** each phase gets a plan in `docs/superpowers/plans/`, written with the superpowers `writing-plans` skill and executed task by task, test-first, with `executing-plans`. One whole-branch review at the end, then merge.
+- **Code layout:** pure logic lives in `web/src/lib/` with unit tests.
+- **Page tests:** pages split into a pure `…View` (props in) and a thin default export (hooks), so tests server-render the View against the real pipeline JSON (`web/src/test/realData.ts`: `loadCore()`, `readData()`).
+- **Design reference:** the Lovable preview at https://id-preview--743943ad-0481-4423-8cf9-a38307cc517c.lovable.app is publicly viewable. Use it for layout only, never its numbers. Its bike rows all link to one product; ours link to each bike.
 
 ## Gotchas
 
-- **Untracked " 2" duplicate files** (`build_data 2.py`, `package 2.json`, …) may appear in `data/` and `web/`. They are iCloud-style sync copies of real files, not part of the repo. Never `git add` them; always add explicit paths. If they are tracked on your clone, `git rm` them.
-- `data/raw/` is git-ignored (download it yourself). `web/public/data` is committed on purpose.
-- macOS `sed -i` needs `-i ''`; prefer a small Python or Node edit script. On Windows, files have CRLF line endings, so string-match edit scripts must allow for `\r\n`.
-- Browser automation: real keystrokes from the Chrome tool often don't reach the page, so keyboard behavior (Tab order, typing in search) is **unverified**. Check by hand. Background tabs throttle timers to about one per second, so don't poll in loops.
-- Match the spec's SSR text rules in tests: adjacent JSX text nodes render with `<!-- -->` between them, so build strings with template literals.
-- The Python script `data/build_data.py` is copied verbatim from the spec; do not edit it.
+- **Untracked duplicates:** files like `build_data 2.py` and `package 2.json` are iCloud sync copies and not part of the repo. Never `git add` them; add explicit paths. `spendline-handoff/` and its zip are untracked originals of the files now committed at the root and in `design/`.
+- **Data folders:** `data/raw/` is git-ignored. `web/public/data` is committed on purpose. Don't edit `data/build_data.py`, which is verbatim from the spec.
+- **Editing files:** macOS `sed -i` needs `-i ''`, so prefer small Python or Node edit scripts. On Windows, allow for `\r\n` line endings.
+- **Browser automation:** real keystrokes from the Chrome tool often don't reach the page, so check keyboard behavior by hand. Background tabs throttle timers.
+- **Server-rendered tests:** adjacent JSX text nodes render with `<!-- -->` between them, so build strings with template literals. Breadcrumb tests match `<span aria-current="page">…</span>` exactly; style that span from the parent `<nav>`.
+- **Agent hook:** the context-mode hook rewrites Agent calls, so auto mode asks for the same call twice before a reviewer agent runs.
