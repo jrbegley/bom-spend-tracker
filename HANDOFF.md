@@ -13,10 +13,11 @@ Spendline (BOM to spend cube explorer). Read in this order:
 | 0–4 | Done: pipeline, shell, demo path, supporting screens, Match review concept, polish. Plans are in `docs/superpowers/plans/`. |
 | **5a Lovable look, current data** | **Done and merged** (`docs/superpowers/plans/2026-11-14-phase-5a-lovable-look.md`). Walked through in Chrome with no console errors. Opus whole-branch review: no Critical issues. Three fixes are on `main` (see "Review follow-ups"). |
 | **Vendor page** (`SPEC_VENDOR_PAGE.md`) | **Done and merged** (`docs/superpowers/plans/2026-11-14-vendor-page.md`). Section 6 acceptance passes. Walked through in Chrome. Opus review: no Critical issues, three Important fixes on `main` (see "Vendor page"). |
+| **Match review feedback** | **Done and merged** (`docs/superpowers/plans/2026-11-14-match-feedback.md`). Working review workflow on the page, held in page state, nothing saved (by request). Walked through in Chrome. Opus review: no Critical issues; two fixes on `main` (see "Match review feedback"). |
 | **5b Data** (`SPEC_REVISION_2.md` 10.4) | **Not started. Blocked on the team settling `SPEC_REVISION_2.md` section 3.6.** |
 | 5c Finance features | Not started (depends on 5b). |
 
-183 tests pass (`cd web && npm test`). `npm run build` and `npx oxlint src` are clean. `python3 data/check_outputs.py web/public/data` prints `ALL CHECKS PASSED`.
+193 tests pass (`cd web && npm test`). `npm run build` and `npx oxlint src` are clean. `python3 data/check_outputs.py web/public/data` prints `ALL CHECKS PASSED`.
 
 ## What 5a changed
 
@@ -57,6 +58,33 @@ Spendline (BOM to spend cube explorer). Read in this order:
   - A no-match message mentions only the name filter. The Spend caption repeats the units from the meta line.
   - Back restores the list's filters, but not its sort or "Show all" state.
 
+## Match review feedback (after the vendor page)
+
+- **Scope:** working functionality on the page only. Decisions live in page state; **nothing is saved or exported, by the user's request.** The page keeps its "Illustrative" badge, and a footer says decisions stay in this browser tab.
+- **Per line:**
+  - **Accept** confirms the top match in one click.
+  - **Correct…** opens an editor (`components/CorrectionEditor.tsx`) offering:
+    - candidate #2 or #3
+    - "Search all parts" (`searchParts` in `lib/search.ts`, 2+ characters)
+    - "Not a BOM part", hidden when that's already the top match
+    - "No match · send to manual matching"
+
+    Plus optional reason chips (`REASONS` in `lib/matchReview.ts`). **Confirm** stays disabled until the choice is complete.
+  - The card then collapses to "Confirmed · X", "Corrected · X (was Y)" or "Sent to manual matching", with **Undo**.
+- **Feedback summary** (`components/FeedbackSummary.tsx`):
+  - counts of confirmed, corrected and sent to manual
+  - overrides by top-match confidence band (High ≥80%, Medium 60–79%, Low <60%)
+  - the reasons given
+  - Reasons count only on overrides.
+- **Logic:** `lib/matchReview.ts` (`resolve`, `band`, `feedbackSummary`, `choiceComplete`). A search pick that equals a listed candidate counts as that candidate.
+- **Keyboard focus:** Accept and Confirm move focus to the card's Undo, Undo to its Accept, Correct… to the editor's first option, and Cancel back to Correct….
+- **Change before a demo:** the five reason chips are placeholders. Swap them for what the matching work actually tracks.
+- **Deferred minors:**
+  - Re-selecting "Search all parts" keeps the old query but drops the picked part.
+  - Search results aren't announced to screen readers.
+  - `resolve()` could print "null" for an out-of-range candidate rank, which the UI can't reach.
+  - The summary's three counts are cramped in the side column on laptops.
+
 ## Review follow-ups (5a)
 
 **Fixed, test-first:**
@@ -78,7 +106,7 @@ Spendline (BOM to spend cube explorer). Read in this order:
    - The per-bike price on the part page.
    - Fiscal-year allocation: same-year purchases, or a rolling blend?
 2. **Write the 5b plan** (`build_synthetic.py`, warranty, spares, pending lines, per-year aggregates, plus checks for the two planted stories). Then 5c.
-3. **By hand:** Tab through every page. Keyboard behavior has never been verified with real keystrokes (see Gotchas). Also, Match review's accept, reject and undo haven't been clicked through in a browser.
+3. **By hand:** Tab through every page. Keyboard behavior has never been verified with real keystrokes (see Gotchas). 
 4. **Optional:** jsdom for effect tests (scroll, fade). It's a new dev dependency, so ask first.
 
 ## Run it
