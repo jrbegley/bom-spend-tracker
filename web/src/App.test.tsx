@@ -19,3 +19,11 @@ it('unknown product ids render Product not found without waiting on a fetch', ()
   expect(at('/products/zzz')).toMatch(/<h1[^>]*>Product not found<\/h1>/);
   expect(at('/products/..%2Fsummary')).toMatch(/<h1[^>]*>Product not found<\/h1>/);
 });
+
+it('vendor list filters live in the URL, so Back returns to them (review fix)', () => {
+  const none = at('/vendors?line=none');
+  expect(none).toMatch(/aria-pressed="true"[^>]*>Not on a BOM/); expect(none).toContain('Show all 20 vendors');
+  const q = at('/vendors?q=proseware');
+  expect(q).toContain('value="proseware"'); expect([...q.matchAll(/href="\/vendors\/\d+"/g)]).toHaveLength(1);
+  expect(at('/vendors?line=Foo')).toMatch(/aria-pressed="true"[^>]*>All/);
+});

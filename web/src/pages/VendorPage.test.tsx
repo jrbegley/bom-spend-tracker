@@ -39,3 +39,20 @@ it('many parts: top 5 with Show all', () => {
   const h = html('1568'); expect(blocks(h)).toHaveLength(5); expect(h).toContain('Show all 14 parts');
 });
 it('unknown vendor', () => { expect(html('zzz')).toMatch(/<h1[^>]*>Vendor not found<\/h1>/); });
+
+it('a lowest-price vendor whose total is not the lowest gets no green total (review fix)', () => {
+  // Find a part where the cheapest unit price is not the cheapest price + reject cost.
+  const hit = Object.values(core.parts).find(p => {
+    if (p.vendorCount < 2) return false;
+    const tot = (v: typeof p.vendors[number]) => v.avgPrice * (1 + (v.receivedQty ? v.rejectedQty / v.receivedQty : 0));
+    const cheapest = p.vendors.reduce((a, b) => (b.avgPrice < a.avgPrice ? b : a));
+    return p.vendors.some(v => tot(v) < tot(cheapest) - 0.01);
+  })!;
+  const cheapest = hit.vendors.reduce((a, b) => (b.avgPrice < a.avgPrice ? b : a));
+  const total = cheapest.avgPrice * (1 + cheapest.rejectedQty / cheapest.receivedQty);
+  const block = blockOf(html(cheapest.vendorId), hit.id);
+  expect(block).toContain('Lowest price');
+  const money = `$${total.toFixed(2)}`;
+  expect(block).toContain(money);
+  expect(block).not.toMatch(new RegExp(`text-savings-ink[^"]*">\\${money}`));
+});

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { FilterChips, PageHeader, Panel } from '../components/primitives';
 import { VendorTable } from '../components/VendorTable';
@@ -41,7 +40,7 @@ export function VendorsView({ vendors, query, onQueryChange, line, onLineChange,
         {filtered.length === 0 ? (
           <p className="px-6 py-4 text-muted-foreground">{`No vendors match “${query.trim()}”`}</p>
         ) : (
-          <VendorTable bare key={`${highlightId ?? 'none'}-${line}`} mode="all" title="All vendors" vendors={filtered}
+          <VendorTable bare key={highlightId ?? 'none'} mode="all" title="All vendors" vendors={filtered}
             collapsedCount={10} highlightId={highlightId} resetPageOn={`${query}|${line}`} />
         )}
       </Panel>
@@ -49,16 +48,26 @@ export function VendorsView({ vendors, query, onQueryChange, line, onLineChange,
   );
 }
 
+const LINE_VALUES = ['all', 'none', ...LINES] as string[];
+
+/** Filters live in the URL (?q=, ?line=) so Back from a vendor page returns to them. */
 export default function Vendors() {
-  const [query, setQuery] = useState('');
-  const [line, setLine] = useState('all');
   const [params, setParams] = useSearchParams();
+  const query = params.get('q') ?? '';
+  const lineParam = params.get('line') ?? 'all';
+  const line = LINE_VALUES.includes(lineParam) ? lineParam : 'all';
   // The highlight is a one-time jump: the first filter change drops it, so clearing the filter later does not re-run it.
-  const dropHighlight = () => { if (params.has('highlight')) setParams((p) => { p.delete('highlight'); return p; }, { replace: true }); };
+  const update = (key: 'q' | 'line', value: string, empty: string) =>
+    setParams((prev) => {
+      const next = new URLSearchParams(prev);
+      if (value === empty) next.delete(key); else next.set(key, value);
+      next.delete('highlight');
+      return next;
+    }, { replace: true });
   return (
     <VendorsView vendors={useCoreData().vendors} query={query} line={line}
-      onQueryChange={(q) => { setQuery(q); dropHighlight(); }}
-      onLineChange={(l) => { setLine(l); dropHighlight(); }}
+      onQueryChange={(q) => update('q', q, '')}
+      onLineChange={(l) => update('line', l, 'all')}
       highlightId={params.get('highlight') ?? undefined} />
   );
 }

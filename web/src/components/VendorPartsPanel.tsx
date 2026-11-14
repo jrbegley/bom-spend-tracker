@@ -60,7 +60,8 @@ export function VendorPartsPanel({ vendorId, rows }: { vendorId: string; rows: V
                           {`${unitMoney(o.unitPrice)} unit price · reject ${pct(o.rejectRate)} (${unitMoney(o.rejectCost)})`}
                         </div>
                       </div>
-                      <div className={`num text-right text-[15px] font-medium ${isLowest ? 'text-savings-ink' : ''}`}>{unitMoney(total)}</div>
+                      {/* Not colored: "Lowest price" is about unit price, and the total adds reject cost, so the green would mislead. */}
+                      <div className="num text-right text-[15px] font-medium">{unitMoney(total)}</div>
                     </div>
                   );
                 })}
