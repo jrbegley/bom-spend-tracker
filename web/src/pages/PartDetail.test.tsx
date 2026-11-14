@@ -23,6 +23,8 @@ it('vendor comparison cards: price and reject rate (E8)', () => {
   const h = html('513');
   const and = cardOf(h, "Anderson&#x27;s Custom Bikes"), prem = cardOf(h, 'Premier Sport, Inc.');
   for (const x of ['$26.60', 'Lowest price', '28,050', 'bg-savings-soft']) expect(and).toContain(x);
+  const andersonId = core.parts['513'].vendors.find(v => v.name === "Anderson's Custom Bikes")!.vendorId;
+  expect(and).toContain(`href="/vendors/${andersonId}"`);
   expect(and).toMatch(/text-destructive[^>]*>5\.5%/);
   expect(prem).toContain('$39.20'); expect(prem).toMatch(/text-caution font-semibold[^>]*>\+47\.4%/); expect(prem).toContain('27,500');
   expect(prem).not.toContain('Lowest price');

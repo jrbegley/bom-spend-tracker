@@ -13,7 +13,7 @@ it('caps at 8', () => {
   const h = searchAll(core, 'road-650'); expect(h).toHaveLength(8); expect(h.every(x => x.type === 'product')).toBe(true);
 });
 it('vendor hits link to the highlighted vendors page', () => {
-  expect(searchAll(core, 'proseware')).toEqual([{ type: 'vendor', id: '1678', name: 'Proseware, Inc.', href: '/vendors?highlight=1678' }]);
+  expect(searchAll(core, 'proseware')).toEqual([{ type: 'vendor', id: '1678', name: 'Proseware, Inc.', href: '/vendors/1678' }]);
 });
 it('prefix matches rank first, then products before parts', () => {
   const h = searchAll(core, 'tour'); expect(h[0].type).toBe('product'); expect(h[0].name.startsWith('Touring')).toBe(true);

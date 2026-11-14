@@ -25,7 +25,7 @@ export function searchAll(core: CoreData, query: string, limit = 8): SearchHit[]
   const all: SearchHit[] = [
     ...core.products.map((p): SearchHit => ({ type: 'product', id: p.id, name: p.name, href: `/products/${p.id}` })),
     ...Object.values(core.parts).map((p): SearchHit => ({ type: 'part', id: p.id, name: p.name, href: `/parts/${p.id}` })),
-    ...core.vendors.map((v): SearchHit => ({ type: 'vendor', id: v.id, name: v.name, href: `/vendors?highlight=${v.id}` })),
+    ...core.vendors.map((v): SearchHit => ({ type: 'vendor', id: v.id, name: v.name, href: `/vendors/${v.id}` })),
   ];
   return all
     .filter((h) => h.name.toLowerCase().includes(q))

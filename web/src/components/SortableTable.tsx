@@ -62,7 +62,13 @@ export function SortableTable<T>({
   const page = synced.page;
   const [tinted, setTinted] = useState(highlightKey !== undefined);
   const wrapRef = useRef<HTMLDivElement>(null);
-  const [expanded, setExpanded] = useState(false);
+  // A highlighted row past the collapsed top N opens the table expanded, so the row is visible.
+  const [expanded, setExpanded] = useState(() => {
+    if (highlightKey === undefined || collapsedCount === undefined || pageSize) return false;
+    const col = columns.find((c) => c.key === defaultSort.key);
+    const ordered = col ? sortRows(rows, col.value, defaultSort.dir) : rows;
+    return ordered.findIndex((r) => rowKey(r) === highlightKey) >= collapsedCount;
+  });
 
   const sorted = useMemo(() => {
     const col = columns.find((c) => c.key === sort.key);

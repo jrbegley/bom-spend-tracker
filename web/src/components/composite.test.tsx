@@ -1,5 +1,8 @@
 import { it, expect } from 'vitest';
-import { renderToStaticMarkup as r } from 'react-dom/server';
+import { renderToStaticMarkup } from 'react-dom/server';
+import { MemoryRouter } from 'react-router-dom';
+import type { ReactElement } from 'react';
+const r = (el: ReactElement) => renderToStaticMarkup(<MemoryRouter>{el}</MemoryRouter>);
 import { VendorTable } from './VendorTable';
 import { readData } from '../test/realData';
 import type { Part, Vendor } from '../lib/data';

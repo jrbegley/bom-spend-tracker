@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import type { Part, PartVendor } from '../lib/data';
 import { count, money, pct, unitMoney, vsCheapest } from '../lib/format';
 import { vendorVsCheapest } from '../lib/partStats';
@@ -30,7 +31,7 @@ export function VendorComparison({ part }: { part: Part }) {
           return (
             <article key={v.vendorId} data-vendor={v.vendorId} className={`px-6 py-5 ${lowest ? 'bg-savings-soft' : ''}`}>
               <div className="flex items-start justify-between gap-3">
-                <h3 className="text-[15px] font-semibold">{v.name}</h3>
+                <h3 className="text-[15px] font-semibold"><Link to={`/vendors/${v.vendorId}`} className="hover:text-primary">{v.name}</Link></h3>
                 {single ? <Chip>Single source</Chip> : lowest ? <Chip tone="savings">Lowest price</Chip> : null}
               </div>
               <div className="mt-3 flex items-baseline gap-2">

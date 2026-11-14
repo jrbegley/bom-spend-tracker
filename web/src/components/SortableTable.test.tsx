@@ -51,3 +51,12 @@ it('an empty row set renders one full-width "Nothing to show" row and no pager',
   expect(h).toMatch(/<td colSpan="2"[^>]*>Nothing to show<\/td>/i);
   expect(h).not.toContain('Previous');
 });
+
+it('a highlighted row beyond the collapsed top N opens the table expanded', () => {
+  const h = renderToStaticMarkup(<SortableTable columns={cols} rows={rows} rowKey={r => r.id} defaultSort={{ key: 'ppv', dir: 'desc' }}
+    caption="T" collapsedCount={5} itemLabel="vendors" highlightKey="2" />);
+  expect(h).toContain('Show top 5'); expect(h).toMatch(/data-highlight="true"/);
+  const near = renderToStaticMarkup(<SortableTable columns={cols} rows={rows} rowKey={r => r.id} defaultSort={{ key: 'ppv', dir: 'desc' }}
+    caption="T" collapsedCount={5} itemLabel="vendors" highlightKey="19" />);
+  expect(near).toContain('Show all 20 vendors');
+});

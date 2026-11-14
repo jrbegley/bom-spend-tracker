@@ -1,10 +1,11 @@
+import { Link } from 'react-router-dom';
 import { SortableTable, type Column } from './SortableTable';
 import type { Part, Vendor } from '../lib/data';
 import { money, pct, singleSource, vsCheapest } from '../lib/format';
 import { vendorsForParts } from '../lib/vendorsForParts';
 import { vsCls } from '../lib/vsCls';
 
-type Extras = { highlightId?: string; resetPageOn?: unknown };
+type Extras = { highlightId?: string; resetPageOn?: unknown; collapsedCount?: number; bare?: boolean };
 type Props =
   | ({ mode: 'all'; vendors: Vendor[]; title: string } & Extras)
   | ({ mode: 'parts'; partIds: string[]; parts: Record<string, Part>; title: string } & Extras);
@@ -17,10 +18,11 @@ type Row = {
 const linesText = (r: Row) => (r.lines && r.lines.length ? r.lines.join(', ') : 'Not on a BOM');
 
 function columns(mode: Props['mode']): Column<Row>[] {
+  const name = (r: Row) => <Link to={`/vendors/${r.id}`} className="font-medium text-foreground hover:text-primary">{r.name}</Link>;
   const vendor: Column<Row> = mode === 'parts'
     ? { key: 'name', label: 'Vendor', value: (r) => r.name, render: (r) => (
-        <><div>{r.name}</div><div className="text-[12px] text-muted-foreground">{r.partsLabel}</div></>) }
-    : { key: 'name', label: 'Vendor', value: (r) => r.name };
+        <><div>{name(r)}</div><div className="text-[12px] text-muted-foreground">{r.partsLabel}</div></>) }
+    : { key: 'name', label: 'Vendor', value: (r) => r.name, render: name };
   const rest: Column<Row>[] = [
     { key: 'spend', label: 'Spend', numeric: true, value: (r) => r.spend, render: (r) => money(r.spend) },
     { key: 'ppv', label: 'PPV', numeric: true, value: (r) => r.ppv, render: (r) => <span className="text-ppv-ink">{money(r.ppv)}</span> },
@@ -39,24 +41,29 @@ export function VendorTable(props: Props) {
   const rows: Row[] = props.mode === 'all'
     ? props.vendors
     : vendorsForParts(props.partIds, props.parts).map((v) => ({ ...v, id: v.vendorId }));
+  const table = (
+    <SortableTable
+      columns={columns(props.mode)}
+      rows={rows}
+      rowKey={(r) => r.id}
+      defaultSort={{ key: 'ppv', dir: 'desc' }}
+      pageSize={props.collapsedCount === undefined ? 8 : undefined}
+      collapsedCount={props.collapsedCount}
+      itemLabel="vendors"
+      rowClassName={(r) => (r.vsCheapest > 0.2 ? 'bg-caution-soft' : '')}
+      caption={props.title}
+      highlightKey={props.highlightId}
+      resetPageOn={props.resetPageOn}
+    />
+  );
+  if (props.bare) return table;
   return (
     <section className="rounded-xl border border-border bg-card">
       <div className="px-4 pt-4 pb-2">
         <h2 className="text-[15px] font-semibold">{props.title}</h2>
         {props.mode === 'parts' && <p className="mt-0.5 text-[12px] text-muted-foreground">Spend on these parts across all products</p>}
       </div>
-      <SortableTable
-        columns={columns(props.mode)}
-        rows={rows}
-        rowKey={(r) => r.id}
-        defaultSort={{ key: 'ppv', dir: 'desc' }}
-        pageSize={8}
-        itemLabel="vendors"
-        rowClassName={(r) => (r.vsCheapest > 0.2 ? 'bg-caution-soft' : '')}
-        caption={props.title}
-        highlightKey={props.highlightId}
-        resetPageOn={props.resetPageOn}
-      />
+      {table}
     </section>
   );
 }

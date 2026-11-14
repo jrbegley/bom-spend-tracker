@@ -55,6 +55,10 @@ it('insight banner on 969, before the collapsed vendor section (E6)', () => {
   expect(h.indexOf('Harmonizing')).toBeLessThan(h.indexOf('<details'));
   expect(h).toMatch(/<details[^>]*>\s*<summary[^>]*><span>Vendors for this bike · 44<\/span><svg[^>]*group-open:rotate-180/);
 });
+it('vendor section: rows link to vendor pages and the title is not repeated inside', () => {
+  const h = html([]); const inside = h.slice(h.indexOf('<details'));
+  expect(inside).toMatch(/href="\/vendors\/\d+"/); expect(inside).not.toMatch(/<h2[^>]*>Vendors for this bike<\/h2>/);
+});
 it('no banner on the seat assembly', () => { expect(html(['522'])).not.toContain('Harmonizing'); });
 const body = (productId: string, bomState: object) => r(<MemoryRouter><LevelPageBody core={core} productId={productId} nodePath={[]} bom={bomState} /></MemoryRouter>);
 it('LevelPageBody states', () => {

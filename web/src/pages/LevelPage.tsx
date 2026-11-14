@@ -47,7 +47,8 @@ export function LevelView({ core, bom, path }: { core: CoreData; bom: BomNode; p
       <ComponentsTable chain={chain} parts={core.parts} />
       {insight && <InsightBanner insight={insight} trail={levelTrail(chain, bom.line ?? '')} />}
       <Disclosure title={`${vendorTitle} · ${vendorCount}`}>
-        <VendorTable mode="parts" partIds={partIds} parts={core.parts} title={vendorTitle} />
+        <p className="px-6 pt-3 text-[13px] text-muted-foreground">Spend on these parts across all products</p>
+        <VendorTable bare mode="parts" partIds={partIds} parts={core.parts} title={vendorTitle} />
       </Disclosure>
     </div>
   );
