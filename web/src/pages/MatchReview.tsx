@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { CorrectionEditor, type Draft } from '../components/CorrectionEditor';
 import { FeedbackSummary } from '../components/FeedbackSummary';
 import { Chip } from '../components/primitives';
@@ -46,8 +46,16 @@ function LineDetails({ m }: { m: MatchExample }) {
 
 const EMPTY: Draft = { choice: null, query: '', reasons: [] };
 
-function PendingCard({ m, parts, onDecide }: { m: MatchExample; parts: Record<string, Part>; onDecide: OnDecide }) {
+function PendingCard({ m, parts, onDecide, autoFocus }: { m: MatchExample; parts: Record<string, Part>; onDecide: OnDecide; autoFocus: boolean }) {
   const [draft, setDraft] = useState<Draft | null>(null);
+  const acceptRef = useRef<HTMLButtonElement>(null);
+  const correctRef = useRef<HTMLButtonElement>(null);
+  const backToCorrect = useRef(false);
+  // After Undo the restored card takes focus on Accept; after Cancel focus returns to Correct….
+  useEffect(() => { if (autoFocus) acceptRef.current?.focus(); }, [autoFocus]);
+  useEffect(() => {
+    if (draft === null && backToCorrect.current) { backToCorrect.current = false; correctRef.current?.focus(); }
+  }, [draft]);
   const top = m.candidates[0];
   const low = top.confidence < 0.6;
   return (
@@ -65,13 +73,13 @@ function PendingCard({ m, parts, onDecide }: { m: MatchExample; parts: Record<st
         ))}
       </ul>
       {draft ? (
-        <CorrectionEditor example={m} parts={parts} draft={draft} onChange={setDraft} onCancel={() => setDraft(null)}
+        <CorrectionEditor example={m} parts={parts} draft={draft} onChange={setDraft} onCancel={() => { backToCorrect.current = true; setDraft(null); }}
           onConfirm={() => draft.choice && onDecide(m.id, { choice: draft.choice, reasons: draft.reasons })} />
       ) : (
         <div className="mt-3 flex items-center gap-2">
-          <button type="button" className={`${btn} bg-primary text-primary-foreground hover:bg-primary/90`} aria-describedby={`${m.id}-top`}
+          <button ref={acceptRef} type="button" className={`${btn} bg-primary text-primary-foreground hover:bg-primary/90`} aria-describedby={`${m.id}-top`}
             onClick={() => onDecide(m.id, { choice: { kind: 'candidate', rank: 1 }, reasons: [] })}>Accept</button>
-          <button type="button" className={`${btn} border border-border bg-card hover:bg-muted`}
+          <button ref={correctRef} type="button" className={`${btn} border border-border bg-card hover:bg-muted`} aria-describedby={`${m.id}-top`}
             onClick={() => setDraft(EMPTY)}>Correct…</button>
           <span id={`${m.id}-top`} className="text-[12px] text-muted-foreground">{`Top match: ${top.name}`}</span>
           {low && <span className="ml-auto text-[12px] font-medium text-caution">Low confidence · needs a reviewer</span>}
@@ -81,8 +89,11 @@ function PendingCard({ m, parts, onDecide }: { m: MatchExample; parts: Record<st
   );
 }
 
-function DecidedCard({ m, decision, onDecide }: { m: MatchExample; decision: Decision; onDecide: OnDecide }) {
+function DecidedCard({ m, decision, onDecide, autoFocus }: { m: MatchExample; decision: Decision; onDecide: OnDecide; autoFocus: boolean }) {
   const { outcome, partName } = resolve(m, decision.choice);
+  const undoRef = useRef<HTMLButtonElement>(null);
+  // After Accept or Confirm the collapsed card takes focus on Undo, so keyboard users are not dropped to the page.
+  useEffect(() => { if (autoFocus) undoRef.current?.focus(); }, [autoFocus]);
   return (
     <div className="flex items-start gap-3 px-5 py-3.5">
       <span aria-hidden="true" className={`font-semibold ${outcome === 'confirmed' ? 'text-savings-ink' : outcome === 'corrected' ? 'text-caution' : 'text-muted-foreground'}`}>
@@ -95,11 +106,11 @@ function DecidedCard({ m, decision, onDecide }: { m: MatchExample; decision: Dec
           {outcome === 'corrected' && <span className="font-medium text-caution">{`Corrected · ${partName} (was ${m.candidates[0].name})`}</span>}
           {outcome === 'manual' && <span className="text-muted-foreground">Sent to manual matching</span>}
         </div>
-        {decision.reasons.length > 0 && (
+        {outcome !== 'confirmed' && decision.reasons.length > 0 && (
           <div className="mt-1.5 flex flex-wrap gap-1.5">{decision.reasons.map((r) => <Chip key={r}>{r}</Chip>)}</div>
         )}
       </div>
-      <button type="button" className={linkBtn} onClick={() => onDecide(m.id, null)}>Undo</button>
+      <button ref={undoRef} type="button" className={linkBtn} onClick={() => onDecide(m.id, null)}>Undo</button>
     </div>
   );
 }
@@ -127,7 +138,10 @@ function HowItWorks() {
 
 type ViewProps = { examples: MatchExample[]; parts: Record<string, Part>; decisions: Decisions; onDecide: OnDecide };
 
-export function MatchReviewView({ examples, parts, decisions, onDecide }: ViewProps) {
+export function MatchReviewView({ examples, parts, decisions, onDecide: decideLine }: ViewProps) {
+  // Which card should take focus after it changes state: Undo on a newly decided card, Accept on a restored one.
+  const [focus, setFocus] = useState<{ id: string; target: 'undo' | 'accept' } | null>(null);
+  const onDecide: OnDecide = (id, d) => { setFocus({ id, target: d ? 'undo' : 'accept' }); decideLine(id, d); };
   return (
     <div className="space-y-6">
       <Header />
@@ -141,8 +155,8 @@ export function MatchReviewView({ examples, parts, decisions, onDecide }: ViewPr
             {examples.map((m) => (
               <li key={m.id} data-match-id={m.id} className={card}>
                 {decisions[m.id]
-                  ? <DecidedCard m={m} decision={decisions[m.id]} onDecide={onDecide} />
-                  : <PendingCard m={m} parts={parts} onDecide={onDecide} />}
+                  ? <DecidedCard m={m} decision={decisions[m.id]} onDecide={onDecide} autoFocus={focus?.id === m.id && focus.target === 'undo'} />
+                  : <PendingCard m={m} parts={parts} onDecide={onDecide} autoFocus={focus?.id === m.id && focus.target === 'accept'} />}
               </li>
             ))}
           </ul>

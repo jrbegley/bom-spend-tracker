@@ -71,7 +71,8 @@ export function feedbackSummary(examples: MatchExample[], decisions: Decisions) 
     const row = bands.find((b) => b.band === band(e.candidates[0]?.confidence ?? 0))!;
     row.reviewed += 1;
     if (outcome !== 'confirmed') row.overridden += 1;
-    for (const r of d.reasons) reasons.set(r, (reasons.get(r) ?? 0) + 1);
+    // A reason explains an override; on a confirmed match it is noise, so it is not counted.
+    if (outcome !== 'confirmed') for (const r of d.reasons) reasons.set(r, (reasons.get(r) ?? 0) + 1);
   }
   return {
     ...counts, bands,

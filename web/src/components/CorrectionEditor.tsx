@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import type { Part } from '../lib/data';
 import { NOT_A_BOM_PART, REASONS, choiceComplete, type Choice, type MatchExample } from '../lib/matchReview';
 import { searchParts } from '../lib/search';
@@ -17,6 +18,9 @@ const chip = (on: boolean) =>
 /** Correct a match: another candidate, any part by search, Not a BOM part, or no match; plus optional reasons. */
 export function CorrectionEditor({ example, parts, draft, onChange, onConfirm, onCancel }: Props) {
   const name = `correct-${example.id}`;
+  const first = useRef<HTMLDivElement>(null);
+  // Opening the editor moves focus to its first option, so keyboard and screen-reader users land inside it.
+  useEffect(() => { first.current?.querySelector('input')?.focus(); }, []);
   const c = draft.choice;
   const searching = c?.kind === 'part';
   const results = searching ? searchParts(parts, draft.query) : [];
@@ -29,7 +33,7 @@ export function CorrectionEditor({ example, parts, draft, onChange, onConfirm, o
   );
   return (
     <div className="mt-3 rounded-lg border border-border bg-background p-4">
-      <div role="radiogroup" aria-label="Correct the match">
+      <div ref={first} role="radiogroup" aria-label="Correct the match">
         {example.candidates.slice(1).map((cand, i) =>
           radio(`${cand.name} · ${Math.round(cand.confidence * 100)}%`, c?.kind === 'candidate' && c.rank === i + 2, { kind: 'candidate', rank: i + 2 }))}
         {radio('Search all parts', searching, { kind: 'part', partId: '', partName: '' })}

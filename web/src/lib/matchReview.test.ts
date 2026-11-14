@@ -92,3 +92,9 @@ it('feedbackSummary: outcomes, override rate by band, reasons; undo clears its r
   expect(s.reasons).toEqual([{ reason: 'Wrong size or variant', count: 2 }, { reason: 'Unit of measure mismatch', count: 1 }]);
   expect(feedbackSummary(M, decide(d, 'm5', null)).reasons).toEqual([{ reason: 'Unit of measure mismatch', count: 1 }, { reason: 'Wrong size or variant', count: 1 }]);
 });
+
+it('reasons on a confirmed decision are not counted (review fix)', () => {
+  const d = decide({}, 'm5', { choice: { kind: 'part', partId: '319', partName: 'HL Crankarm' }, reasons: ['Wrong size or variant'] });
+  const s = feedbackSummary(M, d);
+  expect(s.confirmed).toBe(1); expect(s.reasons).toEqual([]);
+});

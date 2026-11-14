@@ -111,3 +111,8 @@ it('loading and error states', () => {
   expect(err).toContain('Failed to load match_examples.json (404)');
   expect(err).toContain('Illustrative');
 });
+
+it('a confirmed card shows no correction reasons (review fix)', () => {
+  const h = html({ m5: { choice: { kind: 'part', partId: '319', partName: 'HL Crankarm' }, reasons: ['Wrong size or variant'] } });
+  expect(card(h, 'm5')).toContain('Confirmed · HL Crankarm'); expect(card(h, 'm5')).not.toContain('Wrong size or variant');
+});
