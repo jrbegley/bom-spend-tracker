@@ -52,6 +52,8 @@ it('edge parts: single vendor, not on a BOM, unknown id', () => {
 it('two vendors at the same price: no saving, no simulator (rev2 10.3)', () => {
   const h = html('908');
   expect(h).toContain('Same price from every vendor');
+  // both vendors charge the same, so both cards are marked lowest
+  for (const v of ['First Rate Bicycles', 'Chicago City Saddles']) { const c = cardOf(h, v); expect(c).toContain('Lowest price'); expect(c).toContain('bg-savings-soft'); }
   for (const x of ['Savings simulator', 'type="range"', 'Best-price savings']) expect(h).not.toContain(x);
 });
 it('where used is collapsed behind a summary', () => {

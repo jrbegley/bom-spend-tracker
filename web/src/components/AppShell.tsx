@@ -11,7 +11,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       <NavRail />
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="sticky top-0 z-20 flex h-16 items-center justify-end gap-3 border-b border-hairline bg-background/90 px-10 backdrop-blur">
-          <div className="mr-auto"><GlobalSearch core={core} /></div>
+          <div className="mr-auto"><GlobalSearch core={core} hideLabel /></div>
           <select aria-label="Fiscal year" disabled title="Fiscal years arrive in phase 5c"
             className="h-[38px] rounded-md border border-input bg-card px-3 text-[14px] text-muted-foreground">
             <option>All years</option>

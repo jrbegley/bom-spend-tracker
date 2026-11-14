@@ -16,7 +16,7 @@ const ITEMS: { section: NavSection; to: string; label: string; icon: ReactNode }
 export function NavRail() {
   const active = navSection(useLocation().pathname);
   return (
-    <nav aria-label="Main" className="flex w-[232px] shrink-0 flex-col border-r border-border bg-nav px-4 py-6">
+    <nav aria-label="Main" className="sticky top-0 flex h-screen w-[232px] shrink-0 flex-col self-start border-r border-border bg-nav px-4 py-6">
       <Link to="/" className="mb-8 flex items-center gap-2 px-2 text-foreground">
         {icon(<path d="M3 17l6-6 4 4 8-8" />)}
         <span className="font-serif text-[22px] leading-none">Spendline</span>

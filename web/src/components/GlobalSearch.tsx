@@ -6,7 +6,7 @@ import { nextActive, searchAll, type SearchHit } from '../lib/search';
 const TYPE_LABEL = { product: 'Product', part: 'Part', vendor: 'Vendor' } as const;
 
 /** Search box with an ARIA combobox dropdown over products, parts and vendors. */
-export function GlobalSearch({ core }: { core: CoreData }) {
+export function GlobalSearch({ core, hideLabel = false }: { core: CoreData; hideLabel?: boolean }) {
   const navigate = useNavigate();
   const id = useId();
   const [query, setQuery] = useState('');
@@ -33,7 +33,7 @@ export function GlobalSearch({ core }: { core: CoreData }) {
 
   return (
     <div className="relative">
-      <label htmlFor={`${id}-input`} className="mb-1 block text-[12px] text-muted-foreground">Search</label>
+      <label htmlFor={`${id}-input`} className={hideLabel ? 'sr-only' : "mb-1 block text-[12px] text-muted-foreground"}>Search</label>
       <input
         id={`${id}-input`} type="text" role="combobox" aria-expanded={showList} aria-controls={showList ? `${id}-list` : undefined}
         aria-autocomplete="list" aria-activedescendant={showList && hits.length ? `${id}-opt-${active}` : undefined}

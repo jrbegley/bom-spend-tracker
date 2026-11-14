@@ -19,12 +19,13 @@ export function VendorComparison({ part }: { part: Part }) {
   const vendors = sortRows(part.vendors, (v) => v.avgPrice, 'asc');
   const single = vendors.length === 1;
   const maxPrice = Math.max(...vendors.map((v) => v.avgPrice), 0.0001);
+  const minPrice = Math.min(...vendors.map((v) => v.avgPrice));
   const rejectRate = (v: PartVendor) => (v.receivedQty === 0 ? 0 : v.rejectedQty / v.receivedQty);
   return (
     <Panel title="Unit price and reject rate, by vendor" subtitle="Average price paid per unit, and the share of deliveries rejected.">
       <div className="grid divide-x divide-hairline" style={{ gridTemplateColumns: `repeat(${Math.min(vendors.length, 3)}, minmax(0, 1fr))` }}>
-        {vendors.map((v, i) => {
-          const lowest = !single && i === 0;
+        {vendors.map((v) => {
+          const lowest = !single && v.avgPrice - minPrice < 0.005; // ties: every vendor at the lowest price is marked
           const premium = vendorVsCheapest(v);
           return (
             <article key={v.vendorId} data-vendor={v.vendorId} className={`px-6 py-5 ${lowest ? 'bg-savings-soft' : ''}`}>
