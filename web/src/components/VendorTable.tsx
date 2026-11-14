@@ -2,6 +2,7 @@ import { SortableTable, type Column } from './SortableTable';
 import type { Part, Vendor } from '../lib/data';
 import { money, pct, singleSource, vsCheapest } from '../lib/format';
 import { vendorsForParts } from '../lib/vendorsForParts';
+import { vsCls } from '../lib/vsCls';
 
 type Props =
   | { mode: 'all'; vendors: Vendor[]; title: string }
@@ -13,11 +14,6 @@ type Row = {
 };
 
 const linesText = (r: Row) => (r.lines && r.lines.length ? r.lines.join(', ') : 'Not on a BOM');
-
-function vsCls(v: number) {
-  if (v === 0) return 'text-text-secondary';
-  return v > 0.05 ? 'text-ppv font-semibold' : 'text-ppv';
-}
 
 function columns(mode: Props['mode']): Column<Row>[] {
   const vendor: Column<Row> = mode === 'parts'
