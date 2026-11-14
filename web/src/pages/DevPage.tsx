@@ -1,6 +1,8 @@
 // Component test page (BUILD_SPEC.md section 9, phase 1: "SortableTable with a quick test page").
 import { SortableTable, type Column } from '../components/SortableTable';
-import { useCoreData, type Product, type Vendor } from '../lib/data';
+import { CostSummary } from '../components/CostSummary';
+import { VendorTable } from '../components/VendorTable';
+import { useCoreData, useJson, type BomNode, type Product, type Vendor } from '../lib/data';
 import { money, pct, unitMoney, vsCheapest } from '../lib/format';
 
 const vendorCols: Column<Vendor>[] = [
@@ -21,7 +23,8 @@ const card = 'rounded-card border border-border bg-surface';
 const cardTitle = 'px-4 pt-4 pb-2 text-[15px] font-semibold';
 
 export default function DevPage() {
-  const { vendors, products } = useCoreData();
+  const { vendors, products, parts } = useCoreData();
+  const bom = useJson<BomNode>('bom/969.json');
   return (
     <div className="space-y-6">
       <h1 className="text-[24px] font-semibold">Component test page</h1>
@@ -35,6 +38,15 @@ export default function DevPage() {
         <SortableTable columns={productCols} rows={products.slice(0, 14)} rowKey={(p) => p.id} defaultSort={{ key: 'ppvTotal', dir: 'desc' }}
           collapsedCount={8} itemLabel="components" caption="Products, collapsed" />
       </section>
+      <VendorTable mode="all" vendors={vendors} title="VendorTable, all spend" />
+      {bom.data && (
+        <>
+          <h2 className="text-[15px] font-semibold">{bom.data.name}</h2>
+          <CostSummary node={bom.data} units={bom.data.units ?? 0} />
+          <VendorTable mode="parts" partIds={bom.data.leafParts.map((l) => l.partId)} parts={parts} title="Vendors for this bike" />
+        </>
+      )}
+      {bom.error && <p role="alert">{bom.error.message}</p>}
     </div>
   );
 }
