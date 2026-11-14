@@ -102,7 +102,7 @@ export function SortableTable<T>({
                 key={rowKey(row)}
                 data-row-key={rowKey(row)}
                 data-highlight={tinted && rowKey(row) === highlightKey ? 'true' : undefined}
-                className={`border-b border-rule last:border-b-0 hover:bg-group-row ${rowClassName?.(row) ?? ''} ${tinted && rowKey(row) === highlightKey ? 'bg-accent-tint' : ''}`}
+                className={`border-b border-rule last:border-b-0 hover:bg-group-row ${tinted && rowKey(row) === highlightKey ? 'bg-accent-tint' : (rowClassName?.(row) ?? '')}`}
               >
                 {columns.map((c) => (
                   <td key={c.key} className={`px-4 py-2.5 align-top ${c.numeric ? 'text-right tabular-nums whitespace-nowrap' : 'text-left'}`}>{c.render ? c.render(row) : c.value(row)}</td>

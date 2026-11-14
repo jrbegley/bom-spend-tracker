@@ -28,3 +28,9 @@ it('?highlight opens the right page and tints the row (Premier Sport is 27th by 
 it('unknown or filtered-out highlight: page 1, no tint', () => {
   for (const h of [html('', 'nope'), html('pro', '1682')]) { expect(h).toMatch(/1 to \d+ of \d+ vendors/); expect(h).not.toContain('data-highlight'); }
 });
+
+it('a highlighted row shows the highlight tint, not the warn tint it would otherwise get', () => {
+  // Premier Sport is +47.4% vs cheapest, so it normally gets bg-warn-tint, which would win over bg-accent-tint.
+  const row = html('', '1682').split('<tr').find(t => t.includes('Premier Sport, Inc.'))!;
+  expect(row).toContain('bg-accent-tint'); expect(row).not.toContain('bg-warn-tint');
+});
