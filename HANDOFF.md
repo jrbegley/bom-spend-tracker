@@ -3,7 +3,8 @@
 Spendline (BOM to spend cube explorer). Read in this order:
 1. `BUILD_SPEC.md` sections 1, 2, 4 and 5 (the original spec and the data method).
 2. `SPEC_REVISION_2.md`. **It wins wherever it disagrees with `BUILD_SPEC.md` or with older decisions below.** Its section 10 covers the Lovable design port.
-3. This file.
+3. `SPEC_VENDOR_PAGE.md`. It wins for vendor pages and the nav.
+4. This file.
 
 ## Status (branch `main`)
 
@@ -11,10 +12,11 @@ Spendline (BOM to spend cube explorer). Read in this order:
 |---|---|
 | 0–4 | Done: pipeline, shell, demo path, supporting screens, Match review concept, polish. Plans are in `docs/superpowers/plans/`. |
 | **5a Lovable look, current data** | **Done and merged** (`docs/superpowers/plans/2026-11-14-phase-5a-lovable-look.md`). Walked through in Chrome with no console errors. Opus whole-branch review: no Critical issues. Three fixes are on `main` (see "Review follow-ups"). |
+| **Vendor page** (`SPEC_VENDOR_PAGE.md`) | **Done and merged** (`docs/superpowers/plans/2026-11-14-vendor-page.md`). Section 6 acceptance passes. Walked through in Chrome. Opus review: no Critical issues, three Important fixes on `main` (see "Vendor page"). |
 | **5b Data** (`SPEC_REVISION_2.md` 10.4) | **Not started. Blocked on the team settling `SPEC_REVISION_2.md` section 3.6.** |
 | 5c Finance features | Not started (depends on 5b). |
 
-164 tests pass (`cd web && npm test`). `npm run build` and `npx oxlint src` are clean. `python3 data/check_outputs.py web/public/data` prints `ALL CHECKS PASSED`.
+183 tests pass (`cd web && npm test`). `npm run build` and `npx oxlint src` are clean. `python3 data/check_outputs.py web/public/data` prints `ALL CHECKS PASSED`.
 
 ## What 5a changed
 
@@ -37,7 +39,23 @@ Spendline (BOM to spend cube explorer). Read in this order:
   - where-used collapsed
   - Edge cases: single source (part 1), and a tie at the same price with no saving (part 908).
 - **Shared look:** `components/primitives.tsx` holds PageHeader, StatRow/Stat, Panel, FilterChips and Chip.
-- **Retired:** the Overview page, LinePpvCard, TopOpportunities, MatchQueueCard, CostSummary and VendorPrices. `/opportunities` redirects to `/savings`. `/products` and `/vendors` still work but are off the nav.
+- **Retired:** the Overview page, LinePpvCard, TopOpportunities, MatchQueueCard, CostSummary and VendorPrices. `/opportunities` redirects to `/savings`. `/products` still works but is off the nav.
+
+## Vendor page (after 5a)
+
+- **Nav:** Product costs, Savings, **Vendors**, Match review.
+- **`/vendors`:** line chips (All, Road, Mountain, Touring, Not on a BOM) and a name filter, both kept in the URL (`?line=`, `?q=`) so Back returns to them. Top 10, then "Show all 86 vendors". `?highlight=:id` still works, and opens the list expanded when the vendor is past the top 10.
+- **`/vendors/:id`:** three stats (Spend, PPV, "Lowest price on N of M parts"), then "Parts from this vendor": each part this vendor supplies, compared against every vendor of that part. Bars are unit price plus reject cost. Quality and Spend by part are collapsed.
+- **Logic:** `lib/vendorParts.ts` (`vendorParts`, `vendorSummary`), tested against the real JSON.
+- **Links:** vendor names link to `/vendors/:id` everywhere: the list, vendor tables on level pages, Part page cards, and search results.
+- **Not until 5c:** "Lowest price" (not "Lowest effective cost"), no "Cheapest price, higher total cost" flag, no "Moving … saves $X" lines. These need warranty data.
+- **Edge cases handled:** single-source vendors (Superior Bicycles, 1576), non-BOM vendors (1636), negative PPV (1574), and many parts (Custom Frames, 1568: top 5 then "Show all").
+- **Deferred minors:**
+  - A PPV of exactly 0 shows "+$0". The list shows "$111.8K" where the vendor page shows "+$111.8K".
+  - Hover definitions use `title` only (not reachable by keyboard or touch). Part blocks lack `h3` headings. The "Show all" buttons lack `aria-expanded`.
+  - "used in 1 bikes" isn't pluralised. Bar widths would be NaN if a total were 0. No data hits either today.
+  - A no-match message mentions only the name filter. The Spend caption repeats the units from the meta line.
+  - Back restores the list's filters, but not its sort or "Show all" state.
 
 ## Review follow-ups (5a)
 
@@ -47,7 +65,6 @@ Spendline (BOM to spend cube explorer). Read in this order:
 - The landing `#` column now ranks within the line filter.
 
 **Deferred minors** (fine to pick up in 5b or 5c):
-- **Level page:** the vendor section repeats its title inside the open panel. VendorTable needs a no-title mode.
 - **Bridge:** tick labels fall on odd values (e.g. $1175). Snap the step to 1, 2 or 5 × 10ⁿ.
 - **Landing:** it assumes every bike is above standard. A negative `ppvTotal` would give a broken bar width and a "+-$" headline. No bike is negative today.
 - **Nav:** it sets `aria-current="page"` on a detail page's section. Use `"location"` unless the path matches exactly.
