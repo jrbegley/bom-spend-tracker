@@ -36,9 +36,9 @@ export function SortHeader<T>({ column: c, sort, onSort }: { column: Column<T>; 
       scope="col"
       aria-sort={active ? (sort.dir === 'desc' ? 'descending' : 'ascending') : undefined}
       style={c.width ? { width: c.width } : undefined}
-      className={`px-4 py-2.5 font-medium text-muted-foreground whitespace-nowrap ${c.numeric ? 'text-right' : 'text-left'}`}
+      className={`px-6 py-3 text-[13px] font-medium text-muted-foreground whitespace-nowrap ${c.numeric ? 'text-right' : 'text-left'}`}
     >
-      <button type="button" className="inline-flex items-center gap-1 hover:text-foreground" onClick={() => onSort(c)}>{c.label}<span aria-hidden="true" className={active ? 'text-foreground' : 'text-[#A1A1AA]'}>{active ? (sort.dir === 'desc' ? '↓' : '↑') : '↕'}</span>{c.headerExtra}</button>
+      <button type="button" className="inline-flex items-center gap-1 hover:text-foreground" onClick={() => onSort(c)}>{c.label}<span aria-hidden="true" className={active ? 'text-foreground' : 'text-muted-foreground/50'}>{active ? (sort.dir === 'desc' ? '↓' : '↑') : '↕'}</span>{c.headerExtra}</button>
     </th>
   );
 }
@@ -90,10 +90,10 @@ export function SortableTable<T>({
   return (
     <div ref={wrapRef}>
       <div className="overflow-x-auto">
-        <table className="w-full border-collapse text-[13px]">
+        <table className="w-full border-collapse text-[14px]">
           <caption className="sr-only">{caption}</caption>
           <thead>
-            <tr className="border-b border-border">
+            <tr className="border-b border-hairline">
               {columns.map((c) => (
                 <SortHeader key={c.key} column={c} sort={sort} onSort={onHeader} />
               ))}
@@ -101,7 +101,7 @@ export function SortableTable<T>({
           </thead>
           <tbody>
             {visible.length === 0 && (
-              <tr><td colSpan={columns.length} className="px-4 py-3 text-muted-foreground">Nothing to show</td></tr>
+              <tr><td colSpan={columns.length} className="px-6 py-4 text-muted-foreground">Nothing to show</td></tr>
             )}
             {visible.map((row) => (
               <tr
@@ -111,7 +111,7 @@ export function SortableTable<T>({
                 className={`border-b border-hairline last:border-b-0 hover:bg-muted ${tinted && rowKey(row) === highlightKey ? 'bg-primary-soft' : (rowClassName?.(row) ?? '')}`}
               >
                 {columns.map((c) => (
-                  <td key={c.key} className={`px-4 py-2.5 align-top ${c.numeric ? 'text-right tabular-nums whitespace-nowrap' : 'text-left'}`}>{c.render ? c.render(row) : c.value(row)}</td>
+                  <td key={c.key} className={`px-6 py-3.5 align-top ${c.numeric ? 'text-right tabular-nums whitespace-nowrap' : 'text-left'}`}>{c.render ? c.render(row) : c.value(row)}</td>
                 ))}
               </tr>
             ))}
@@ -129,8 +129,8 @@ export function SortableTable<T>({
         />
       )}
       {!bounds && collapsible && (
-        <div className="border-t border-hairline px-4 py-3">
-          <button type="button" className="text-[13px] text-primary hover:text-primary/80" onClick={() => setExpanded((e) => !e)}>
+        <div className="border-t border-hairline px-6 py-3">
+          <button type="button" className="text-[14px] font-medium text-primary hover:text-primary/80" onClick={() => setExpanded((e) => !e)}>
             {expanded ? `Show top ${collapsedCount}` : `Show all ${sorted.length} ${itemLabel}`}
           </button>
         </div>
