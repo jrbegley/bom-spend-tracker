@@ -1,7 +1,9 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
-export function Breadcrumb({ items }: { items: { label: string; to?: string }[] }) {
+export type Crumb = { label: string; to?: string };
+
+export function Breadcrumb({ items }: { items: Crumb[] }) {
   return (
     <nav aria-label="Breadcrumb" className="mb-3 text-[13px] text-text-secondary">
       {items.map((it, i) => {
