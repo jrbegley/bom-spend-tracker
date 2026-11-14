@@ -1,4 +1,8 @@
 import { LinePpvCard } from '../components/LinePpvCard';
+import { MatchQueueCard } from '../components/MatchQueueCard';
+import { ProductTable } from '../components/ProductTable';
+import { TopOpportunities } from '../components/TopOpportunities';
+import { VendorTable } from '../components/VendorTable';
 import { KpiTile } from '../components/KpiTile';
 import { useCoreData, type CoreData } from '../lib/data';
 import { count, money, pct, periodLabel } from '../lib/format';
@@ -26,6 +30,19 @@ export function OverviewView({ core }: { core: CoreData }) {
         </div>
         <LinePpvCard lines={s.lines} />
       </div>
+
+      <div className="grid grid-cols-[1.65fr_1fr] gap-4">
+        <section className="rounded-card border border-border bg-surface">
+          <h2 className="px-4 pt-4 pb-2 text-[15px] font-semibold">Products</h2>
+          <ProductTable products={core.products} collapsedPerGroup={2} />
+        </section>
+        <div className="space-y-4">
+          <TopOpportunities opportunities={core.opportunities} />
+          <MatchQueueCard unmappedSpend={s.unmappedSpend} totalSpend={s.totalSpend} />
+        </div>
+      </div>
+
+      <VendorTable mode="all" vendors={core.vendors} title="Vendors" />
     </div>
   );
 }
