@@ -19,15 +19,15 @@ const linesText = (r: Row) => (r.lines && r.lines.length ? r.lines.join(', ') : 
 function columns(mode: Props['mode']): Column<Row>[] {
   const vendor: Column<Row> = mode === 'parts'
     ? { key: 'name', label: 'Vendor', value: (r) => r.name, render: (r) => (
-        <><div>{r.name}</div><div className="text-[12px] text-text-muted">{r.partsLabel}</div></>) }
+        <><div>{r.name}</div><div className="text-[12px] text-muted-foreground">{r.partsLabel}</div></>) }
     : { key: 'name', label: 'Vendor', value: (r) => r.name };
   const rest: Column<Row>[] = [
     { key: 'spend', label: 'Spend', numeric: true, value: (r) => r.spend, render: (r) => money(r.spend) },
-    { key: 'ppv', label: 'PPV', numeric: true, value: (r) => r.ppv, render: (r) => <span className="text-ppv">{money(r.ppv)}</span> },
+    { key: 'ppv', label: 'PPV', numeric: true, value: (r) => r.ppv, render: (r) => <span className="text-ppv-ink">{money(r.ppv)}</span> },
     { key: 'vsCheapest', label: 'vs cheapest', numeric: true, value: (r) => r.vsCheapest,
       render: (r) => <span className={vsCls(r.vsCheapest)}>{vsCheapest(r.vsCheapest)}</span> },
     { key: 'rejectRate', label: 'Reject rate', numeric: true, value: (r) => r.rejectRate,
-      render: (r) => <span className={r.rejectRate >= 0.05 ? 'text-reject' : ''}>{pct(r.rejectRate)}</span> },
+      render: (r) => <span className={r.rejectRate >= 0.05 ? 'text-destructive' : ''}>{pct(r.rejectRate)}</span> },
     { key: 'singleSource', label: 'Single-source', numeric: true, value: (r) => r.singleSource, render: (r) => singleSource(r.singleSource) },
   ];
   if (mode === 'parts') return [vendor, ...rest];
@@ -40,10 +40,10 @@ export function VendorTable(props: Props) {
     ? props.vendors
     : vendorsForParts(props.partIds, props.parts).map((v) => ({ ...v, id: v.vendorId }));
   return (
-    <section className="rounded-card border border-border bg-surface">
+    <section className="rounded-xl border border-border bg-card">
       <div className="px-4 pt-4 pb-2">
         <h2 className="text-[15px] font-semibold">{props.title}</h2>
-        {props.mode === 'parts' && <p className="mt-0.5 text-[12px] text-text-muted">Spend on these parts across all products</p>}
+        {props.mode === 'parts' && <p className="mt-0.5 text-[12px] text-muted-foreground">Spend on these parts across all products</p>}
       </div>
       <SortableTable
         columns={columns(props.mode)}
@@ -52,7 +52,7 @@ export function VendorTable(props: Props) {
         defaultSort={{ key: 'ppv', dir: 'desc' }}
         pageSize={8}
         itemLabel="vendors"
-        rowClassName={(r) => (r.vsCheapest > 0.2 ? 'bg-warn-tint' : '')}
+        rowClassName={(r) => (r.vsCheapest > 0.2 ? 'bg-caution-soft' : '')}
         caption={props.title}
         highlightKey={props.highlightId}
         resetPageOn={props.resetPageOn}

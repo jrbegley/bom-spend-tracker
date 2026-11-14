@@ -13,9 +13,9 @@ export function VendorsView({ vendors, query, onQueryChange, highlightId }: Prop
       <h1 className="text-[24px] font-semibold">Vendors</h1>
       <input type="search" aria-label="Filter vendors" placeholder="Filter by name" value={query}
         onChange={(e) => onQueryChange(e.target.value)}
-        className="h-[38px] w-[300px] rounded-input border border-border bg-surface px-3" />
+        className="h-[38px] w-[300px] rounded-md border border-border bg-card px-3" />
       {filtered.length === 0 ? (
-        <p className="text-text-secondary">{`No vendors match “${query.trim()}”`}</p>
+        <p className="text-muted-foreground">{`No vendors match “${query.trim()}”`}</p>
       ) : (
         <VendorTable key={highlightId ?? 'none'} mode="all" title="All vendors" vendors={filtered}
           highlightId={highlightId} resetPageOn={query} />

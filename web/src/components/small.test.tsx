@@ -8,7 +8,7 @@ it('KpiTile', () => {
   const h = r(<KpiTile label="Tied to a BOM" value="95.0%" caption="$60.6M across 97 bikes" progress={0.9502} />);
   expect(h).toContain('95.0%'); expect(h).toContain('$60.6M across 97 bikes');
   expect(h).toContain('role="progressbar"'); expect(h).toContain('aria-valuenow="95"');
-  expect(r(<KpiTile label="PPV" value="$2.97M" tone="ppv" />)).toContain('text-ppv');
+  expect(r(<KpiTile label="PPV" value="$2.97M" tone="ppv" />)).toContain('text-ppv-ink');
   expect(r(<KpiTile label="x" value="1" size="md" />)).toContain('text-[26px]');
 });
 it('BlendedBadge has the exact tooltip', () => {

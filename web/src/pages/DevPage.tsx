@@ -8,7 +8,7 @@ import { money, pct, unitMoney, vsCheapest } from '../lib/format';
 const vendorCols: Column<Vendor>[] = [
   { key: 'name', label: 'Vendor', value: (v) => v.name },
   { key: 'spend', label: 'Spend', numeric: true, value: (v) => v.spend, render: (v) => money(v.spend) },
-  { key: 'ppv', label: 'PPV', numeric: true, value: (v) => v.ppv, render: (v) => <span className="text-ppv">{money(v.ppv)}</span> },
+  { key: 'ppv', label: 'PPV', numeric: true, value: (v) => v.ppv, render: (v) => <span className="text-ppv-ink">{money(v.ppv)}</span> },
   { key: 'vsCheapest', label: 'vs cheapest', numeric: true, value: (v) => v.vsCheapest, render: (v) => vsCheapest(v.vsCheapest) },
   { key: 'rejectRate', label: 'Reject rate', numeric: true, value: (v) => v.rejectRate, render: (v) => pct(v.rejectRate) },
 ];
@@ -16,10 +16,10 @@ const vendorCols: Column<Vendor>[] = [
 const productCols: Column<Product>[] = [
   { key: 'name', label: 'Product', value: (p) => p.name },
   { key: 'costUnit', label: 'Material / unit', numeric: true, value: (p) => p.costUnit, render: (p) => unitMoney(p.costUnit) },
-  { key: 'ppvTotal', label: 'PPV', numeric: true, value: (p) => p.ppvTotal, render: (p) => <span className="text-ppv">{money(p.ppvTotal)}</span> },
+  { key: 'ppvTotal', label: 'PPV', numeric: true, value: (p) => p.ppvTotal, render: (p) => <span className="text-ppv-ink">{money(p.ppvTotal)}</span> },
 ];
 
-const card = 'rounded-card border border-border bg-surface';
+const card = 'rounded-xl border border-border bg-card';
 const cardTitle = 'px-4 pt-4 pb-2 text-[15px] font-semibold';
 
 export default function DevPage() {

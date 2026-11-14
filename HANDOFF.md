@@ -1,3 +1,5 @@
+> **Update 2026-11-14:** `SPEC_REVISION_2.md` now applies and wins wherever it disagrees with `BUILD_SPEC.md` or the decisions below. **Phase 5a is in progress** (port the Lovable look onto current data): plan `docs/superpowers/plans/2026-11-14-phase-5a-lovable-look.md`, branch `phase-5a`. Phases 5b and 5c wait on the method questions in `SPEC_REVISION_2.md` section 3.6.
+
 # Handoff: where to pick up
 
 Spendline (BOM to spend cube explorer). `BUILD_SPEC.md` is the binding spec. This file says where the build stands. Read the spec's sections 1, 2, 9 and 11 first, then this file.

@@ -18,7 +18,7 @@ function NotFound() {
   return (
     <>
       <h1 className="text-[24px] font-semibold">Page not found</h1>
-      <Link to="/" className="text-accent hover:text-accent-hover">Back to Overview</Link>
+      <Link to="/" className="text-primary hover:text-primary/80">Back to Overview</Link>
     </>
   );
 }

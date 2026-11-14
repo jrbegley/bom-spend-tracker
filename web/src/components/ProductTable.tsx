@@ -44,27 +44,27 @@ export function ProductTable({ products, collapsedPerGroup }: { products: Produc
           const shown = collapsible && !open ? g.bikes.slice(0, collapsedPerGroup) : g.bikes;
           return (
             <tbody key={g.line}>
-              <tr className="bg-group-row">
+              <tr className="bg-muted">
                 <td className="px-4 py-2.5 font-medium whitespace-nowrap">{`${g.line} · ${g.bikes.length} bikes`}</td>
                 <td className={num}>{count(g.units)}</td>
                 <td /><td />
-                <td className={`${num} text-ppv`}>{money(g.ppv)}</td>
-                <td className={`${num} text-savings`}>{money(g.savings)}</td>
+                <td className={`${num} text-ppv-ink`}>{money(g.ppv)}</td>
+                <td className={`${num} text-savings-ink`}>{money(g.savings)}</td>
               </tr>
               {shown.map((p) => (
-                <tr key={p.id} className="border-b border-rule hover:bg-group-row">
-                  <td className="px-4 py-2.5"><Link to={`/products/${p.id}`} className="text-accent hover:text-accent-hover">{p.name}</Link></td>
+                <tr key={p.id} className="border-b border-hairline hover:bg-muted">
+                  <td className="px-4 py-2.5"><Link to={`/products/${p.id}`} className="text-primary hover:text-primary/80">{p.name}</Link></td>
                   <td className={num}>{count(p.units)}</td>
                   <td className={num}>{unitMoney(p.costUnit)}</td>
                   <td className={num}>{pctSigned(p.vsStd)}</td>
-                  <td className={`${num} text-ppv`}>{money(p.ppvTotal)}</td>
-                  <td className={`${num} text-savings`}>{money(p.saveTotal)}</td>
+                  <td className={`${num} text-ppv-ink`}>{money(p.ppvTotal)}</td>
+                  <td className={`${num} text-savings-ink`}>{money(p.saveTotal)}</td>
                 </tr>
               ))}
               {collapsible && (
-                <tr className="border-b border-rule">
+                <tr className="border-b border-hairline">
                   <td colSpan={columns.length} className="px-4 py-2.5">
-                    <button type="button" className="text-[13px] text-accent hover:text-accent-hover" onClick={() => toggle(g.line)}>
+                    <button type="button" className="text-[13px] text-primary hover:text-primary/80" onClick={() => toggle(g.line)}>
                       {open ? `Show top ${collapsedPerGroup}` : `Show all ${g.bikes.length} ${g.line} bikes`}
                     </button>
                   </td>

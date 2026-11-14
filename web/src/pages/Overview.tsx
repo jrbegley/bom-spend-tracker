@@ -19,7 +19,7 @@ export function OverviewView({ core, line = null, onLineChange = () => {} }: Pro
       <header className="flex items-end justify-between gap-4">
         <div>
           <h1 className="text-[24px] font-semibold">Spend overview</h1>
-          <p className="mt-1 text-text-secondary">{`${periodLabel(s.periodStart, s.periodEnd)} · purchased material · blended prices`}</p>
+          <p className="mt-1 text-muted-foreground">{`${periodLabel(s.periodStart, s.periodEnd)} · purchased material · blended prices`}</p>
         </div>
         <GlobalSearch core={core} />
       </header>
@@ -38,12 +38,12 @@ export function OverviewView({ core, line = null, onLineChange = () => {} }: Pro
       </div>
 
       <div className="grid grid-cols-[1.65fr_1fr] gap-4">
-        <section className="rounded-card border border-border bg-surface">
+        <section className="rounded-xl border border-border bg-card">
           <h2 className="px-4 pt-4 pb-2 text-[15px] font-semibold">Products</h2>
           {line && (
-            <p className="px-4 pb-2 text-text-secondary">
+            <p className="px-4 pb-2 text-muted-foreground">
               {`Showing ${line} · `}
-              <button type="button" className="text-accent hover:text-accent-hover" onClick={() => onLineChange(null)}>Clear</button>
+              <button type="button" className="text-primary hover:text-primary/80" onClick={() => onLineChange(null)}>Clear</button>
             </p>
           )}
           <ProductTable products={line ? core.products.filter((p) => p.line === line) : core.products} collapsedPerGroup={2} />

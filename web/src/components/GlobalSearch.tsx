@@ -33,26 +33,26 @@ export function GlobalSearch({ core }: { core: CoreData }) {
 
   return (
     <div className="relative">
-      <label htmlFor={`${id}-input`} className="mb-1 block text-[12px] text-text-secondary">Search</label>
+      <label htmlFor={`${id}-input`} className="mb-1 block text-[12px] text-muted-foreground">Search</label>
       <input
         id={`${id}-input`} type="text" role="combobox" aria-expanded={showList} aria-controls={showList ? `${id}-list` : undefined}
         aria-autocomplete="list" aria-activedescendant={showList && hits.length ? `${id}-opt-${active}` : undefined}
         placeholder="Touring Rim, Road-650, Proseware" value={query} autoComplete="off"
         onChange={(e) => { setQuery(e.target.value); setActive(0); setOpen(true); }}
         onKeyDown={onKeyDown} onFocus={() => setOpen(true)} onBlur={() => setOpen(false)}
-        className="h-[38px] w-[300px] rounded-input border border-border bg-surface px-3"
+        className="h-[38px] w-[300px] rounded-md border border-border bg-card px-3"
       />
       {showList && (
         <ul id={`${id}-list`} role="listbox" aria-label="Search results"
-          className="absolute right-0 z-10 mt-1 w-[300px] overflow-hidden rounded-input border border-border bg-surface">
+          className="absolute right-0 z-10 mt-1 w-[300px] overflow-hidden rounded-md border border-border bg-card">
           {hits.length === 0 ? (
-            <li className="px-3 py-2 text-text-muted">No matches</li>
+            <li className="px-3 py-2 text-muted-foreground">No matches</li>
           ) : hits.map((h, i) => (
             <li key={`${h.type}-${h.id}`} id={`${id}-opt-${i}`} role="option" aria-selected={i === active}
               onMouseDown={(e) => { e.preventDefault(); go(h); }} onMouseEnter={() => setActive(i)}
-              className={`flex cursor-pointer items-baseline justify-between gap-3 px-3 py-2 ${i === active ? 'bg-accent-tint' : ''}`}>
+              className={`flex cursor-pointer items-baseline justify-between gap-3 px-3 py-2 ${i === active ? 'bg-primary-soft' : ''}`}>
               <span>{h.name}</span>
-              <span className="text-[12px] text-text-muted">{TYPE_LABEL[h.type]}</span>
+              <span className="text-[12px] text-muted-foreground">{TYPE_LABEL[h.type]}</span>
             </li>
           ))}
         </ul>

@@ -36,9 +36,9 @@ export function SortHeader<T>({ column: c, sort, onSort }: { column: Column<T>; 
       scope="col"
       aria-sort={active ? (sort.dir === 'desc' ? 'descending' : 'ascending') : undefined}
       style={c.width ? { width: c.width } : undefined}
-      className={`px-4 py-2.5 font-medium text-text-secondary whitespace-nowrap ${c.numeric ? 'text-right' : 'text-left'}`}
+      className={`px-4 py-2.5 font-medium text-muted-foreground whitespace-nowrap ${c.numeric ? 'text-right' : 'text-left'}`}
     >
-      <button type="button" className="inline-flex items-center gap-1 hover:text-text" onClick={() => onSort(c)}>{c.label}<span aria-hidden="true" className={active ? 'text-text' : 'text-[#A1A1AA]'}>{active ? (sort.dir === 'desc' ? '↓' : '↑') : '↕'}</span>{c.headerExtra}</button>
+      <button type="button" className="inline-flex items-center gap-1 hover:text-foreground" onClick={() => onSort(c)}>{c.label}<span aria-hidden="true" className={active ? 'text-foreground' : 'text-[#A1A1AA]'}>{active ? (sort.dir === 'desc' ? '↓' : '↑') : '↕'}</span>{c.headerExtra}</button>
     </th>
   );
 }
@@ -101,14 +101,14 @@ export function SortableTable<T>({
           </thead>
           <tbody>
             {visible.length === 0 && (
-              <tr><td colSpan={columns.length} className="px-4 py-3 text-text-muted">Nothing to show</td></tr>
+              <tr><td colSpan={columns.length} className="px-4 py-3 text-muted-foreground">Nothing to show</td></tr>
             )}
             {visible.map((row) => (
               <tr
                 key={rowKey(row)}
                 data-row-key={rowKey(row)}
                 data-highlight={tinted && rowKey(row) === highlightKey ? 'true' : undefined}
-                className={`border-b border-rule last:border-b-0 hover:bg-group-row ${tinted && rowKey(row) === highlightKey ? 'bg-accent-tint' : (rowClassName?.(row) ?? '')}`}
+                className={`border-b border-hairline last:border-b-0 hover:bg-muted ${tinted && rowKey(row) === highlightKey ? 'bg-primary-soft' : (rowClassName?.(row) ?? '')}`}
               >
                 {columns.map((c) => (
                   <td key={c.key} className={`px-4 py-2.5 align-top ${c.numeric ? 'text-right tabular-nums whitespace-nowrap' : 'text-left'}`}>{c.render ? c.render(row) : c.value(row)}</td>
@@ -129,8 +129,8 @@ export function SortableTable<T>({
         />
       )}
       {!bounds && collapsible && (
-        <div className="border-t border-rule px-4 py-3">
-          <button type="button" className="text-[13px] text-accent hover:text-accent-hover" onClick={() => setExpanded((e) => !e)}>
+        <div className="border-t border-hairline px-4 py-3">
+          <button type="button" className="text-[13px] text-primary hover:text-primary/80" onClick={() => setExpanded((e) => !e)}>
             {expanded ? `Show top ${collapsedCount}` : `Show all ${sorted.length} ${itemLabel}`}
           </button>
         </div>

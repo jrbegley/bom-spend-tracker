@@ -18,10 +18,10 @@ it('bike level: /products/969 (section 10)', () => {
 });
 it('both wheels are highlighted (tie on largest savings)', () => {
   const h = html([]);
-  expect(h.match(/<tr[^>]*bg-savings-tint/g)).toHaveLength(2);
+  expect(h.match(/<tr[^>]*bg-savings-soft/g)).toHaveLength(2);
   for (const w of ['Touring Front Wheel', 'Touring Rear Wheel']) {
     const row = rowOf(h, w);
-    expect(row).toContain('bg-savings-tint'); expect(row).toMatch(/font-semibold[^>]*>\$12\.36/);
+    expect(row).toContain('bg-savings-soft'); expect(row).toMatch(/font-semibold[^>]*>\$12\.36/);
     expect(row).toContain('8 parts · includes Touring Rim'); expect(row).toContain('>Made<'); expect(row).toContain('14.5%');
   }
   expect(rowOf(h, 'Touring Front Wheel')).toContain('href="/products/969/821"');
@@ -40,7 +40,7 @@ it('assembly level: /products/969/821', () => {
   expect(h).toContain('href="/products/969"'); expect(h).toContain('Vendors for this assembly');
   expect(h).toContain('Spend on these parts across all products');
   expect(h).not.toContain('Show all'); // 7 children < 8
-  expect(rowOf(h, 'Touring Rim')).toContain('bg-savings-tint');
+  expect(rowOf(h, 'Touring Rim')).toContain('bg-savings-soft');
   expect(h).toContain('title="Volume-weighted average across all vendors, April 2022 to September 2025"');
 });
 it('bad node path', () => {

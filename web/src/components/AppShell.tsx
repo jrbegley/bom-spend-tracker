@@ -6,7 +6,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   const { pathname } = useLocation();
   const width = pathname === '/' ? 'max-w-[1180px]' : 'max-w-[1280px]';
   return (
-    <div className="flex min-h-screen bg-bg">
+    <div className="flex min-h-screen bg-background">
       <NavRail />
       <main className="min-w-0 flex-1 px-8 py-7">
         <div className={`mx-auto ${width}`}>{children}</div>

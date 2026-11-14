@@ -1,44 +1,215 @@
 @import "tailwindcss";
 
-@theme {
-  --color-bg: #F7F7F5;
-  --color-surface: #FFFFFF;
-  --color-border: #E4E4E0;
-  --color-rule: #EFEFEC;
-  --color-group-row: #F4F4F1;
-  --color-text: #18181B;
-  --color-text-secondary: #52525B;
-  --color-text-muted: #71717A;
-  --color-accent: #3B5BDB;
-  --color-accent-hover: #2B44A8;
-  --color-accent-tint: #EEF1FB;
-  --color-ppv: #B45309;
-  --color-ppv-bar: #F59E0B;
-  --color-savings: #15803D;
-  --color-savings-tint: #F0FAF3;
-  --color-savings-border: #BBE5C8;
-  --color-warn-tint: #FFF7ED;
-  --color-reject: #B91C1C;
+/* Spendline tokens, ported from design/lovable-tokens.css (SPEC_REVISION_2.md section 10.1). */
 
-  --radius-card: 10px;
-  --radius-input: 8px;
-  --radius-nav: 6px;
-  --radius-chip: 4px;
+@theme inline {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Newsreader", ui-serif, Georgia, serif;
 
-  --font-sans: "Inter", system-ui, sans-serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-soft: var(--primary-soft);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-hairline: var(--hairline);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-overlay: var(--overlay);
+  --color-nav: var(--nav);
+
+  --color-ppv: var(--ppv);
+  --color-ppv-ink: var(--ppv-ink);
+  --color-ppv-soft: var(--ppv-soft);
+  --color-rejects: var(--rejects);
+  --color-rejects-ink: var(--rejects-ink);
+  --color-rejects-soft: var(--rejects-soft);
+  --color-warranty: var(--warranty);
+  --color-warranty-ink: var(--warranty-ink);
+  --color-warranty-soft: var(--warranty-soft);
+  --color-savings: var(--savings);
+  --color-savings-ink: var(--savings-ink);
+  --color-savings-soft: var(--savings-soft);
+  --color-price: var(--price);
+  --color-standard: var(--standard);
+  --color-caution: var(--caution);
+  --color-caution-soft: var(--caution-soft);
+
+  --shadow-card: var(--shadow-card);
+  --shadow-lift: var(--shadow-lift);
+}
+
+:root {
+  --radius: 0.75rem;
+
+  --background: oklch(0.975 0.007 85);
+  --foreground: oklch(0.22 0.025 255);
+  --card: oklch(0.993 0.004 85);
+  --card-foreground: oklch(0.22 0.025 255);
+  --popover: oklch(0.993 0.004 85);
+  --popover-foreground: oklch(0.22 0.025 255);
+  --nav: oklch(0.955 0.009 85);
+
+  --primary: oklch(0.38 0.075 230);
+  --primary-foreground: oklch(0.985 0.005 85);
+  --primary-soft: oklch(0.945 0.02 230);
+
+  --secondary: oklch(0.945 0.009 85);
+  --secondary-foreground: oklch(0.22 0.025 255);
+  --muted: oklch(0.945 0.009 85);
+  --muted-foreground: oklch(0.47 0.02 255);
+  --accent: oklch(0.94 0.012 85);
+  --accent-foreground: oklch(0.22 0.025 255);
+  --destructive: oklch(0.53 0.19 27);
+  --destructive-foreground: oklch(0.985 0.005 85);
+
+  --border: oklch(0.9 0.01 85);
+  --hairline: oklch(0.93 0.008 85);
+  --input: oklch(0.88 0.012 85);
+  --ring: oklch(0.38 0.075 230);
+  --overlay: oklch(0.22 0.025 255 / 0.22);
+
+  /* Drivers: fills (bars), inks (text), softs (chips) */
+  --ppv: oklch(0.8 0.135 75);
+  --ppv-ink: oklch(0.47 0.1 60);
+  --ppv-soft: oklch(0.955 0.04 82);
+  --rejects: oklch(0.6 0.03 255);
+  --rejects-ink: oklch(0.42 0.025 255);
+  --rejects-soft: oklch(0.94 0.01 255);
+  --warranty: oklch(0.43 0.14 295);
+  --warranty-ink: oklch(0.43 0.14 295);
+  --warranty-soft: oklch(0.95 0.03 295);
+  --savings: oklch(0.56 0.12 155);
+  --savings-ink: oklch(0.42 0.1 155);
+  --savings-soft: oklch(0.95 0.035 155);
+  --price: oklch(0.84 0.035 230);
+  --standard: oklch(0.86 0.014 85);
+  --caution: oklch(0.47 0.12 45);
+  --caution-soft: oklch(0.955 0.035 60);
+
+  --shadow-card: 0 1px 0 oklch(0.22 0.025 255 / 0.03), 0 1px 2px oklch(0.22 0.025 255 / 0.04);
+  --shadow-lift: 0 18px 40px -18px oklch(0.22 0.025 255 / 0.25);
 }
 
 @layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
   body {
-    background: var(--color-bg);
-    color: var(--color-text);
+    background-color: var(--color-background);
+    color: var(--color-foreground);
     font-family: var(--font-sans);
-    font-size: 13px;
+    font-feature-settings: "cv11", "ss03";
+    font-size: 14px;
     font-variant-numeric: tabular-nums;
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-accent);
+    outline: 2px solid var(--color-ring);
     outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+/* Numbers: tabular figures everywhere they line up. */
+@utility num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum", "cv11";
+  letter-spacing: -0.005em;
+}
+
+/* Small uppercase label used above numbers. */
+@utility eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted-foreground);
+}
+
+/* Glossary terms: quiet dotted underline, always visible. */
+@utility term-underline {
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: color-mix(in oklab, currentColor 45%, transparent);
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+/* Traceable numbers: dotted underline on hover/focus only. */
+@utility trace-underline {
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: transparent;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1.5px;
+  transition: text-decoration-color 150ms ease;
+  &:hover,
+  &:focus-visible {
+    text-decoration-color: currentColor;
+  }
+}
+
+@keyframes grow-x {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes grow-y {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@utility animate-grow-x {
+  transform-origin: left center;
+  animation: grow-x 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@utility animate-grow-y {
+  transform-origin: center bottom;
+  animation: grow-y 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@utility animate-rise {
+  animation: rise-in 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 1ms !important;
   }
 }

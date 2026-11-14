@@ -14,7 +14,7 @@ export function PartView({ core, partId, trail }: { core: CoreData; partId: stri
     return (
       <>
         <h1 className="text-[24px] font-semibold">Part not found</h1>
-        <Link to="/" className="text-accent hover:text-accent-hover">Back to Overview</Link>
+        <Link to="/" className="text-primary hover:text-primary/80">Back to Overview</Link>
       </>
     );
   }
@@ -24,7 +24,7 @@ export function PartView({ core, partId, trail }: { core: CoreData; partId: stri
       <div>
         <Breadcrumb items={crumbs} />
         <h1 className="text-[24px] font-semibold">{part.name}</h1>
-        <p className="mt-1 text-text-secondary">{partMeta(part)}</p>
+        <p className="mt-1 text-muted-foreground">{partMeta(part)}</p>
       </div>
       <div className="grid grid-cols-4 gap-4">
         <KpiTile size="md" label="Spend" value={money(part.spend)} />

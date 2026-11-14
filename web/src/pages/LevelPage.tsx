@@ -10,7 +10,7 @@ import { useCoreData, useJson, type BomNode, type CoreData, type JsonState } fro
 import { periodLabel } from '../lib/format';
 import { buildInsight } from '../lib/insight';
 
-const link = 'text-accent hover:text-accent-hover';
+const link = 'text-primary hover:text-primary/80';
 
 export function LevelView({ core, bom, path }: { core: CoreData; bom: BomNode; path: string[] }) {
   const found = findNode(bom, path);
@@ -33,7 +33,7 @@ export function LevelView({ core, bom, path }: { core: CoreData; bom: BomNode; p
       <div>
         <Breadcrumb items={levelTrail(chain, bom.line ?? '')} />
         <h1 className="text-[24px] font-semibold">{node.name}</h1>
-        <p className="mt-1 text-text-secondary">{levelMeta(chain, core.parts, period)}</p>
+        <p className="mt-1 text-muted-foreground">{levelMeta(chain, core.parts, period)}</p>
       </div>
       <CostSummary node={node} units={bom.units ?? 0} />
       <ComponentsTable chain={chain} parts={core.parts} />

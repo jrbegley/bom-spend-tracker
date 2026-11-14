@@ -13,7 +13,7 @@ it('collapsed overview table', () => {
   expect(h).toContain('Show all 43 Road bikes'); expect(h).toContain('Show all 22 Touring bikes');
   expect(h.match(/href="\/products\/\d+"/g)).toHaveLength(6);
   expect(h).toContain('href="/products/969"');
-  expect(h.match(/bg-group-row/g)!.length).toBeGreaterThanOrEqual(3);
+  expect(h.match(/bg-muted/g)!.length).toBeGreaterThanOrEqual(3);
 });
 it('columns, badge, aria-sort', () => {
   const h = html(2);

@@ -22,7 +22,7 @@ it('vendor prices (section 10: $26.60 and $39.20)', () => {
   const h = html('513');
   const and = rowOf(h, "Anderson&#x27;s Custom Bikes"), prem = rowOf(h, 'Premier Sport, Inc.');
   expect(and).toContain('$26.60'); expect(and).toContain('bg-savings'); expect(and).toContain('Lowest'); expect(and).toContain('28,050');
-  expect(and).toMatch(/text-reject[^>]*>5\.5%/);
+  expect(and).toMatch(/text-destructive[^>]*>5\.5%/);
   expect(prem).toContain('$39.20'); expect(prem).toContain('bg-ppv'); expect(prem).toContain('+47.4%'); expect(prem).toContain('27,500');
   expect(h.indexOf('Premier Sport, Inc.')).toBeLessThan(h.indexOf('Anderson&#x27;s Custom Bikes')); // PPV desc
 });
@@ -46,6 +46,6 @@ it('edge parts: single vendor, not on a BOM, unknown id', () => {
 
 it('vendor prices row gets the warn tint when vs cheapest is over 20% (spec 5.4)', () => {
   const h = html('513');
-  expect(rowOf(h, 'Premier Sport, Inc.')).toContain('bg-warn-tint');
-  expect(rowOf(h, "Anderson&#x27;s Custom Bikes")).not.toContain('bg-warn-tint');
+  expect(rowOf(h, 'Premier Sport, Inc.')).toContain('bg-caution-soft');
+  expect(rowOf(h, "Anderson&#x27;s Custom Bikes")).not.toContain('bg-caution-soft');
 });

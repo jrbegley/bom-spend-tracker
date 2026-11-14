@@ -21,7 +21,7 @@ it('PPV by product line', () => {
   expect(h).toContain('title="Product-line figures cover BOM-tied spend only"');
   expect(h).toContain('$1.22M · 43 bikes'); expect(h).toContain('$1.14M · 32 bikes'); expect(h).toContain('$523.8K · 22 bikes');
   expect(h).toContain('width:100%');
-  expect(h).toMatch(/text-savings font-semibold[^>]*>Touring \$427\.1K/);
+  expect(h).toMatch(/text-savings-ink font-semibold[^>]*>Touring \$427\.1K/);
   expect(h).toContain('Road $242.4K'); expect(h).toContain('Mountain $201.5K');
 });
 
@@ -30,7 +30,7 @@ it('row 2: products, top opportunities, match queue', () => {
   expect(h).toContain('Show all 43 Road bikes');
   const opp = h.split('Top opportunities')[1];
   expect(opp).toContain('href="/parts/513"'); expect(opp).toContain('Touring Rim'); expect(opp).toContain('>Price gap<');
-  expect(opp).toContain('2 vendors · in 22 bikes'); expect(opp).toMatch(/text-savings[^>]*>\$346\.5K/);
+  expect(opp).toContain('2 vendors · in 22 bikes'); expect(opp).toMatch(/text-savings-ink[^>]*>\$346\.5K/);
   for (const n of ['HL Crankarm', 'HL Road Rim', 'LL Crankarm', 'ML Crankarm']) expect(opp).toContain(n);
   expect(opp).toContain('href="/opportunities"');
   expect(h).toContain('5% of spend is not on a BOM'); expect(h).toContain('$3.18M to review in the match queue');

@@ -34,8 +34,8 @@ it('collapses to top N', () => {
   expect(bodyRows(h)).toBe(8); expect(h).toContain('Show all 20 components');
 });
 it('rowClassName and numeric alignment', () => {
-  const h = html({ rowClassName: (r: R) => (r.ppv > 180 ? 'bg-warn-tint' : '') });
-  expect(h.match(/bg-warn-tint/g)).toHaveLength(1);
+  const h = html({ rowClassName: (r: R) => (r.ppv > 180 ? 'bg-caution-soft' : '') });
+  expect(h.match(/bg-caution-soft/g)).toHaveLength(1);
   expect(h).toMatch(/<td[^>]*text-right[^>]*>190<\/td>/);
 });
 it('scroll wrapper and caption', () => { const h = html(); expect(h).toContain('overflow-x-auto'); expect(h).toContain('<caption class="sr-only">Test</caption>'); });

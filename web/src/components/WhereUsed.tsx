@@ -13,7 +13,7 @@ export function WhereUsed({ part, products }: { part: Part; products: Product[] 
   });
   const columns: Column<Row>[] = [
     { key: 'name', label: 'Product', value: (r) => r.name,
-      render: (r) => <Link to={`/products/${r.productId}`} className="text-accent hover:text-accent-hover">{r.name}</Link> },
+      render: (r) => <Link to={`/products/${r.productId}`} className="text-primary hover:text-primary/80">{r.name}</Link> },
     { key: 'line', label: 'Line', value: (r) => r.line },
     { key: 'qtyPerUnit', label: 'Qty per bike', numeric: true, value: (r) => r.qtyPerUnit, render: (r) => String(Number(r.qtyPerUnit.toFixed(2))) },
     { key: 'units', label: 'Units built', numeric: true, value: (r) => r.units, render: (r) => count(r.units) },
@@ -21,10 +21,10 @@ export function WhereUsed({ part, products }: { part: Part; products: Product[] 
     { key: 'allocatedSpend', label: 'Allocated spend', numeric: true, value: (r) => r.allocatedSpend, render: (r) => money(r.allocatedSpend) },
   ];
   return (
-    <section className="rounded-card border border-border bg-surface">
+    <section className="rounded-xl border border-border bg-card">
       <h2 className="px-4 pt-4 pb-2 text-[15px] font-semibold">Where used</h2>
       {rows.length === 0 ? (
-        <p className="px-4 pb-4 text-text-secondary">Not used on any bike's BOM</p>
+        <p className="px-4 pb-4 text-muted-foreground">Not used on any bike's BOM</p>
       ) : (
         <SortableTable columns={columns} rows={rows} rowKey={(r) => r.productId}
           defaultSort={{ key: 'allocatedSpend', dir: 'desc' }} collapsedCount={10} itemLabel="bikes" caption={`Bikes that use ${part.name}`} />

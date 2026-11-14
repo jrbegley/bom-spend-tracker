@@ -16,20 +16,20 @@ export function ComponentsTable({ chain, parts }: { chain: BomNode[]; parts: Rec
   const columns: Column<BomNode>[] = [
     { key: 'name', label: 'Component', value: (c) => c.name, render: (c) => (
       <>
-        <Link to={childHref(chain, c)} state={c.made ? undefined : { trail }} className="text-accent hover:text-accent-hover">{c.name}</Link>
+        <Link to={childHref(chain, c)} state={c.made ? undefined : { trail }} className="text-primary hover:text-primary/80">{c.name}</Link>
         <MadeBoughtTag made={c.made} />
-        <div className="text-[12px] text-text-muted">{componentNote(c, parts)}</div>
+        <div className="text-[12px] text-muted-foreground">{componentNote(c, parts)}</div>
       </>) },
     { key: 'costUnit', label: 'Cost', numeric: true, value: (c) => c.costUnit, render: (c) => unitMoney(c.costUnit), headerExtra: <BlendedBadge /> },
     { key: 'share', label: 'Share of cost', numeric: true, value: (c) => (node.costUnit ? c.costUnit / node.costUnit : 0),
       render: (c) => pct(node.costUnit ? c.costUnit / node.costUnit : 0) },
-    { key: 'ppvUnit', label: 'PPV', numeric: true, value: (c) => c.ppvUnit, render: (c) => <span className="text-ppv">{ppvUnit(c.ppvUnit)}</span> },
+    { key: 'ppvUnit', label: 'PPV', numeric: true, value: (c) => c.ppvUnit, render: (c) => <span className="text-ppv-ink">{ppvUnit(c.ppvUnit)}</span> },
     { key: 'saveUnit', label: 'Best-price savings', numeric: true, value: (c) => c.saveUnit,
-      render: (c) => <span className={isTop(c) ? 'text-savings font-semibold' : 'text-savings'}>{unitMoney(c.saveUnit)}</span> },
+      render: (c) => <span className={isTop(c) ? 'text-savings-ink font-semibold' : 'text-savings-ink'}>{unitMoney(c.saveUnit)}</span> },
   ];
 
   return (
-    <section className="rounded-card border border-border bg-surface">
+    <section className="rounded-xl border border-border bg-card">
       <h2 className="px-4 pt-4 pb-2 text-[15px] font-semibold">Assemblies and parts</h2>
       <SortableTable
         columns={columns}
@@ -38,7 +38,7 @@ export function ComponentsTable({ chain, parts }: { chain: BomNode[]; parts: Rec
         defaultSort={{ key: 'ppvUnit', dir: 'desc' }}
         collapsedCount={8}
         itemLabel="components"
-        rowClassName={(c) => (isTop(c) ? 'bg-savings-tint' : '')}
+        rowClassName={(c) => (isTop(c) ? 'bg-savings-soft' : '')}
         caption={`Components of ${node.name}`}
       />
     </section>

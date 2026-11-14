@@ -9,19 +9,19 @@ export function SavingsSimulator({ save, vendorCount, bikeCount, onBom }: Props)
   const [share, setShare] = useState(100);
   const id = useId();
   return (
-    <section className="rounded-card border border-border bg-surface p-4">
+    <section className="rounded-xl border border-border bg-card p-4">
       <h2 className="text-[15px] font-semibold">Savings simulator</h2>
       {vendorCount === 1 ? (
-        <p className="mt-3 text-text-secondary">Only one vendor supplies this part</p>
+        <p className="mt-3 text-muted-foreground">Only one vendor supplies this part</p>
       ) : (
         <>
-          <label htmlFor={id} className="mt-3 block text-text-secondary">
-            {'Move this share of volume to the cheapest vendor'} <span className="font-medium text-text">{`${share}%`}</span>
+          <label htmlFor={id} className="mt-3 block text-muted-foreground">
+            {'Move this share of volume to the cheapest vendor'} <span className="font-medium text-foreground">{`${share}%`}</span>
           </label>
           <input id={id} type="range" min={0} max={100} step={5} value={share}
-            onChange={(e) => setShare(Number(e.target.value))} className="mt-2 w-full accent-accent" />
-          <output aria-live="polite" className="mt-3 block text-[26px] font-semibold text-savings">{`Saves ${money(simulatedSavings(save, share))}`}</output>
-          <p className="mt-1 text-[12px] text-text-muted">{onBom ? `Across ${bikeCount} bikes` : 'Not on a BOM'}</p>
+            onChange={(e) => setShare(Number(e.target.value))} className="mt-2 w-full accent-primary" />
+          <output aria-live="polite" className="mt-3 block text-[26px] font-semibold text-savings-ink">{`Saves ${money(simulatedSavings(save, share))}`}</output>
+          <p className="mt-1 text-[12px] text-muted-foreground">{onBom ? `Across ${bikeCount} bikes` : 'Not on a BOM'}</p>
         </>
       )}
     </section>
