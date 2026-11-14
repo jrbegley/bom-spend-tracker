@@ -79,3 +79,8 @@ export function feedbackSummary(examples: MatchExample[], decisions: Decisions) 
       .sort((a, b) => b.count - a.count || a.reason.localeCompare(b.reason)),
   };
 }
+
+/** A choice can be confirmed once made; a search choice needs a picked part. */
+export function choiceComplete(choice: Choice | null): boolean {
+  return choice !== null && (choice.kind !== 'part' || choice.partId !== '');
+}
