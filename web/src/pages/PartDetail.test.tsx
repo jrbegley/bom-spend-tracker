@@ -57,5 +57,5 @@ it('two vendors at the same price: no saving, no simulator (rev2 10.3)', () => {
   for (const x of ['Savings simulator', 'type="range"', 'Best-price savings']) expect(h).not.toContain(x);
 });
 it('where used is collapsed behind a summary', () => {
-  expect(html('513')).toMatch(/<details[^>]*>\s*<summary[^>]*>Bikes that use this part · 22<\/summary>/);
+  expect(html('513')).toMatch(/<details[^>]*>\s*<summary[^>]*><span>Bikes that use this part · 22<\/span><svg[^>]*group-open:rotate-180/);
 });

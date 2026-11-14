@@ -10,7 +10,7 @@ Spendline (BOM to spend cube explorer). Read in this order:
 | Phase | State |
 |---|---|
 | 0–4 | Done: pipeline, shell, demo path, supporting screens, Match review concept, polish. Plans are in `docs/superpowers/plans/`. |
-| **5a Lovable look, current data** | **Done and merged** (`docs/superpowers/plans/2026-11-14-phase-5a-lovable-look.md`). Walked through in Chrome with no console errors. An Opus whole-branch review was still running at merge time. Any fixes from it land as follow-up commits after `ae8728a`. |
+| **5a Lovable look, current data** | **Done and merged** (`docs/superpowers/plans/2026-11-14-phase-5a-lovable-look.md`). Walked through in Chrome with no console errors. Opus whole-branch review: no Critical issues. Three fixes are on `main` (see "Review follow-ups"). |
 | **5b Data** (`SPEC_REVISION_2.md` 10.4) | **Not started. Blocked on the team settling `SPEC_REVISION_2.md` section 3.6.** |
 | 5c Finance features | Not started (depends on 5b). |
 
@@ -38,6 +38,20 @@ Spendline (BOM to spend cube explorer). Read in this order:
   - Edge cases: single source (part 1), and a tie at the same price with no saving (part 908).
 - **Shared look:** `components/primitives.tsx` holds PageHeader, StatRow/Stat, Panel, FilterChips and Chip.
 - **Retired:** the Overview page, LinePpvCard, TopOpportunities, MatchQueueCard, CostSummary and VendorPrices. `/opportunities` redirects to `/savings`. `/products` and `/vendors` still work but are off the nav.
+
+## Review follow-ups (5a)
+
+**Fixed, test-first:**
+- Collapsed sections (vendors, where-used) now show a chevron cue (`Disclosure` in `primitives.tsx`). Safari's own marker is hidden.
+- Two old class names on Match review (`border-ppv-bar`, `hover:bg-accent-hover`) slipped past the rename. They're fixed, and `src/test/noLegacyClasses.test.ts` now guards against any return.
+- The landing `#` column now ranks within the line filter.
+
+**Deferred minors** (fine to pick up in 5b or 5c):
+- **Level page:** the vendor section repeats its title inside the open panel. VendorTable needs a no-title mode.
+- **Bridge:** tick labels fall on odd values (e.g. $1175). Snap the step to 1, 2 or 5 × 10ⁿ.
+- **Landing:** it assumes every bike is above standard. A negative `ppvTotal` would give a broken bar width and a "+-$" headline. No bike is negative today.
+- **Nav:** it sets `aria-current="page"` on a detail page's section. Use `"location"` unless the path matches exactly.
+- **Filter chips:** the accessible name runs label and count together ("Touring22"). Add a hidden space.
 
 ## Next steps
 

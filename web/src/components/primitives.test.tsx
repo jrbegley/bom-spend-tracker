@@ -1,7 +1,7 @@
 import { it, expect } from 'vitest';
 import { renderToStaticMarkup as r } from 'react-dom/server';
 import { MemoryRouter } from 'react-router-dom';
-import { Chip, FilterChips, PageHeader, Panel, Stat, StatRow } from './primitives';
+import { Chip, Disclosure, FilterChips, PageHeader, Panel, Stat, StatRow } from './primitives';
 
 it('PageHeader: eyebrow, crumbs, h1, meta', () => {
   const h = r(<MemoryRouter><PageHeader eyebrow="April 2022 to September 2025" crumbs={[{ label: 'Product costs', to: '/' }, { label: 'X' }]}
@@ -29,4 +29,10 @@ it('Chip', () => { expect(r(<Chip tone="savings">Lowest price</Chip>)).toMatch(/
 it('FilterChips buttons contain no block elements (carried over from the retired LinePpvCard check)', () => {
   const h = r(<FilterChips label="L" value="all" onChange={() => {}} options={[{ value: 'all', label: 'All' }, { value: 'Road', label: 'Road', count: 43 }]} />);
   for (const b of h.split('<button').slice(1)) expect(b.split('</button>')[0]).not.toMatch(/<(div|p|section)\b/);
+});
+it('Disclosure: a summary with a visible chevron cue in every browser', () => {
+  const h = r(<Disclosure title="Bikes that use this part · 22"><p>body</p></Disclosure>);
+  expect(h).toMatch(/<details class="group[^"]*"/);
+  expect(h).toMatch(/<summary[^>]*\[&amp;::-webkit-details-marker\]:hidden[^>]*>/);
+  expect(h).toMatch(/<svg[^>]*group-open:rotate-180/); expect(h).toContain('<span>Bikes that use this part · 22</span>'); expect(h).toContain('<p>body</p>');
 });

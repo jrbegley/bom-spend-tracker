@@ -2,7 +2,7 @@ import { Link, Navigate, useParams } from 'react-router-dom';
 import { ComponentsTable } from '../components/ComponentsTable';
 import { BlendedBadge } from '../components/BlendedBadge';
 import { CostBridge } from '../components/CostBridge';
-import { PageHeader, Stat, StatRow } from '../components/primitives';
+import { Disclosure, PageHeader, Stat, StatRow } from '../components/primitives';
 import { InsightBanner } from '../components/InsightBanner';
 import { StatusMessage } from '../components/StatusMessage';
 import { VendorTable } from '../components/VendorTable';
@@ -46,12 +46,9 @@ export function LevelView({ core, bom, path }: { core: CoreData; bom: BomNode; p
       <CostBridge node={node} />
       <ComponentsTable chain={chain} parts={core.parts} />
       {insight && <InsightBanner insight={insight} trail={levelTrail(chain, bom.line ?? '')} />}
-      <details className="group rounded-2xl border border-border bg-card shadow-card">
-        <summary className="cursor-pointer list-none px-6 py-4 text-[15px] font-semibold">{`${vendorTitle} · ${vendorCount}`}</summary>
-        <div className="border-t border-hairline">
-          <VendorTable mode="parts" partIds={partIds} parts={core.parts} title={vendorTitle} />
-        </div>
-      </details>
+      <Disclosure title={`${vendorTitle} · ${vendorCount}`}>
+        <VendorTable mode="parts" partIds={partIds} parts={core.parts} title={vendorTitle} />
+      </Disclosure>
     </div>
   );
 }

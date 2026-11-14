@@ -24,5 +24,7 @@ it('PPV-only driver legend for now', () => { const h = html(); expect(h).toConta
 it('line filter: Touring', () => {
   const h = html('Touring');
   expect(h).toContain('Show all 22 bikes'); expect(bikeHrefs(h)[0]).toBe('/products/969');
+  // ranks are numbered within the filtered list (plan Task 4: rankByVariance(filtered))
+  expect(rowOf(h, '/products/969')).toMatch(/text-muted-foreground">1<\/span>/);
   expect(h).toMatch(/aria-pressed="true"[^>]*>Touring<span[^>]*>22<\/span>/); expect(h).toMatch(/aria-pressed="false"[^>]*>All lines/);
 });

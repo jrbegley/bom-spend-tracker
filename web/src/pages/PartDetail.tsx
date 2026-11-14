@@ -1,6 +1,6 @@
 import { Link, useLocation, useParams } from 'react-router-dom';
 import type { Crumb } from '../components/Breadcrumb';
-import { PageHeader, Stat, StatRow } from '../components/primitives';
+import { Disclosure, PageHeader, Stat, StatRow } from '../components/primitives';
 import { SavingsSimulator } from '../components/SavingsSimulator';
 import { VendorComparison } from '../components/VendorComparison';
 import { WhereUsed } from '../components/WhereUsed';
@@ -32,10 +32,9 @@ export function PartView({ core, partId, trail }: { core: CoreData; partId: stri
       </StatRow>
       <VendorComparison part={part} />
       {saving && <SavingsSimulator save={part.save} bikeCount={part.whereUsed.length} onBom={part.onBom} />}
-      <details className="rounded-2xl border border-border bg-card shadow-card">
-        <summary className="cursor-pointer list-none px-6 py-4 text-[15px] font-semibold">{`Bikes that use this part · ${part.whereUsed.length}`}</summary>
-        <div className="border-t border-hairline"><WhereUsed part={part} products={core.products} /></div>
-      </details>
+      <Disclosure title={`Bikes that use this part · ${part.whereUsed.length}`}>
+        <WhereUsed part={part} products={core.products} />
+      </Disclosure>
     </div>
   );
 }

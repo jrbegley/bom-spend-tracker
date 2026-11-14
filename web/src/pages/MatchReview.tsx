@@ -23,7 +23,7 @@ function Header() {
     <div>
       <div className="flex items-center gap-3">
         <h1 className="text-[24px] font-semibold">Match review</h1>
-        <span className="rounded-sm border border-ppv-bar bg-caution-soft px-1.5 py-0.5 text-[12px] font-medium text-ppv-ink">Illustrative</span>
+        <span className="rounded-sm border border-caution/30 bg-caution-soft px-1.5 py-0.5 text-[12px] font-medium text-ppv-ink">Illustrative</span>
       </div>
       <p className="mt-1 text-muted-foreground">
         How new spend lines would be matched to BOM parts. Sample lines are hand-written; the dataset already links parts by ID.
@@ -59,7 +59,7 @@ function PendingCard({ m, onDecide }: { m: MatchExample; onDecide: OnDecide }) {
         ))}
       </ul>
       <div className="mt-3 flex items-center gap-2">
-        <button type="button" className={`${btn} bg-primary text-white hover:bg-accent-hover`} aria-describedby={`${m.id}-top`}
+        <button type="button" className={`${btn} bg-primary text-white hover:bg-primary/90`} aria-describedby={`${m.id}-top`}
           onClick={() => onDecide(m.id, 'accepted')}>Accept</button>
         <button type="button" className={`${btn} border border-border bg-card hover:bg-muted`} aria-describedby={`${m.id}-top`}
           onClick={() => onDecide(m.id, 'rejected')}>Reject</button>

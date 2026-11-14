@@ -11,7 +11,7 @@ type Props = { core: CoreData; line?: string | null; onLineChange?: (l: string |
 export function ProductCostsView({ core, line = null, onLineChange = () => {} }: Props) {
   const { products, summary } = core;
   const head = costHeadline(products);
-  const shown = rankByVariance(products).filter((p) => !line || p.line === line);
+  const shown = rankByVariance(products.filter((p) => !line || p.line === line)); // rank within the filtered list
   const maxVar = Math.max(...shown.map((p) => p.ppvTotal), 0) || 1;
 
   const columns: Column<RankedProduct>[] = [

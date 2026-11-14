@@ -53,7 +53,7 @@ it('insight banner on 969, before the collapsed vendor section (E6)', () => {
   const h = html([]);
   expect(h).toContain('Harmonizing it saves $346.5K across 22 bikes.'); expect(h).toContain('>Open Touring Rim<');
   expect(h.indexOf('Harmonizing')).toBeLessThan(h.indexOf('<details'));
-  expect(h).toMatch(/<details[^>]*>\s*<summary[^>]*>Vendors for this bike · 44<\/summary>/);
+  expect(h).toMatch(/<details[^>]*>\s*<summary[^>]*><span>Vendors for this bike · 44<\/span><svg[^>]*group-open:rotate-180/);
 });
 it('no banner on the seat assembly', () => { expect(html(['522'])).not.toContain('Harmonizing'); });
 const body = (productId: string, bomState: object) => r(<MemoryRouter><LevelPageBody core={core} productId={productId} nodePath={[]} bom={bomState} /></MemoryRouter>);
