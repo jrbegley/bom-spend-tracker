@@ -3,7 +3,7 @@ import { BrowserRouter, Link, Navigate, Route, Routes, useLocation, useNavigatio
 import { shouldScrollTop } from './lib/scroll';
 import { AppShell } from './components/AppShell';
 import { DataProvider } from './lib/data';
-import Overview from './pages/Overview';
+import ProductCosts from './pages/ProductCosts';
 import Products from './pages/Products';
 import LevelPage from './pages/LevelPage';
 import PartDetail from './pages/PartDetail';
@@ -43,7 +43,7 @@ export function AppRoutes() {
     <AppShell>
       <ScrollToTop />
       <Routes>
-        <Route path="/" element={<Overview />} />
+        <Route path="/" element={<ProductCosts />} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/:productId/*" element={<LevelPage />} />
         <Route path="/parts/:partId" element={<PartDetail />} />

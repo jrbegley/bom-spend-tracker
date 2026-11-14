@@ -33,10 +33,3 @@ it('CostSummary for Touring-1000 Blue, 60', () => {
   for (const s of ['Material cost per unit', '$854.82', 'Standard per unit', '$814.12', 'PPV per unit', '+$40.71',
                    '+5.0% · $45.4K total', 'Savings at best price', '$30.01', 'per unit · $33.5K total', '>Blended<']) expect(h).toContain(s);
 });
-
-import { LinePpvCard as LinePpvCardA11y } from './LinePpvCard';
-import type { Summary } from '../lib/data';
-it('LinePpvCard line buttons contain no block elements (no div inside button)', () => {
-  const h = r(<LinePpvCardA11y lines={readData<Summary>('summary.json').lines} />);
-  for (const b of h.split('<button').slice(1)) expect(b.split('</button>')[0]).not.toContain('<div');
-});

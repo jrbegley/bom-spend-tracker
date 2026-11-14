@@ -26,3 +26,7 @@ it('FilterChips: group, pressed state, counts', () => {
   expect(h).toMatch(/aria-pressed="true"[^>]*>All lines/); expect(h).toMatch(/aria-pressed="false"[^>]*>Road<span[^>]*>43<\/span>/);
 });
 it('Chip', () => { expect(r(<Chip tone="savings">Lowest price</Chip>)).toMatch(/bg-savings-soft[^>]*>Lowest price</); });
+it('FilterChips buttons contain no block elements (carried over from the retired LinePpvCard check)', () => {
+  const h = r(<FilterChips label="L" value="all" onChange={() => {}} options={[{ value: 'all', label: 'All' }, { value: 'Road', label: 'Road', count: 43 }]} />);
+  for (const b of h.split('<button').slice(1)) expect(b.split('</button>')[0]).not.toMatch(/<(div|p|section)\b/);
+});
