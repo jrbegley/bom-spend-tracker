@@ -2,7 +2,7 @@
 
 Spendline (BOM to spend cube explorer). `BUILD_SPEC.md` is the binding spec. This file says where the build stands. Read the spec's sections 1, 2, 9 and 11 first, then this file.
 
-## Status (branch `phase-4`, not yet merged to `main`)
+## Status (branch `main`; phase 4 merged from `phase-4`)
 
 | Phase | State |
 |---|---|
@@ -10,7 +10,7 @@ Spendline (BOM to spend cube explorer). `BUILD_SPEC.md` is the binding spec. Thi
 | 1 Shell and shared components | Done. |
 | 2 Demo path (Overview, Level page, Part detail) | Done, walked through in Chrome. |
 | 3 Supporting screens (Opportunities, Products, Vendors, GlobalSearch, line filter, insight banner) | Done, walked through in Chrome. |
-| 4 Concept screen and polish | Built on branch `phase-4` (plan: `docs/superpowers/plans/2026-11-14-phase-4-concept-and-polish.md`). **Not yet walked through in a browser.** |
+| 4 Concept screen and polish | Built and merged (plan: `docs/superpowers/plans/2026-11-14-phase-4-concept-and-polish.md`). **Not yet walked through in a browser.** |
 
 147 tests pass (`cd web && npm test`), build and `npx oxlint src` are clean.
 
@@ -33,8 +33,7 @@ Spendline (BOM to spend cube explorer). `BUILD_SPEC.md` is the binding spec. Thi
 1. **Browser walk-through of phase 4:** Match review (accept, reject, undo); scroll reset (the insight banner's "Open Touring Rim"); search arrows after Escape; Vendors highlight, then filter, then clear.
 2. **Spec 10 by hand:** no console errors on any page; Tab through every page (keyboard behavior is unverified, see Gotchas).
 3. **jsdom** for testing the highlight scroll/fade effect: still not added (a new dev dependency needs the team's OK).
-4. Merge `phase-4` into `main` after the walk-through.
-5. On Windows, `npm ci` fails because `package-lock.json` lacks Windows-only optional packages (`@emnapi/*`). `npm install` works. Don't commit the lockfile changes it makes unless the team agrees.
+4. On Windows, `npm ci` fails because `package-lock.json` lacks Windows-only optional packages (`@emnapi/*`). `npm install` works. Don't commit the lockfile changes it makes unless the team agrees.
 
 ## Run it
 
