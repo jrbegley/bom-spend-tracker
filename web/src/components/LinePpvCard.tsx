@@ -17,9 +17,9 @@ export function LinePpvCard({ lines, selected = null, onSelect }: Props) {
             <button key={l.line} type="button" aria-pressed={on} onClick={() => onSelect?.(on ? null : l.line)}
               className={`grid w-full grid-cols-[80px_1fr_auto] items-center gap-3 rounded-nav px-2 py-1 text-left text-[13px] hover:bg-group-row ${on ? 'bg-group-row' : ''}`}>
               <span>{l.line}</span>
-              <div className="h-3 rounded-chip bg-rule">
-                <div className="h-full rounded-chip bg-ppv-bar" style={{ width: `${(l.ppv / maxPpv) * 100}%` }} />
-              </div>
+              <span className="block h-3 rounded-chip bg-rule" aria-hidden="true">
+                <span className="block h-full rounded-chip bg-ppv-bar" style={{ width: `${(l.ppv / maxPpv) * 100}%` }} />
+              </span>
               <span className="text-right text-text-secondary tabular-nums">{`${money(l.ppv)} · ${l.bikes} bikes`}</span>
             </button>
           );

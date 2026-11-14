@@ -3,7 +3,17 @@ import type { CoreData } from './data';
 
 export type SearchHit = { type: 'product' | 'part' | 'vendor'; id: string; name: string; href: string };
 
-const TYPE_ORDER = { product: 0, part: 1, vendor: 2 } as const;
+/**
+ * The active option after an arrow key. While the list is open the arrows wrap; when it is
+ * closed (after Escape or blur) the list opens on the first hit (down) or the last hit (up).
+ */
+export function nextActive(active: number, dir: 'down' | 'up', count: number, open: boolean): number {
+  if (count === 0) return 0;
+  if (!open) return dir === 'down' ? 0 : count - 1;
+  return dir === 'down' ? (active + 1) % count : (active - 1 + count) % count;
+}
+
+const TYPE_ORDER ={ product: 0, part: 1, vendor: 2 } as const;
 
 /**
  * Up to `limit` case-insensitive substring matches on name. Needs 2+ characters after trimming.

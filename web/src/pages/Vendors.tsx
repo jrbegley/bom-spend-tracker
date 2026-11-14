@@ -26,6 +26,11 @@ export function VendorsView({ vendors, query, onQueryChange, highlightId }: Prop
 
 export default function Vendors() {
   const [query, setQuery] = useState('');
-  const [params] = useSearchParams();
-  return <VendorsView vendors={useCoreData().vendors} query={query} onQueryChange={setQuery} highlightId={params.get('highlight') ?? undefined} />;
+  const [params, setParams] = useSearchParams();
+  // The highlight is a one-time jump: the first filter change drops it, so clearing the filter later does not re-run it.
+  const onQueryChange = (q: string) => {
+    setQuery(q);
+    if (params.has('highlight')) setParams((p) => { p.delete('highlight'); return p; }, { replace: true });
+  };
+  return <VendorsView vendors={useCoreData().vendors} query={query} onQueryChange={onQueryChange} highlightId={params.get('highlight') ?? undefined} />;
 }

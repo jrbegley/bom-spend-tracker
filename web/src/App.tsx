@@ -1,5 +1,6 @@
-import { lazy, Suspense } from 'react';
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import { lazy, Suspense, useEffect, useRef } from 'react';
+import { BrowserRouter, Link, Route, Routes, useLocation, useNavigationType } from 'react-router-dom';
+import { shouldScrollTop } from './lib/scroll';
 import { AppShell } from './components/AppShell';
 import { DataProvider } from './lib/data';
 import Overview from './pages/Overview';
@@ -22,9 +23,25 @@ function NotFound() {
   );
 }
 
+/**
+ * Scrolls to the top when a link or redirect opens a new path. It renders before <Routes> so its
+ * effect runs before the page's own effects (the Vendors highlight scroll must win).
+ */
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  const navType = useNavigationType();
+  const prev = useRef<string | null>(null);
+  useEffect(() => {
+    if (shouldScrollTop(prev.current, pathname, navType)) window.scrollTo(0, 0);
+    prev.current = pathname;
+  }, [pathname, navType]);
+  return null;
+}
+
 export function AppRoutes() {
   return (
     <AppShell>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Overview />} />
         <Route path="/products" element={<Products />} />

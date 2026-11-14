@@ -1,7 +1,7 @@
 import { useId, useMemo, useState, type KeyboardEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { CoreData } from '../lib/data';
-import { searchAll, type SearchHit } from '../lib/search';
+import { nextActive, searchAll, type SearchHit } from '../lib/search';
 
 const TYPE_LABEL = { product: 'Product', part: 'Part', vendor: 'Vendor' } as const;
 
@@ -22,8 +22,11 @@ export function GlobalSearch({ core }: { core: CoreData }) {
   };
 
   const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'ArrowDown' && hits.length) { e.preventDefault(); setOpen(true); setActive((a) => (a + 1) % hits.length); }
-    else if (e.key === 'ArrowUp' && hits.length) { e.preventDefault(); setOpen(true); setActive((a) => (a - 1 + hits.length) % hits.length); }
+    if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && hits.length) {
+      e.preventDefault();
+      setActive(nextActive(active, e.key === 'ArrowDown' ? 'down' : 'up', hits.length, showList));
+      setOpen(true);
+    }
     else if (e.key === 'Enter' && showList && hits.length) { e.preventDefault(); go(hits[active] ?? hits[0]); }
     else if (e.key === 'Escape') setOpen(false);
   };
@@ -32,7 +35,7 @@ export function GlobalSearch({ core }: { core: CoreData }) {
     <div className="relative">
       <label htmlFor={`${id}-input`} className="mb-1 block text-[12px] text-text-secondary">Search</label>
       <input
-        id={`${id}-input`} type="text" role="combobox" aria-expanded={showList} aria-controls={`${id}-list`}
+        id={`${id}-input`} type="text" role="combobox" aria-expanded={showList} aria-controls={showList ? `${id}-list` : undefined}
         aria-autocomplete="list" aria-activedescendant={showList && hits.length ? `${id}-opt-${active}` : undefined}
         placeholder="Touring Rim, Road-650, Proseware" value={query} autoComplete="off"
         onChange={(e) => { setQuery(e.target.value); setActive(0); setOpen(true); }}
@@ -46,8 +49,8 @@ export function GlobalSearch({ core }: { core: CoreData }) {
             <li className="px-3 py-2 text-text-muted">No matches</li>
           ) : hits.map((h, i) => (
             <li key={`${h.type}-${h.id}`} id={`${id}-opt-${i}`} role="option" aria-selected={i === active}
-              onMouseDown={(e) => { e.preventDefault(); go(h); }}
-              className={`flex cursor-pointer items-baseline justify-between gap-3 px-3 py-2 ${i === active ? 'bg-accent-tint' : 'hover:bg-group-row'}`}>
+              onMouseDown={(e) => { e.preventDefault(); go(h); }} onMouseEnter={() => setActive(i)}
+              className={`flex cursor-pointer items-baseline justify-between gap-3 px-3 py-2 ${i === active ? 'bg-accent-tint' : ''}`}>
               <span>{h.name}</span>
               <span className="text-[12px] text-text-muted">{TYPE_LABEL[h.type]}</span>
             </li>

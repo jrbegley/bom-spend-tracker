@@ -31,9 +31,15 @@ export function pageBounds(total: number, pageSize: number, page: number) {
   return { page: p, pageCount, start, end: Math.min(start + pageSize, total) };
 }
 
-/** The page to show: the stored page while `token` is unchanged, otherwise page 1. */
-export function effectivePage(stored: { page: number; token: unknown }, token: unknown): number {
-  return stored.token === token ? stored.page : 1;
+export type PageState = { page: number; token: unknown };
+
+/**
+ * Page state for the current `token` (a filter value): the same object while the token is
+ * unchanged, otherwise a fresh page 1. Storing the result means going back to an earlier
+ * token never brings back the page it had before.
+ */
+export function syncPageState(stored: PageState, token: unknown): PageState {
+  return stored.token === token ? stored : { page: 1, token };
 }
 
 /** The 1-based page holding the row at `index`; 1 when the row is not in the list. */

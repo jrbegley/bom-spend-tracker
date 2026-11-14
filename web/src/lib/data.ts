@@ -125,8 +125,8 @@ export function DataProvider({ children }: { children: ReactNode }) {
     return () => { live = false; };
   }, []);
 
-  if (error) return createElement('div', { className: 'p-8' }, createElement(StatusMessage, { kind: 'error', children: `Could not load data: ${error.message}` }));
-  if (!core) return createElement('div', { className: 'p-8' }, createElement(StatusMessage, { kind: 'loading', children: 'Loading data…' }));
+  if (error) return createElement('div', { className: 'p-8' }, createElement(StatusMessage, { kind: 'error' }, `Could not load data: ${error.message}`));
+  if (!core) return createElement('div', { className: 'p-8' }, createElement(StatusMessage, { kind: 'loading' }, 'Loading data…'));
   return createElement(CoreDataProvider, { value: core }, children);
 }
 

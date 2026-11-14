@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
-import { effectivePage, highlightPage, nextSort, pageBounds, sortRows, type SortState } from '../lib/sort';
+import { highlightPage, nextSort, pageBounds, sortRows, syncPageState, type PageState, type SortState } from '../lib/sort';
 import { Pagination } from './Pagination';
 
 export type Column<T> = {
@@ -47,7 +47,7 @@ export function SortableTable<T>({
   columns, rows, rowKey, defaultSort, pageSize, rowClassName, collapsedCount, caption, itemLabel = 'rows', highlightKey, resetPageOn,
 }: Props<T>) {
   const [sort, setSort] = useState<SortState>(defaultSort);
-  const [pageState, setPageState] = useState(() => {
+  const [pageState, setPageState] = useState<PageState>(() => {
     let page = 1;
     if (highlightKey !== undefined && pageSize) {
       const col = columns.find((c) => c.key === defaultSort.key);
@@ -56,7 +56,10 @@ export function SortableTable<T>({
     }
     return { page, token: resetPageOn };
   });
-  const page = effectivePage(pageState, resetPageOn);
+  // A changed filter (resetPageOn) means page 1. Stored during render so an earlier filter's page never comes back.
+  const synced = syncPageState(pageState, resetPageOn);
+  if (synced !== pageState) setPageState(synced);
+  const page = synced.page;
   const [tinted, setTinted] = useState(highlightKey !== undefined);
   const wrapRef = useRef<HTMLDivElement>(null);
   const [expanded, setExpanded] = useState(false);

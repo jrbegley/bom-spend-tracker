@@ -19,3 +19,14 @@ it('prefix matches rank first, then products before parts', () => {
   const h = searchAll(core, 'tour'); expect(h[0].type).toBe('product'); expect(h[0].name.startsWith('Touring')).toBe(true);
 });
 it('no matches', () => { expect(searchAll(core, 'zzzz')).toEqual([]); });
+
+import { nextActive } from './search';
+it('nextActive: arrows wrap while open; opening starts at the first (down) or last (up) hit', () => {
+  expect(nextActive(0, 'down', 5, true)).toBe(1);
+  expect(nextActive(4, 'down', 5, true)).toBe(0);
+  expect(nextActive(0, 'up', 5, true)).toBe(4);
+  expect(nextActive(0, 'down', 5, false)).toBe(0); // after Escape: first hit, not the second
+  expect(nextActive(2, 'down', 5, false)).toBe(0);
+  expect(nextActive(0, 'up', 5, false)).toBe(4);
+  expect(nextActive(0, 'down', 0, true)).toBe(0);
+});

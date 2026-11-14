@@ -28,10 +28,17 @@ it('pageBounds clamps at both ends', () => {
   expect(pageBounds(0, 8, 1)).toEqual({ page: 1, pageCount: 0, start: 0, end: 0 });
 });
 
-import { effectivePage, highlightPage } from './sort';
-it('effectivePage resets to 1 when the token changes', () => {
-  expect(effectivePage({ page: 4, token: '' }, '')).toBe(4);
-  expect(effectivePage({ page: 4, token: '' }, 'pro')).toBe(1);
+import { syncPageState, highlightPage } from './sort';
+it('syncPageState keeps the page while the token is unchanged, else page 1', () => {
+  const s = { page: 4, token: '' };
+  expect(syncPageState(s, '')).toBe(s); // same object: no state update
+  expect(syncPageState(s, 'pro')).toEqual({ page: 1, token: 'pro' });
+});
+it('returning to an earlier filter value does not restore its old page', () => {
+  let s = { page: 3, token: 'a' };
+  s = syncPageState(s, 'ab');
+  s = syncPageState(s, 'a');
+  expect(s).toEqual({ page: 1, token: 'a' });
 });
 it('highlightPage', () => {
   expect(highlightPage(26, 8)).toBe(4); expect(highlightPage(0, 8)).toBe(1); expect(highlightPage(-1, 8)).toBe(1);
