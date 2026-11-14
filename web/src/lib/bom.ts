@@ -19,7 +19,7 @@ export function findNode(root: BomNode, path: string[]): { node: BomNode; chain:
 export function levelTrail(chain: BomNode[], line: string): Crumb[] {
   const root = chain[0];
   return [
-    { label: 'Overview', to: '/' },
+    { label: 'Product costs', to: '/' },
     { label: line, to: `/?line=${encodeURIComponent(line)}` },
     ...chain.map((n, i) => ({
       label: n.name,

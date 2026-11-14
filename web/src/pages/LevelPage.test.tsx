@@ -12,7 +12,8 @@ it('bike level: /products/969 (section 10)', () => {
   const h = html([]);
   expect(h).toMatch(/<h1[^>]*>Touring-1000 Blue, 60<\/h1>/);
   expect(h).toContain('1,116 units built · 48 purchased parts · 44 vendors · April 2022 to September 2025');
-  for (const s of ['$854.82', '$814.12', '+$40.71', '$30.01', '+5.0% · $45.4K total', 'per unit · $33.5K total']) expect(h).toContain(s);
+  for (const s of ['Actual cost per bike', '$854.82', 'vs $814.12 standard', 'Variance per bike', '+$40.71', '+5.0% above standard',
+    'Total variance', '+$45.4K', 'across 1,116 bikes', 'From standard to actual cost, per bike', 'Axis starts at $730.00']) expect(h).toContain(s);
   expect(h).toContain('Assemblies and parts'); expect(h).toContain('Show all 14 components');
   expect(h).toContain('Vendors for this bike');
 });
@@ -35,7 +36,7 @@ it('assembly level: /products/969/821', () => {
   const h = html(['821']);
   expect(h).toMatch(/<h1[^>]*>Touring Front Wheel<\/h1>/);
   expect(h).toContain('Made in-house · 8 purchased parts · 1 per bike');
-  for (const s of ['$124.16', '+$5.91', '$12.36']) expect(h).toContain(s);
+  for (const s of ['$124.16', '+$5.91', 'Axis starts at $100.00']) expect(h).toContain(s);
   expect(h).toContain('<span aria-current="page">Touring Front Wheel</span>');
   expect(h).toContain('href="/products/969"'); expect(h).toContain('Vendors for this assembly');
   expect(h).toContain('Spend on these parts across all products');
@@ -48,10 +49,11 @@ it('bad node path', () => {
   expect(h).toMatch(/<h1[^>]*>Assembly not found<\/h1>/); expect(h).toContain('href="/products/969"');
 });
 
-it('insight banner on 969, after the vendor table', () => {
+it('insight banner on 969, before the collapsed vendor section (E6)', () => {
   const h = html([]);
   expect(h).toContain('Harmonizing it saves $346.5K across 22 bikes.'); expect(h).toContain('>Open Touring Rim<');
-  expect(h.indexOf('Vendors for this bike')).toBeLessThan(h.indexOf('Harmonizing'));
+  expect(h.indexOf('Harmonizing')).toBeLessThan(h.indexOf('<details'));
+  expect(h).toMatch(/<details[^>]*>\s*<summary[^>]*>Vendors for this bike · 44<\/summary>/);
 });
 it('no banner on the seat assembly', () => { expect(html(['522'])).not.toContain('Harmonizing'); });
 const body = (productId: string, bomState: object) => r(<MemoryRouter><LevelPageBody core={core} productId={productId} nodePath={[]} bom={bomState} /></MemoryRouter>);

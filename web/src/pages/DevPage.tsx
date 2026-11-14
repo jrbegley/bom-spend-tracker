@@ -1,6 +1,5 @@
 // Component test page (BUILD_SPEC.md section 9, phase 1: "SortableTable with a quick test page").
 import { SortableTable, type Column } from '../components/SortableTable';
-import { CostSummary } from '../components/CostSummary';
 import { VendorTable } from '../components/VendorTable';
 import { useCoreData, useJson, type BomNode, type Product, type Vendor } from '../lib/data';
 import { money, pct, unitMoney, vsCheapest } from '../lib/format';
@@ -42,7 +41,6 @@ export default function DevPage() {
       {bom.data && (
         <>
           <h2 className="text-[15px] font-semibold">{bom.data.name}</h2>
-          <CostSummary node={bom.data} units={bom.data.units ?? 0} />
           <VendorTable mode="parts" partIds={bom.data.leafParts.map((l) => l.partId)} parts={parts} title="Vendors for this bike" />
         </>
       )}

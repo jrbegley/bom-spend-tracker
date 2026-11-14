@@ -1,14 +1,16 @@
 import { Link, Navigate, useParams } from 'react-router-dom';
-import { Breadcrumb } from '../components/Breadcrumb';
 import { ComponentsTable } from '../components/ComponentsTable';
-import { CostSummary } from '../components/CostSummary';
+import { BlendedBadge } from '../components/BlendedBadge';
+import { CostBridge } from '../components/CostBridge';
+import { PageHeader, Stat, StatRow } from '../components/primitives';
 import { InsightBanner } from '../components/InsightBanner';
 import { StatusMessage } from '../components/StatusMessage';
 import { VendorTable } from '../components/VendorTable';
 import { boughtRedirect, findNode, levelMeta, levelTrail } from '../lib/bom';
 import { useCoreData, useJson, type BomNode, type CoreData, type JsonState } from '../lib/data';
-import { periodLabel } from '../lib/format';
+import { count, money, pctSigned, periodLabel, ppvUnit, unitMoney } from '../lib/format';
 import { buildInsight } from '../lib/insight';
+import { vendorsForParts } from '../lib/vendorsForParts';
 
 const link = 'text-primary hover:text-primary/80';
 
@@ -28,18 +30,28 @@ export function LevelView({ core, bom, path }: { core: CoreData; bom: BomNode; p
 
   const period = periodLabel(core.summary.periodStart, core.summary.periodEnd);
   const insight = buildInsight(chain, core);
+  const units = bom.units ?? 0;
+  const partIds = node.leafParts.map((l) => l.partId);
+  const vendorCount = vendorsForParts(partIds, core.parts).length;
+  const vendorTitle = chain.length === 1 ? 'Vendors for this bike' : 'Vendors for this assembly';
   return (
-    <div className="space-y-6">
-      <div>
-        <Breadcrumb items={levelTrail(chain, bom.line ?? '')} />
-        <h1 className="text-[24px] font-semibold">{node.name}</h1>
-        <p className="mt-1 text-muted-foreground">{levelMeta(chain, core.parts, period)}</p>
-      </div>
-      <CostSummary node={node} units={bom.units ?? 0} />
+    <div className="space-y-8">
+      <PageHeader crumbs={levelTrail(chain, bom.line ?? '')} title={node.name} meta={levelMeta(chain, core.parts, period)} />
+      <StatRow>
+        <Stat label="Actual cost per bike" extra={<BlendedBadge />} value={unitMoney(node.costUnit)} caption={`vs ${unitMoney(node.stdUnit)} standard`} />
+        <Stat label="Variance per bike" tone="ppv" value={ppvUnit(node.ppvUnit)}
+          caption={`${node.stdUnit ? pctSigned(node.ppvUnit / node.stdUnit) : '0.0%'} above standard`} />
+        <Stat label="Total variance" value={`${node.ppvUnit < 0 ? '-' : '+'}${money(Math.abs(node.ppvUnit) * units)}`} caption={`across ${count(units)} bikes`} />
+      </StatRow>
+      <CostBridge node={node} />
       <ComponentsTable chain={chain} parts={core.parts} />
-      <VendorTable mode="parts" partIds={node.leafParts.map((l) => l.partId)} parts={core.parts}
-        title={chain.length === 1 ? 'Vendors for this bike' : 'Vendors for this assembly'} />
       {insight && <InsightBanner insight={insight} trail={levelTrail(chain, bom.line ?? '')} />}
+      <details className="group rounded-2xl border border-border bg-card shadow-card">
+        <summary className="cursor-pointer list-none px-6 py-4 text-[15px] font-semibold">{`${vendorTitle} · ${vendorCount}`}</summary>
+        <div className="border-t border-hairline">
+          <VendorTable mode="parts" partIds={partIds} parts={core.parts} title={vendorTitle} />
+        </div>
+      </details>
     </div>
   );
 }
@@ -52,7 +64,7 @@ export function LevelPageBody({ core, productId, nodePath, bom }: BodyProps) {
     return (
       <>
         <h1 className="text-[24px] font-semibold">Product not found</h1>
-        <Link to="/" className={link}>Back to Overview</Link>
+        <Link to="/" className={link}>Back to Product costs</Link>
       </>
     );
   }
@@ -61,7 +73,7 @@ export function LevelPageBody({ core, productId, nodePath, bom }: BodyProps) {
       <>
         <h1 className="text-[24px] font-semibold">Could not load this product</h1>
         <StatusMessage kind="error">{bom.error.message}</StatusMessage>
-        <Link to="/" className={link}>Back to Overview</Link>
+        <Link to="/" className={link}>Back to Product costs</Link>
       </>
     );
   }

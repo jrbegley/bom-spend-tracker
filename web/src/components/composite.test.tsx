@@ -1,6 +1,6 @@
 import { it, expect } from 'vitest';
 import { renderToStaticMarkup as r } from 'react-dom/server';
-import { VendorTable } from './VendorTable'; import { CostSummary } from './CostSummary';
+import { VendorTable } from './VendorTable';
 import { readData } from '../test/realData';
 import type { Part, Vendor } from '../lib/data';
 
@@ -27,9 +27,4 @@ it('parts mode: Touring Rim vendors', () => {
   expect(prem).toContain('+47.4%'); expect(prem).toContain('bg-caution-soft'); expect(prem).toContain('1 part: Touring Rim');
   expect(h).toContain('Lowest');
   expect(h).not.toContain('>Product lines<');
-});
-it('CostSummary for Touring-1000 Blue, 60', () => {
-  const h = r(<CostSummary node={{ costUnit: 854.8243, stdUnit: 814.1184, ppvUnit: 40.7059, saveUnit: 30.0055 }} units={1116} />);
-  for (const s of ['Material cost per unit', '$854.82', 'Standard per unit', '$814.12', 'PPV per unit', '+$40.71',
-                   '+5.0% · $45.4K total', 'Savings at best price', '$30.01', 'per unit · $33.5K total', '>Blended<']) expect(h).toContain(s);
 });
