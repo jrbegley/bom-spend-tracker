@@ -21,14 +21,13 @@ export function WhereUsed({ part, products }: { part: Part; products: Product[] 
     { key: 'allocatedSpend', label: 'Allocated spend', numeric: true, value: (r) => r.allocatedSpend, render: (r) => money(r.allocatedSpend) },
   ];
   return (
-    <section className="rounded-xl border border-border bg-card">
-      <h2 className="px-4 pt-4 pb-2 text-[15px] font-semibold">Where used</h2>
+    <>
       {rows.length === 0 ? (
-        <p className="px-4 pb-4 text-muted-foreground">Not used on any bike's BOM</p>
+        <p className="px-6 py-4 text-muted-foreground">Not used on any bike's BOM</p>
       ) : (
         <SortableTable columns={columns} rows={rows} rowKey={(r) => r.productId}
           defaultSort={{ key: 'allocatedSpend', dir: 'desc' }} collapsedCount={10} itemLabel="bikes" caption={`Bikes that use ${part.name}`} />
       )}
-    </section>
+    </>
   );
 }

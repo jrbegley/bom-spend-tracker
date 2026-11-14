@@ -23,3 +23,8 @@ export function partMeta(part: Part): string {
   const used = part.onBom ? `used in ${part.whereUsed.length} bikes` : 'Not on a BOM';
   return `${vendors} · ${used} · Bought`;
 }
+
+/** True when moving volume between vendors would save money: more than one vendor and a saving above $0.50. */
+export function hasSaving(part: Part): boolean {
+  return part.vendorCount > 1 && part.save > 0.5;
+}

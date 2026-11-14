@@ -1,5 +1,5 @@
 import { it, expect } from 'vitest';
-import { partRejectRate, vendorVsCheapest, simulatedSavings, partMeta } from './partStats';
+import { hasSaving, partRejectRate, vendorVsCheapest, simulatedSavings, partMeta } from './partStats';
 import { readData } from '../test/realData';
 import { money, pct } from './format';
 import type { Part } from './data';
@@ -22,4 +22,8 @@ it('partMeta', () => {
 });
 it('reject rate with nothing received is 0', () => {
   expect(partRejectRate({ ...parts['513'], vendors: parts['513'].vendors.map(v => ({ ...v, receivedQty: 0, rejectedQty: 0 })) })).toBe(0);
+});
+
+it('hasSaving', () => {
+  expect(hasSaving(parts['513'])).toBe(true); expect(hasSaving(parts['1'])).toBe(false); expect(hasSaving(parts['908'])).toBe(false);
 });
