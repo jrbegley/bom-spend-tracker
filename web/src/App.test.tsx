@@ -14,3 +14,8 @@ it('level page shows its loading state until the BOM file arrives', () => {
   expect(at('/products/969')).toContain('Loading…');
   expect(at('/products/969/821')).toContain('Loading…');
 });
+
+it('unknown product ids render Product not found without waiting on a fetch', () => {
+  expect(at('/products/zzz')).toMatch(/<h1[^>]*>Product not found<\/h1>/);
+  expect(at('/products/..%2Fsummary')).toMatch(/<h1[^>]*>Product not found<\/h1>/);
+});

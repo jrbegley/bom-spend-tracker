@@ -39,3 +39,11 @@ it('levelMeta uses singular "part" for one purchased part', () => {
   const bike = { ...bom, leafParts: [{ partId: '1', qtyPerUnit: 1 }] }; // Adjustable Race: one vendor
   expect(levelMeta([bike], parts, P)).toBe('1,116 units built · 1 purchased part · 1 vendor · April 2022 to September 2025');
 });
+
+import { boughtRedirect } from './bom';
+it('boughtRedirect keeps the level trail', () => {
+  expect(boughtRedirect(findNode(bom, ['821', '513'])!.chain, 'Touring')).toEqual({ to: '/parts/513', state: { trail: [
+    { label: 'Overview', to: '/' }, { label: 'Touring', to: '/?line=Touring' },
+    { label: 'Touring-1000 Blue, 60', to: '/products/969' }, { label: 'Touring Front Wheel', to: '/products/969/821' }] } });
+  expect(boughtRedirect(findNode(bom, ['821'])!.chain, 'Touring')).toBeNull();
+});

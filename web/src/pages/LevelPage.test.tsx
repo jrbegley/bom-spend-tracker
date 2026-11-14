@@ -1,7 +1,7 @@
 import { it, expect } from 'vitest';
 import { renderToStaticMarkup as r } from 'react-dom/server';
 import { MemoryRouter } from 'react-router-dom';
-import { LevelView } from './LevelPage';
+import { LevelView, LevelPageBody } from './LevelPage';
 import { loadCore, readData } from '../test/realData';
 import type { BomNode } from '../lib/data';
 const core = loadCore(); const bom = readData<BomNode>('bom/969.json');
@@ -18,7 +18,7 @@ it('bike level: /products/969 (section 10)', () => {
 });
 it('both wheels are highlighted (tie on largest savings)', () => {
   const h = html([]);
-  expect(h.match(/bg-savings-tint/g)).toHaveLength(2);
+  expect(h.match(/<tr[^>]*bg-savings-tint/g)).toHaveLength(2);
   for (const w of ['Touring Front Wheel', 'Touring Rear Wheel']) {
     const row = rowOf(h, w);
     expect(row).toContain('bg-savings-tint'); expect(row).toMatch(/font-semibold[^>]*>\$12\.36/);
@@ -46,4 +46,18 @@ it('assembly level: /products/969/821', () => {
 it('bad node path', () => {
   const h = html(['999']);
   expect(h).toMatch(/<h1[^>]*>Assembly not found<\/h1>/); expect(h).toContain('href="/products/969"');
+});
+
+it('insight banner on 969, after the vendor table', () => {
+  const h = html([]);
+  expect(h).toContain('Harmonizing it saves $346.5K across 22 bikes.'); expect(h).toContain('>Open Touring Rim<');
+  expect(h.indexOf('Vendors for this bike')).toBeLessThan(h.indexOf('Harmonizing'));
+});
+it('no banner on the seat assembly', () => { expect(html(['522'])).not.toContain('Harmonizing'); });
+const body = (productId: string, bomState: object) => r(<MemoryRouter><LevelPageBody core={core} productId={productId} nodePath={[]} bom={bomState} /></MemoryRouter>);
+it('LevelPageBody states', () => {
+  expect(body('zzz', { loading: true })).toMatch(/<h1[^>]*>Product not found<\/h1>/);
+  expect(body('969', { loading: false, error: new Error('Failed to load bom/969.json (500)') })).toContain('Could not load this product');
+  expect(body('969', { loading: true })).toContain('Loading…');
+  expect(body('969', { loading: false, data: bom })).toMatch(/<h1[^>]*>Touring-1000 Blue, 60<\/h1>/);
 });

@@ -64,7 +64,7 @@ export function _resetCacheForTests(): void {
   resolved.clear();
 }
 
-type JsonState<T> = { data?: T; loading: boolean; error?: Error };
+export type JsonState<T> = { data?: T; loading: boolean; error?: Error };
 export type StoredJson<T> = { path: string; data?: T; error?: Error };
 
 /**

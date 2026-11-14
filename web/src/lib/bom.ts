@@ -59,3 +59,10 @@ export function childHref(chain: BomNode[], child: BomNode): string {
   if (!child.made) return `/parts/${child.id}`;
   return `/products/${[chain[0].id, ...chain.slice(1).map((c) => c.id), child.id].join('/')}`;
 }
+
+/** Where a URL that ends on a bought part should go: the part page, keeping the level trail. Null otherwise. */
+export function boughtRedirect(chain: BomNode[], line: string): { to: string; state: { trail: Crumb[] } } | null {
+  const node = chain[chain.length - 1];
+  if (node.made || chain.length === 1) return null;
+  return { to: `/parts/${node.id}`, state: { trail: levelTrail(chain.slice(0, -1), line) } };
+}
