@@ -1,5 +1,5 @@
 import { it, expect } from 'vitest';
-import { searchAll } from './search';
+import { searchAll, searchParts } from './search';
 import { loadCore } from '../test/realData';
 const core = loadCore();
 const names = (q: string) => searchAll(core, q).map(h => h.name);
@@ -29,4 +29,11 @@ it('nextActive: arrows wrap while open; opening starts at the first (down) or la
   expect(nextActive(2, 'down', 5, false)).toBe(0);
   expect(nextActive(0, 'up', 5, false)).toBe(4);
   expect(nextActive(0, 'down', 0, true)).toBe(0);
+});
+
+it('searchParts: parts only, 2+ characters, prefix first then name, capped at 6', () => {
+  expect(searchParts(core.parts, 'c')).toEqual([]);
+  expect(searchParts(core.parts, ' crank ').map(p => p.name)).toEqual(['HL Crankarm', 'LL Crankarm', 'ML Crankarm']);
+  expect(searchParts(core.parts, 'touring rim')[0]).toEqual({ id: '513', name: 'Touring Rim' });
+  expect(searchParts(core.parts, 'zzzz')).toEqual([]); expect(searchParts(core.parts, 'nut')).toHaveLength(6);
 });

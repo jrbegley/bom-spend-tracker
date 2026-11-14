@@ -1,5 +1,5 @@
 // Global search across products, parts and vendors (BUILD_SPEC.md section 6.2).
-import type { CoreData } from './data';
+import type { CoreData, Part } from './data';
 
 export type SearchHit = { type: 'product' | 'part' | 'vendor'; id: string; name: string; href: string };
 
@@ -35,4 +35,16 @@ export function searchAll(core: CoreData, query: string, limit = 8): SearchHit[]
       return pa - pb || TYPE_ORDER[a.type] - TYPE_ORDER[b.type] || a.name.localeCompare(b.name);
     })
     .slice(0, limit);
+}
+
+/** Parts only, for picking the right part in Match review: 2+ characters, prefix matches first, then by name. */
+export function searchParts(parts: Record<string, Part>, query: string, limit = 6): { id: string; name: string }[] {
+  const q = query.trim().toLowerCase();
+  if (q.length < 2) return [];
+  return Object.values(parts)
+    .filter((p) => p.name.toLowerCase().includes(q))
+    .map((p) => ({ id: p.id, name: p.name, prefix: p.name.toLowerCase().startsWith(q) ? 0 : 1 }))
+    .sort((a, b) => a.prefix - b.prefix || a.name.localeCompare(b.name))
+    .slice(0, limit)
+    .map(({ id, name }) => ({ id, name }));
 }

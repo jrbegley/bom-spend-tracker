@@ -1,7 +1,7 @@
 import { it, expect } from 'vitest';
 import { readData } from '../test/realData';
 import type { Part, Unmapped } from './data';
-import { decide, reviewProgress, NOT_A_BOM_PART, type MatchExample } from './matchReview';
+import { band, decide, feedbackSummary, resolve, reviewProgress, NOT_A_BOM_PART, type Decisions, type MatchExample } from './matchReview';
 
 const M = readData<MatchExample[]>('match_examples.json');
 const P = readData<Record<string, Part>>('parts.json');
@@ -50,17 +50,45 @@ it('the first sample is the Touring Rim line from spec 7.7', () => {
   expect(M[0].candidates.map((c) => c.partId)).toEqual(['513', '512', '509']);
 });
 
+const byId = Object.fromEntries(M.map((e) => [e.id, e]));
+const top = { choice: { kind: 'candidate' as const, rank: 1 }, reasons: [] };
+const manual = { choice: { kind: 'manual' as const }, reasons: [] };
+
 it('decide sets, overwrites and clears one id without touching others', () => {
-  const a = decide({}, 'm1', 'accepted');
-  expect(a).toEqual({ m1: 'accepted' });
-  const b = decide(a, 'm2', 'rejected');
-  expect(b).toEqual({ m1: 'accepted', m2: 'rejected' });
-  expect(decide(b, 'm1', 'rejected')).toEqual({ m1: 'rejected', m2: 'rejected' });
-  expect(decide(b, 'm1', null)).toEqual({ m2: 'rejected' });
-  expect(a).toEqual({ m1: 'accepted' }); // not mutated
+  const a = decide({}, 'm1', top);
+  expect(a).toEqual({ m1: top });
+  const b = decide(a, 'm2', manual);
+  expect(b).toEqual({ m1: top, m2: manual });
+  expect(decide(b, 'm1', manual)).toEqual({ m1: manual, m2: manual });
+  expect(decide(b, 'm1', null)).toEqual({ m2: manual });
+  expect(a).toEqual({ m1: top }); // not mutated
 });
 
 it('reviewProgress counts decisions for known lines only', () => {
   expect(reviewProgress(M, {})).toBe('0 of 6 reviewed');
-  expect(reviewProgress(M, { [M[0].id]: 'accepted', [M[1].id]: 'rejected', stale: 'accepted' })).toBe('2 of 6 reviewed');
+  expect(reviewProgress(M, { [M[0].id]: top, [M[1].id]: manual, stale: top })).toBe('2 of 6 reviewed');
+});
+
+it('resolve: confirmed, corrected or manual', () => {
+  expect(resolve(byId.m1, { kind: 'candidate', rank: 1 })).toEqual({ outcome: 'confirmed', partName: 'Touring Rim' });
+  expect(resolve(byId.m5, { kind: 'candidate', rank: 2 })).toEqual({ outcome: 'corrected', partName: 'ML Crankarm' });
+  expect(resolve(byId.m5, { kind: 'part', partId: '319', partName: 'HL Crankarm' })).toEqual({ outcome: 'confirmed', partName: 'HL Crankarm' });
+  expect(resolve(byId.m5, { kind: 'part', partId: '320', partName: 'Chainring Bolts' })).toEqual({ outcome: 'corrected', partName: 'Chainring Bolts' });
+  expect(resolve(byId.m6, { kind: 'not_bom' })).toEqual({ outcome: 'confirmed', partName: NOT_A_BOM_PART });
+  expect(resolve(byId.m1, { kind: 'not_bom' })).toEqual({ outcome: 'corrected', partName: NOT_A_BOM_PART });
+  expect(resolve(byId.m2, { kind: 'manual' })).toEqual({ outcome: 'manual', partName: null });
+});
+
+it('band', () => { expect([band(0.91), band(0.79), band(0.6), band(0.48)]).toEqual(['High', 'Medium', 'Medium', 'Low']); });
+
+it('feedbackSummary: outcomes, override rate by band, reasons; undo clears its reasons', () => {
+  let d: Decisions = {};
+  d = decide(d, 'm1', top);
+  d = decide(d, 'm5', { choice: { kind: 'candidate', rank: 2 }, reasons: ['Wrong size or variant'] });
+  d = decide(d, 'm2', { choice: { kind: 'manual' }, reasons: ['Unit of measure mismatch', 'Wrong size or variant'] });
+  const s = feedbackSummary(M, d);
+  expect(s).toMatchObject({ confirmed: 1, corrected: 1, manual: 1 });
+  expect(s.bands).toEqual([{ band: 'High', reviewed: 2, overridden: 1 }, { band: 'Medium', reviewed: 0, overridden: 0 }, { band: 'Low', reviewed: 1, overridden: 1 }]);
+  expect(s.reasons).toEqual([{ reason: 'Wrong size or variant', count: 2 }, { reason: 'Unit of measure mismatch', count: 1 }]);
+  expect(feedbackSummary(M, decide(d, 'm5', null)).reasons).toEqual([{ reason: 'Unit of measure mismatch', count: 1 }, { reason: 'Wrong size or variant', count: 1 }]);
 });
