@@ -39,3 +39,9 @@ it('rowClassName and numeric alignment', () => {
   expect(h).toMatch(/<td[^>]*text-right[^>]*>190<\/td>/);
 });
 it('scroll wrapper and caption', () => { const h = html(); expect(h).toContain('overflow-x-auto'); expect(h).toContain('<caption class="sr-only">Test</caption>'); });
+
+it('renders headerExtra inside the header button', () => {
+  const h = renderToStaticMarkup(<SortableTable columns={[cols[0], { ...cols[1], headerExtra: <i>X</i> }]} rows={rows}
+    rowKey={r => r.id} defaultSort={{ key: 'ppv', dir: 'desc' }} caption="T" />);
+  expect(h).toMatch(/>PPV<span aria-hidden="true"[^>]*>↓<\/span><i>X<\/i><\/button>/);
+});

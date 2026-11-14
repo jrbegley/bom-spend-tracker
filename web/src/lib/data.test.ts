@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { fetchJson, _resetCacheForTests, type Product, type Part, type BomNode, type Summary } from './data';
+import { fetchJson, deriveJsonState, _resetCacheForTests, type Product, type Part, type BomNode, type Summary } from './data';
 import { readData } from '../test/realData';
 import { readdirSync } from 'node:fs';
 
@@ -37,4 +37,21 @@ describe('pipeline output matches the TS contracts', () => {
     const files = readdirSync(new URL('../../public/data/bom/', import.meta.url));
     expect(files).toHaveLength(readData<Summary>('summary.json').bikeCount);
   });
+});
+
+describe('deriveJsonState', () => {
+  beforeEach(() => _resetCacheForTests());
+  it('never returns the previous path\'s data', () => {
+    expect(deriveJsonState('bom/970.json', { path: 'bom/969.json', data: { id: '969' } })).toEqual({ loading: true });
+  });
+  it('returns stored data and errors for the same path', () => {
+    expect(deriveJsonState('a.json', { path: 'a.json', data: 1 })).toEqual({ data: 1, loading: false });
+    const e = new Error('x'); expect(deriveJsonState('a.json', { path: 'a.json', error: e })).toEqual({ loading: false, error: e });
+  });
+  it('serves an already-fetched file immediately', async () => {
+    vi.stubGlobal('fetch', vi.fn(async () => new Response('{"id":"970"}')));
+    await fetchJson('bom/970.json');
+    expect(deriveJsonState('bom/970.json', { path: 'bom/969.json', data: { id: '969' } })).toEqual({ data: { id: '970' }, loading: false });
+  });
+  it('null path is idle', () => expect(deriveJsonState(null, null)).toEqual({ loading: false }));
 });

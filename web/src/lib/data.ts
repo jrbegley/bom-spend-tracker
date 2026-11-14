@@ -65,28 +65,36 @@ export function _resetCacheForTests(): void {
 }
 
 type JsonState<T> = { data?: T; loading: boolean; error?: Error };
+export type StoredJson<T> = { path: string; data?: T; error?: Error };
+
+/**
+ * What useJson reports for `path` given whatever was last stored. A stored result for a
+ * different path is never returned, so moving between bikes cannot show the old bike.
+ */
+export function deriveJsonState<T>(path: string | null, stored: StoredJson<T> | null): JsonState<T> {
+  if (path === null) return { loading: false };
+  if (stored && stored.path === path) {
+    return stored.error ? { loading: false, error: stored.error } : { data: stored.data, loading: false };
+  }
+  if (resolved.has(path)) return { data: resolved.get(path) as T, loading: false };
+  return { loading: true };
+}
 
 /** Load one JSON file. A null path does nothing. */
 export function useJson<T>(path: string | null): JsonState<T> {
-  const initial = (): JsonState<T> =>
-    path === null ? { loading: false }
-      : resolved.has(path) ? { data: resolved.get(path) as T, loading: false }
-      : { loading: true };
-  const [state, setState] = useState<JsonState<T>>(initial);
+  const [stored, setStored] = useState<StoredJson<T> | null>(null);
 
   useEffect(() => {
-    if (path === null) { setState({ loading: false }); return; }
-    if (resolved.has(path)) { setState({ data: resolved.get(path) as T, loading: false }); return; }
+    if (path === null) return;
     let live = true;
-    setState({ loading: true });
     fetchJson<T>(path).then(
-      (data) => live && setState({ data, loading: false }),
-      (error: Error) => live && setState({ loading: false, error }),
+      (data) => live && setStored({ path, data }),
+      (error: Error) => live && setStored({ path, error }),
     );
     return () => { live = false; };
   }, [path]);
 
-  return state;
+  return deriveJsonState(path, stored);
 }
 
 export type CoreData = {

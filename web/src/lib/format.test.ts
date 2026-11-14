@@ -17,3 +17,9 @@ describe('pct', () => {
 it('vsCheapest', () => { expect(vsCheapest(0)).toBe('Lowest'); expect(vsCheapest(0.47375)).toBe('+47.4%'); });
 it('count', () => { expect(count(47107)).toBe('47,107'); expect(count(29470.0)).toBe('29,470'); });
 it('singleSource', () => { expect(singleSource(0)).toBe('None'); expect(singleSource(1)).toBe('1 part'); expect(singleSource(2)).toBe('2 parts'); });
+
+import { periodLabel } from './format';
+it('periodLabel', () => {
+  expect(periodLabel('2022-04-15', '2025-09-21')).toBe('April 2022 to September 2025');
+  expect(periodLabel('2022-04-01', '2025-01-01')).toBe('April 2022 to January 2025'); // no UTC shift into March/December
+});

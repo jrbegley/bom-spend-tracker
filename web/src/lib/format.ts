@@ -58,3 +58,11 @@ export function count(v: number): string {
 export function singleSource(n: number): string {
   return n === 0 ? 'None' : n === 1 ? '1 part' : `${n} parts`;
 }
+
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const monthYear = (iso: string) => `${MONTHS[Number(iso.slice(5, 7)) - 1]} ${iso.slice(0, 4)}`;
+
+/** "April 2022 to September 2025" from two ISO dates. Reads YYYY-MM directly: no Date, so no time-zone shift. */
+export function periodLabel(start: string, end: string): string {
+  return `${monthYear(start)} to ${monthYear(end)}`;
+}

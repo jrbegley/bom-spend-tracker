@@ -9,6 +9,7 @@ export type Column<T> = {
   value: (row: T) => number | string;   // used for sorting
   render?: (row: T) => ReactNode;       // cell content
   width?: string;
+  headerExtra?: ReactNode;              // rendered after the sort arrow, inside the header button
 };
 
 type Props<T> = {
@@ -22,6 +23,21 @@ type Props<T> = {
   caption: string;
   itemLabel?: string;
 };
+
+/** One sortable column header: <th scope="col"> with aria-sort and a button. */
+export function SortHeader<T>({ column: c, sort, onSort }: { column: Column<T>; sort: SortState; onSort: (c: Column<T>) => void }) {
+  const active = c.key === sort.key;
+  return (
+    <th
+      scope="col"
+      aria-sort={active ? (sort.dir === 'desc' ? 'descending' : 'ascending') : undefined}
+      style={c.width ? { width: c.width } : undefined}
+      className={`px-4 py-2.5 font-medium text-text-secondary whitespace-nowrap ${c.numeric ? 'text-right' : 'text-left'}`}
+    >
+      <button type="button" className="inline-flex items-center gap-1 hover:text-text" onClick={() => onSort(c)}>{c.label}<span aria-hidden="true" className={active ? 'text-text' : 'text-[#A1A1AA]'}>{active ? (sort.dir === 'desc' ? '↓' : '↑') : '↕'}</span>{c.headerExtra}</button>
+    </th>
+  );
+}
 
 export function SortableTable<T>({
   columns, rows, rowKey, defaultSort, pageSize, rowClassName, collapsedCount, caption, itemLabel = 'rows',
@@ -53,20 +69,9 @@ export function SortableTable<T>({
           <caption className="sr-only">{caption}</caption>
           <thead>
             <tr className="border-b border-border">
-              {columns.map((c) => {
-                const active = c.key === sort.key;
-                return (
-                  <th
-                    key={c.key}
-                    scope="col"
-                    aria-sort={active ? (sort.dir === 'desc' ? 'descending' : 'ascending') : undefined}
-                    style={c.width ? { width: c.width } : undefined}
-                    className={`px-4 py-2.5 font-medium text-text-secondary whitespace-nowrap ${c.numeric ? 'text-right' : 'text-left'}`}
-                  >
-                    <button type="button" className="inline-flex items-center gap-1 hover:text-text" onClick={() => onHeader(c)}>{c.label}<span aria-hidden="true" className={active ? 'text-text' : 'text-[#A1A1AA]'}>{active ? (sort.dir === 'desc' ? '↓' : '↑') : '↕'}</span></button>
-                  </th>
-                );
-              })}
+              {columns.map((c) => (
+                <SortHeader key={c.key} column={c} sort={sort} onSort={onHeader} />
+              ))}
             </tr>
           </thead>
           <tbody>

@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import { AppShell } from './components/AppShell';
 import { DataProvider } from './lib/data';
@@ -8,7 +9,9 @@ import PartDetail from './pages/PartDetail';
 import Opportunities from './pages/Opportunities';
 import Vendors from './pages/Vendors';
 import MatchReview from './pages/MatchReview';
-import DevPage from './pages/DevPage';
+
+// The component test page exists only in dev builds; production drops it entirely.
+const DevPage = import.meta.env.DEV ? lazy(() => import('./pages/DevPage')) : null;
 
 function NotFound() {
   return (
@@ -30,7 +33,7 @@ export function AppRoutes() {
         <Route path="/opportunities" element={<Opportunities />} />
         <Route path="/vendors" element={<Vendors />} />
         <Route path="/match-review" element={<MatchReview />} />
-        <Route path="/dev" element={<DevPage />} />
+        {DevPage && <Route path="/dev" element={<Suspense fallback={<p>Loading…</p>}><DevPage /></Suspense>} />}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </AppShell>
