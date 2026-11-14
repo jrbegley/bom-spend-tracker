@@ -9,6 +9,7 @@ import LevelPage from './pages/LevelPage';
 import PartDetail from './pages/PartDetail';
 import Opportunities from './pages/Opportunities';
 import Vendors from './pages/Vendors';
+import VendorPage from './pages/VendorPage';
 import MatchReview from './pages/MatchReview';
 
 // The component test page exists only in dev builds; production drops it entirely.
@@ -50,6 +51,7 @@ export function AppRoutes() {
         <Route path="/savings" element={<Opportunities title="Savings" />} />
         <Route path="/opportunities" element={<Navigate to="/savings" replace />} />
         <Route path="/vendors" element={<Vendors />} />
+        <Route path="/vendors/:vendorId" element={<VendorPage />} />
         <Route path="/match-review" element={<MatchReview />} />
         {DevPage && <Route path="/dev" element={<Suspense fallback={<p>Loading…</p>}><DevPage /></Suspense>} />}
         <Route path="*" element={<NotFound />} />

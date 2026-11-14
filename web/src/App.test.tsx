@@ -7,7 +7,7 @@ import { loadCore } from './test/realData';
 const core = loadCore();
 const at = (url: string) => renderToStaticMarkup(<CoreDataProvider value={core}><MemoryRouter initialEntries={[url]}><AppRoutes /></MemoryRouter></CoreDataProvider>);
 
-it.each([['/', 'Product costs'], ['/products', 'Products'], ['/savings', 'Savings'],
+it.each([['/', 'Product costs'], ['/products', 'Products'], ['/savings', 'Savings'], ['/vendors/1678', 'Proseware, Inc.'],
          ['/vendors', 'Vendors'], ['/match-review', 'Match review'], ['/parts/513', 'Touring Rim'], ['/nope', 'Page not found']])
   ('%s renders h1 %s', (url, text) => expect(at(url)).toMatch(new RegExp(`<h1[^>]*>${text}`)));
 it('level page shows its loading state until the BOM file arrives', () => {
