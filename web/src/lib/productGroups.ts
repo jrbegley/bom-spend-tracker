@@ -38,3 +38,8 @@ export function filterByName<T extends { name: string }>(rows: T[], query: strin
   const q = query.trim().toLowerCase();
   return q ? rows.filter((r) => r.name.toLowerCase().includes(q)) : rows;
 }
+
+/** The `?line=` param when it names a real product line, otherwise null. */
+export function validLine(param: string | null, lines: string[]): string | null {
+  return param !== null && lines.includes(param) ? param : null;
+}

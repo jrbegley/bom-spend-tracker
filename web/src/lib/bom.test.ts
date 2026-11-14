@@ -13,7 +13,7 @@ it('findNode walks the path and rejects bad ids', () => {
 });
 it('levelTrail', () => {
   expect(levelTrail(findNode(bom, ['821'])!.chain, 'Touring')).toEqual([
-    { label: 'Overview', to: '/' }, { label: 'Touring', to: '/products' },
+    { label: 'Overview', to: '/' }, { label: 'Touring', to: '/?line=Touring' },
     { label: 'Touring-1000 Blue, 60', to: '/products/969' }, { label: 'Touring Front Wheel', to: '/products/969/821' }]);
 });
 it('levelMeta (spec 7.3 copy)', () => {

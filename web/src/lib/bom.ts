@@ -20,7 +20,7 @@ export function levelTrail(chain: BomNode[], line: string): Crumb[] {
   const root = chain[0];
   return [
     { label: 'Overview', to: '/' },
-    { label: line, to: '/products' },
+    { label: line, to: `/?line=${encodeURIComponent(line)}` },
     ...chain.map((n, i) => ({
       label: n.name,
       to: `/products/${[root.id, ...chain.slice(1, i + 1).map((c) => c.id)].join('/')}`,

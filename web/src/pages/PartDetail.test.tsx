@@ -14,7 +14,7 @@ it('Touring Rim header, KPIs, default breadcrumb', () => {
   expect(h).toContain('href="/"'); expect(h).toContain('<span>Parts</span>'); expect(h).toContain('<span aria-current="page">Touring Rim</span>');
 });
 it('breadcrumb keeps the level-page trail', () => {
-  const h = html('513', [{ label: 'Overview', to: '/' }, { label: 'Touring', to: '/products' },
+  const h = html('513', [{ label: 'Overview', to: '/' }, { label: 'Touring', to: '/?line=Touring' },
     { label: 'Touring-1000 Blue, 60', to: '/products/969' }, { label: 'Touring Front Wheel', to: '/products/969/821' }]);
   expect(h).toContain('href="/products/969/821"'); expect(h).not.toContain('<span>Parts</span>');
 });

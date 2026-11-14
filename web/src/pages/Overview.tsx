@@ -1,3 +1,4 @@
+import { useSearchParams } from 'react-router-dom';
 import { LinePpvCard } from '../components/LinePpvCard';
 import { MatchQueueCard } from '../components/MatchQueueCard';
 import { ProductTable } from '../components/ProductTable';
@@ -6,8 +7,11 @@ import { VendorTable } from '../components/VendorTable';
 import { KpiTile } from '../components/KpiTile';
 import { useCoreData, type CoreData } from '../lib/data';
 import { count, money, pct, periodLabel } from '../lib/format';
+import { validLine } from '../lib/productGroups';
 
-export function OverviewView({ core }: { core: CoreData }) {
+type Props = { core: CoreData; line?: string | null; onLineChange?: (l: string | null) => void };
+
+export function OverviewView({ core, line = null, onLineChange = () => {} }: Props) {
   const s = core.summary;
   return (
     <div className="space-y-6">
@@ -28,13 +32,19 @@ export function OverviewView({ core }: { core: CoreData }) {
           <KpiTile label="Savings at best price" value={money(s.bestPriceSavings)} tone="savings"
             caption="If each part came from its cheapest vendor" />
         </div>
-        <LinePpvCard lines={s.lines} />
+        <LinePpvCard lines={s.lines} selected={line} onSelect={onLineChange} />
       </div>
 
       <div className="grid grid-cols-[1.65fr_1fr] gap-4">
         <section className="rounded-card border border-border bg-surface">
           <h2 className="px-4 pt-4 pb-2 text-[15px] font-semibold">Products</h2>
-          <ProductTable products={core.products} collapsedPerGroup={2} />
+          {line && (
+            <p className="px-4 pb-2 text-text-secondary">
+              {`Showing ${line} · `}
+              <button type="button" className="text-accent hover:text-accent-hover" onClick={() => onLineChange(null)}>Clear</button>
+            </p>
+          )}
+          <ProductTable products={line ? core.products.filter((p) => p.line === line) : core.products} collapsedPerGroup={2} />
         </section>
         <div className="space-y-4">
           <TopOpportunities opportunities={core.opportunities} />
@@ -48,5 +58,14 @@ export function OverviewView({ core }: { core: CoreData }) {
 }
 
 export default function Overview() {
-  return <OverviewView core={useCoreData()} />;
+  const core = useCoreData();
+  const [params, setParams] = useSearchParams();
+  const line = validLine(params.get('line'), core.summary.lines.map((l) => l.line));
+  const onLineChange = (l: string | null) =>
+    setParams((prev) => {
+      const next = new URLSearchParams(prev);
+      if (l) next.set('line', l); else next.delete('line');
+      return next;
+    }, { replace: true });
+  return <OverviewView core={core} line={line} onLineChange={onLineChange} />;
 }

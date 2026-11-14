@@ -31,3 +31,9 @@ it('filterByName', () => {
   expect(filterByName(P, ' ROAD-650 ')).toHaveLength(12);
   expect(filterByName(P, 'zzz')).toHaveLength(0);
 });
+
+import { validLine } from './productGroups';
+it('validLine', () => {
+  expect(validLine('Touring', ['Road', 'Mountain', 'Touring'])).toBe('Touring');
+  expect(validLine('Foo', ['Road'])).toBeNull(); expect(validLine(null, ['Road'])).toBeNull();
+});

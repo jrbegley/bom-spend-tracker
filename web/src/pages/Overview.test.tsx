@@ -39,3 +39,15 @@ it('row 2: products, top opportunities, match queue', () => {
 it('row 3: vendor table', () => {
   expect(html()).toContain('1 to 8 of 86 vendors');
 });
+
+const htmlLine = (line: string | null) => r(<MemoryRouter><OverviewView core={loadCore()} line={line} onLineChange={() => {}} /></MemoryRouter>);
+it('line filter: Touring', () => {
+  const h = htmlLine('Touring');
+  expect(h).toContain('Showing Touring · '); expect(h).toMatch(/<button[^>]*>Clear<\/button>/);
+  expect(h).toContain('Touring · 22 bikes'); expect(h).not.toContain('Road · 43 bikes');
+  expect(h).toMatch(/<button[^>]*aria-pressed="true"[^>]*>(?:(?!<\/button>).)*Touring/);
+  expect(h).toMatch(/<button[^>]*aria-pressed="false"[^>]*>(?:(?!<\/button>).)*Road/);
+});
+it('no line: all groups, no Showing line', () => {
+  const h = htmlLine(null); expect(h).not.toContain('Showing '); expect(h).toContain('Road · 43 bikes');
+});
