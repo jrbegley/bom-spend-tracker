@@ -2,31 +2,52 @@
 
 Spendline (BOM to spend cube explorer). `BUILD_SPEC.md` is the binding spec. This file says where the build stands. Read the spec's sections 1, 2, 9 and 11 first, then this file.
 
-## Status (branch `main`, last commit "fix(table): highlighted row shows the highlight tint…")
+## Status (branch , not yet merged to )
 
 | Phase | State |
 |---|---|
-| 0 Data pipeline | Done. `python3 data/check_outputs.py web/public/data` → `ALL CHECKS PASSED` (65 checks against spec 4.5). |
+| 0 Data pipeline | Done.  →  (65 checks against spec 4.5). |
 | 1 Shell and shared components | Done. |
 | 2 Demo path (Overview, Level page, Part detail) | Done, walked through in Chrome. |
 | 3 Supporting screens (Opportunities, Products, Vendors, GlobalSearch, line filter, insight banner) | Done, walked through in Chrome. |
-| **4 Concept screen and polish** | **Not started. This is the next work.** |
+| 4 Concept screen and polish | Built on branch  (plan: ). **Not yet walked through in a browser.** |
 
-127 tests pass (`cd web && npm test`), build and `npx oxlint src` are clean.
+153 tests pass (Unknown command: "test"
 
-## Phase 4 scope (spec section 9 and 7.7)
 
-1. **Match review screen** (`web/src/pages/MatchReview.tsx` is currently a one-line stub): spec 7.7. Includes the "Illustrative" badge, the 6-card review queue with Accept/Reject (local state only), and the "How matching works" 5-step flow.
-2. **`web/public/data/match_examples.json`**: hand-written, not produced by the pipeline. Use real part names and vendors from `parts.json`; spec 7.7 has two sample entries and says what the other four need (one low-confidence line under 60%, one resale item from `unmapped.json` classified "Not a BOM part").
-3. **Empty and loading states**, **focus states**, and a **README** with the run commands and the method summary from spec 4.3.
-4. **Deferred minors from phases 2 and 3** (fold in where they touch the same files):
-   - No scroll reset on navigation: links low on a page (e.g. the insight banner's "Open Touring Rim") open the next page scrolled down. Add scroll-to-top on route change.
-   - Search: ArrowDown after Escape skips the first result (`GlobalSearch.tsx`; `active` stays 0 while closed).
-   - Accessibility markup: `aria-controls` points at a listbox that isn't rendered while closed; hovering an option makes two rows look selected; `LinePpvCard` has a `div` inside a `button`.
-   - Returning to an earlier filter value restores that filter's old page (`effectivePage` in `lib/sort.ts` only compares tokens).
-   - `?highlight=` stays in the URL, so clearing a no-match vendor filter re-runs the jump, scroll and tint.
-   - No automated test for the highlight scroll/fade effect or page restore (the project has no DOM test runner; adding jsdom is a new dev dependency, so ask first).
-5. Spec section 10 acceptance checklist: Match review "Illustrative" badge, no console errors, and all interactive elements reachable by keyboard have **not** been verified with real keystrokes yet (see Gotchas).
+Did you mean this?
+  npm test # Test a package
+To see a list of supported npm commands, run:
+  npm help), build and No files found to lint. Please check your paths and ignore patterns. are clean.
+
+## Phase 4: what was built
+
+- **Match review** (, ): Illustrative badge, 6-card queue with Accept/Reject/Undo in local state, progress line, "How matching works" 5-step flow.  is hand-written;  checks it against  and .
+- **States:**  (role status/alert) for loading and errors; empty tables show "Nothing to show". Focus uses the global 2px  ring (no element suppresses it).
+- **README** with run commands and the method summary.
+- **Deferred minors closed:** scroll-to-top on new paths (, not on Back/Forward); search ArrowDown after Escape opens on the first hit ();  only while the list shows; hover moves the active option; no  in  buttons;  replaces ; Vendors drops  on the first filter change.
+- Decisions D12 to D16 are in the plan (rejected cards collapse too, progress line, scroll rules, no jsdom, one-time highlight).
+
+## Still open
+
+1. **Browser walk-through of phase 4**: Match review (accept, reject, undo), scroll reset (banner's "Open Touring Rim"), search arrows after Escape, Vendors highlight then filter then clear.
+2. **Spec 10 by hand:** no console errors on every page; Tab through every page (keyboard is unverified, see Gotchas).
+3. **jsdom** for the highlight scroll/fade effect: still not added (a new dev dependency needs the team's OK).
+4. Merge  into  after the walk-through.
+5. On Windows, Unknown command: "ci"
+
+
+Did you mean this?
+  npm ci # Clean install a project
+To see a list of supported npm commands, run:
+  npm help fails because  lacks Windows-only optional packages (); Unknown command: "install"
+
+
+Did you mean one of these?
+  npm install # Install a package
+  npm uninstall # Remove a package
+To see a list of supported npm commands, run:
+  npm help works.
 
 ## Run it
 
