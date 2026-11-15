@@ -2,7 +2,8 @@ import { it, expect } from 'vitest';
 import { renderToStaticMarkup as r } from 'react-dom/server';
 import { MemoryRouter } from 'react-router-dom';
 import { PartView } from './PartDetail';
-import { loadCore } from '../test/realData';
+import { loadCore, readData } from '../test/realData';
+import { networkRows, type MemberPart, type NetworkPart } from '../lib/network';
 const core = loadCore();
 const html = (id: string, trail?: { label: string; to?: string }[]) => r(<MemoryRouter><PartView core={core} partId={id} trail={trail} /></MemoryRouter>);
 const rowOf = (h: string, name: string) => h.split('<tr').find(t => t.includes(name))!;
@@ -65,4 +66,21 @@ it('where used is collapsed behind a summary', () => {
 it('Touring Rim matches the pitch deck: $26.60, $39.20, 22 bikes, $346.5K', () => {
   const h = html('513');
   for (const s of ['$26.60', '$39.20', 'used in 22 bikes', '$346.5K']) expect(h).toContain(s);
+});
+
+const netRows = networkRows(readData<MemberPart[]>('network_member.json'), readData<NetworkPart[]>('network_synthetic.json'));
+const withNet = (id: string) => r(<MemoryRouter><PartView core={core} partId={id} networkRow={netRows.find((x) => x.member.id === id)} /></MemoryRouter>);
+
+it('a pool part that joins links to its row on the network page, marked illustrative', () => {
+  const h = withNet('320');
+  expect(h).toContain('In the buying network: joins the pool, saves'); expect(h).toContain('a year');
+  expect(h).toContain('href="/network?part=320"'); expect(h).toContain('Illustrative');
+});
+it('a pool part that stays says so', () => {
+  const stays = netRows.find((x) => !x.admitted)!;
+  const h = withNet(stays.member.id);
+  expect(h).toContain('In the buying network: stays with current vendor'); expect(h).toContain(`href="/network?part=${stays.member.id}"`);
+});
+it('a part outside the pool shows no network line', () => {
+  expect(withNet('513')).not.toContain('In the buying network');
 });

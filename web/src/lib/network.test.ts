@@ -1,7 +1,7 @@
 import { it, expect, describe } from 'vitest';
 import { readData } from '../test/realData';
 import {
-  effectiveCost, deliveredCost, admits, stayReason, yearlySaving, networkRows, networkSummary,
+  effectiveCost, deliveredCost, admits, stayReason, yearlySaving, networkRows, networkSummary, initialNetworkState,
   type MemberPart, type NetworkPart,
 } from './network';
 
@@ -93,4 +93,19 @@ describe('the admission test, branch by branch', () => {
     expect(stayReason(mem({ avgPrice: 40 }), net())).toBe("The pooled price doesn't beat what you pay now");
   });
   it('an admitted part has no reason', () => { expect(stayReason(mem(), net())).toBeNull(); });
+});
+
+describe('initialNetworkState (deep link from a Part page)', () => {
+  it('no highlight: all parts, collapsed, nothing expanded', () => {
+    expect(initialNetworkState(rows, null)).toEqual({ filter: 'all', showAll: false, expanded: new Set() });
+  });
+  it('a part in the top 10 is expanded without showing all', () => {
+    expect(initialNetworkState(rows, rows[3].member.id)).toEqual({ filter: 'all', showAll: false, expanded: new Set([rows[3].member.id]) });
+  });
+  it('a part past the top 10 opens the full list with that row expanded', () => {
+    expect(initialNetworkState(rows, rows[14].member.id)).toEqual({ filter: 'all', showAll: true, expanded: new Set([rows[14].member.id]) });
+  });
+  it('an unknown part id falls back to the default', () => {
+    expect(initialNetworkState(rows, 'nope')).toEqual({ filter: 'all', showAll: false, expanded: new Set() });
+  });
 });

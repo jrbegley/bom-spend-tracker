@@ -1,14 +1,16 @@
 import { Link, useLocation, useParams } from 'react-router-dom';
+import { useMemo } from 'react';
 import type { Crumb } from '../components/Breadcrumb';
-import { Disclosure, PageHeader, Stat, StatRow } from '../components/primitives';
+import { Chip, Disclosure, PageHeader, Stat, StatRow } from '../components/primitives';
 import { SavingsSimulator } from '../components/SavingsSimulator';
 import { VendorComparison } from '../components/VendorComparison';
 import { WhereUsed } from '../components/WhereUsed';
-import { useCoreData, type CoreData } from '../lib/data';
+import { useCoreData, useJson, type CoreData } from '../lib/data';
+import { networkRows, type MemberPart, type NetworkPart, type NetworkRow } from '../lib/network';
 import { money, pct } from '../lib/format';
 import { hasSaving, partMeta, partRejectRate } from '../lib/partStats';
 
-export function PartView({ core, partId, trail }: { core: CoreData; partId: string; trail?: Crumb[] }) {
+export function PartView({ core, partId, trail, networkRow }: { core: CoreData; partId: string; trail?: Crumb[]; networkRow?: NetworkRow }) {
   const part = core.parts[partId];
   if (!part) {
     return (
@@ -31,6 +33,16 @@ export function PartView({ core, partId, trail }: { core: CoreData; partId: stri
         <Stat label="Reject rate" value={pct(partRejectRate(part))} caption="rejected ÷ received, all vendors" />
       </StatRow>
       <VendorComparison part={part} />
+      {networkRow && (
+        <p className="text-[14px]">
+          <Link to={`/network?part=${partId}`} className="text-primary hover:text-primary/80">
+            {networkRow.admitted
+              ? `In the buying network: joins the pool, saves ${money(networkRow.saving)} a year`
+              : 'In the buying network: stays with current vendor'}
+          </Link>{' '}
+          <Chip tone="caution">Illustrative</Chip>
+        </p>
+      )}
       {saving && <SavingsSimulator save={part.save} bikeCount={part.whereUsed.length} onBom={part.onBom} />}
       <Disclosure title={`Bikes that use this part · ${part.whereUsed.length}`}>
         <WhereUsed part={part} products={core.products} />
@@ -43,6 +55,9 @@ export default function PartDetail() {
   const { partId = '' } = useParams();
   const state = useLocation().state as { trail?: unknown } | null;
   const trail = Array.isArray(state?.trail) ? (state!.trail as Crumb[]) : undefined;
+  const member = useJson<MemberPart[]>('network_member.json').data;
+  const synthetic = useJson<NetworkPart[]>('network_synthetic.json').data;
+  const networkRow = useMemo(() => (member && synthetic ? networkRows(member, synthetic).find((r) => r.member.id === partId) : undefined), [member, synthetic, partId]);
   // Keyed so slider and table state reset when moving from one part to another.
-  return <PartView key={partId} core={useCoreData()} partId={partId} trail={trail} />;
+  return <PartView key={partId} core={useCoreData()} partId={partId} trail={trail} networkRow={networkRow} />;
 }

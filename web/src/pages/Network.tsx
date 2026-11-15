@@ -4,12 +4,12 @@ import { Chip, Disclosure, FilterChips, Panel, Stat, StatRow } from '../componen
 import { StatusMessage } from '../components/StatusMessage';
 import { useJson } from '../lib/data';
 import { money, unitMoney } from '../lib/format';
-import { networkRows, networkSummary, type MemberPart, type NetworkPart, type NetworkRow } from '../lib/network';
+import { initialNetworkState, NETWORK_TOP, networkRows, networkSummary, type MemberPart, type NetworkPart, type NetworkRow } from '../lib/network';
 
 export type ResultFilter = 'all' | 'joins' | 'stays';
 export type NetworkTab = 'yours' | 'suppliers';
 const FILTERS: ResultFilter[] = ['all', 'joins', 'stays'];
-const TOP = 10;
+const TOP = NETWORK_TOP;
 const META = 'Concept. Your volumes come from the sample data; network figures are synthetic.';
 const PROMISE = 'Nobody pays more. A part moves into the pool only when it saves money.';
 
@@ -214,27 +214,36 @@ export function NetworkView({ rows, filter, onFilter, expanded, onToggle, showAl
   );
 }
 
-export default function Network() {
-  const member = useJson<MemberPart[]>('network_member.json');
-  const synthetic = useJson<NetworkPart[]>('network_synthetic.json');
+/** Holds the page state. Mounts once the data is loaded, so a deep link can set its initial state from the rows. */
+function NetworkLoaded({ rows }: { rows: NetworkRow[] }) {
   const [params, setParams] = useSearchParams();
-  const [expanded, setExpanded] = useState<ReadonlySet<string>>(new Set());
-  const [showAll, setShowAll] = useState(false);
+  const highlightId = params.get('part');
+  const init = initialNetworkState(rows, highlightId);
+  const [expanded, setExpanded] = useState<ReadonlySet<string>>(init.expanded);
+  const [showAll, setShowAll] = useState(init.showAll);
   const [joined, setJoined] = useState(false);
-  const error = member.error ?? synthetic.error;
-  if (error) return <StatusMessage kind="error">{`Could not load the network data: ${error.message}`}</StatusMessage>;
-  if (!member.data || !synthetic.data) return <StatusMessage kind="loading">Loading the buying network…</StatusMessage>;
-  const rows = networkRows(member.data, synthetic.data);
   const raw = params.get('result');
-  const filter = FILTERS.find((f) => f === raw) ?? 'all';
+  const deepLinked = highlightId !== null && rows.some((r) => r.member.id === highlightId);
+  const filter = deepLinked ? 'all' : FILTERS.find((f) => f === raw) ?? 'all';
   const toggle = (id: string) => setExpanded((s) => { const n = new Set(s); if (n.has(id)) n.delete(id); else n.add(id); return n; });
+  const update = (fn: (n: URLSearchParams) => void) => setParams((p) => { const n = new URLSearchParams(p); fn(n); return n; }, { replace: true });
   return (
-    <NetworkView rows={rows} filter={filter} highlightId={params.get('part')}
-      onFilter={(f) => setParams((p) => { const n = new URLSearchParams(p); if (f === 'all') n.delete('result'); else n.set('result', f); return n; }, { replace: true })}
+    <NetworkView rows={rows} filter={filter} highlightId={highlightId}
+      // Choosing a filter leaves the deep-linked state.
+      onFilter={(f) => update((n) => { n.delete('part'); if (f === 'all') n.delete('result'); else n.set('result', f); })}
       expanded={expanded} onToggle={toggle} showAll={showAll} onShowAll={() => setShowAll(true)}
       joined={joined} onJoin={() => setJoined(true)} onUndo={() => setJoined(false)}
       view={params.get('view') === 'suppliers' ? 'suppliers' : 'yours'} supplierId={params.get('supplier')}
-      onView={(v) => setParams((p) => { const n = new URLSearchParams(p); if (v === 'yours') n.delete('view'); else n.set('view', v); return n; }, { replace: true })}
-      onSupplierId={(id) => setParams((p) => { const n = new URLSearchParams(p); n.set('supplier', id); return n; }, { replace: true })} />
+      onView={(v) => update((n) => { if (v === 'yours') n.delete('view'); else n.set('view', v); })}
+      onSupplierId={(id) => update((n) => n.set('supplier', id))} />
   );
+}
+
+export default function Network() {
+  const member = useJson<MemberPart[]>('network_member.json');
+  const synthetic = useJson<NetworkPart[]>('network_synthetic.json');
+  const error = member.error ?? synthetic.error;
+  if (error) return <StatusMessage kind="error">{`Could not load the network data: ${error.message}`}</StatusMessage>;
+  if (!member.data || !synthetic.data) return <StatusMessage kind="loading">Loading the buying network…</StatusMessage>;
+  return <NetworkLoaded rows={networkRows(member.data, synthetic.data)} />;
 }

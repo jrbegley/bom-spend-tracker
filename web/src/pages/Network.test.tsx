@@ -2,7 +2,7 @@ import { it, expect } from 'vitest';
 import { renderToStaticMarkup as r } from 'react-dom/server';
 import { MemoryRouter } from 'react-router-dom';
 import { NetworkView, type ResultFilter } from './Network';
-import { networkRows, networkSummary, type MemberPart, type NetworkPart } from '../lib/network';
+import { initialNetworkState, networkRows, networkSummary, type MemberPart, type NetworkPart } from '../lib/network';
 import { money } from '../lib/format';
 import { readData } from '../test/realData';
 
@@ -121,4 +121,14 @@ it('supplier view part select lists only the on-BOM pool parts and honours the c
   expect([...h.matchAll(/<option/g)]).toHaveLength(rows.filter((x) => x.member.onBom).length);
   const chosen = rows.find((x) => x.member.id === '321')!;
   expect(h).toContain(`Demand from ${chosen.network.memberCount} manufacturers`);
+});
+
+it('a deep link past the top 10 opens the full list with that row expanded and highlighted', () => {
+  const target = rows[14].member.id;
+  const init = initialNetworkState(rows, target);
+  const h = r(<MemoryRouter><NetworkView rows={rows} filter={init.filter} onFilter={() => {}} expanded={init.expanded} onToggle={() => {}}
+    showAll={init.showAll} onShowAll={() => {}} joined={false} onJoin={() => {}} onUndo={() => {}} highlightId={target} /></MemoryRouter>);
+  const row = rowsOf(h).find((x) => x.startsWith(`"${target}"`))!;
+  expect(row).toContain('Pooled manufacturer price'); expect(row).toContain('bg-primary-soft');
+  expect(h).not.toContain('Show all');
 });

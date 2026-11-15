@@ -72,3 +72,13 @@ export function networkSummary(rows: NetworkRow[]): NetworkSummary {
     saving: rows.reduce((a, r) => a + r.saving, 0), joining, staying: rows.length - joining,
   };
 }
+
+/** Rows shown before "Show all". */
+export const NETWORK_TOP = 10;
+
+/** Page state for a deep link (/network?part=:id): the full list, that row expanded, and "Show all" open when it sits past the top rows. */
+export function initialNetworkState(rows: NetworkRow[], highlightId: string | null): { filter: 'all'; showAll: boolean; expanded: Set<string> } {
+  const i = highlightId === null ? -1 : rows.findIndex((r) => r.member.id === highlightId);
+  if (i < 0) return { filter: 'all', showAll: false, expanded: new Set() };
+  return { filter: 'all', showAll: i >= NETWORK_TOP, expanded: new Set([rows[i].member.id]) };
+}
