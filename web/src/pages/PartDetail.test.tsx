@@ -61,3 +61,8 @@ it('two vendors at the same price: no saving, no simulator (rev2 10.3)', () => {
 it('where used is collapsed behind a summary', () => {
   expect(html('513')).toMatch(/<details[^>]*>\s*<summary[^>]*><span>Bikes that use this part · 22<\/span><svg[^>]*group-open:rotate-180/);
 });
+
+it('Touring Rim matches the pitch deck: $26.60, $39.20, 22 bikes, $346.5K', () => {
+  const h = html('513');
+  for (const s of ['$26.60', '$39.20', 'used in 22 bikes', '$346.5K']) expect(h).toContain(s);
+});

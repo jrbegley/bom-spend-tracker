@@ -90,3 +90,8 @@ it('rows from a deep link highlight the requested part', () => {
     showAll onShowAll={() => {}} joined={false} onJoin={() => {}} onUndo={() => {}} highlightId="321" /></MemoryRouter>);
   expect(rowsOf(h).filter((x) => x.includes('bg-primary-soft'))).toHaveLength(1);
 });
+
+it('minimum order of 1 reads "1 canister", not "1 canisters"', () => {
+  const h = view({ expanded: ['320'] });
+  expect(h).toContain('1 canister (yours:'); expect(h).not.toMatch(/\b1 canisters/);
+});

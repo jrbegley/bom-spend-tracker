@@ -14,15 +14,16 @@ const PROMISE = 'Nobody pays more. A part moves into the pool only when it saves
 
 const qtyFmt = (v: number) => Math.round(v).toLocaleString('en-US');
 const units = (unit: string) => `${unit}s`;
+const nUnits = (n: number, unit: string) => `${n} ${n === 1 ? unit : units(unit)}`;
 
 function VolumeBars({ r }: { r: NetworkRow }) {
   const { member: m, network: n } = r;
   return (
-    <div className="min-w-[180px]" aria-label="Your volume against the network's">
+    <div className="w-[210px] shrink-0" aria-label="Your volume against the network's">
       <div className="h-1.5 w-full rounded-full bg-muted"><div className="h-1.5 rounded-full bg-primary" style={{ width: `${Math.max(1, 100 / n.multiple)}%` }} /></div>
       <div className="mt-1 h-1.5 w-full rounded-full bg-muted"><div className="h-1.5 rounded-full bg-foreground/40" style={{ width: '100%' }} /></div>
       <div className="mt-1 text-[12px] text-muted-foreground">
-        {`You ${qtyFmt(m.yearlyQty)} · network ${qtyFmt(n.networkYearlyQty)} ${units(m.unit)} a year`}
+        {`You ${qtyFmt(m.yearlyQty)} · network ${qtyFmt(n.networkYearlyQty)} ${units(m.unit)}/yr`}
       </div>
       <div className="text-[12px] font-medium text-foreground">{`Network buys ${n.multiple.toFixed(0)}× your volume`}</div>
     </div>
@@ -48,7 +49,7 @@ function Breakdown({ r }: { r: NetworkRow }) {
         {line('Freight at your order size', unitMoney(n.freightPerUnit))}
         {line('Network delivered cost', unitMoney(r.delivered), true)}
         {line('Your current effective cost (price + rejects)', unitMoney(r.effective))}
-        {line('Lead time and minimum order', `${n.leadTimeDays} days, ${n.minOrderQty} ${units(m.unit)} (yours: ${m.leadTimeDays} days, ${m.minOrderQty} ${units(m.unit)})`)}
+        {line('Lead time and minimum order', `${n.leadTimeDays} days, ${nUnits(n.minOrderQty, m.unit)} (yours: ${m.leadTimeDays} days, ${nUnits(m.minOrderQty, m.unit)})`)}
         {line('Rebate tiers', `Contract price now; quarterly rebate of ${t1.rebatePct * 100}% at ${qtyFmt(t1.minNetworkQty)} and ${t2.rebatePct * 100}% at ${qtyFmt(t2.minNetworkQty)} ${units(m.unit)} a year of network volume (synthetic)`)}
       </tbody>
     </table>
