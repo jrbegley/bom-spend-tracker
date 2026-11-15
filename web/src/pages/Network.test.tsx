@@ -1,0 +1,92 @@
+import { it, expect } from 'vitest';
+import { renderToStaticMarkup as r } from 'react-dom/server';
+import { MemoryRouter } from 'react-router-dom';
+import { NetworkView, type ResultFilter } from './Network';
+import { networkRows, networkSummary, type MemberPart, type NetworkPart } from '../lib/network';
+import { money } from '../lib/format';
+import { readData } from '../test/realData';
+
+const rows = networkRows(readData<MemberPart[]>('network_member.json'), readData<NetworkPart[]>('network_synthetic.json'));
+const summary = networkSummary(rows);
+const view = (o: { filter?: ResultFilter; expanded?: string[]; showAll?: boolean; joined?: boolean } = {}) => r(
+  <MemoryRouter>
+    <NetworkView rows={rows} filter={o.filter ?? 'all'} onFilter={() => {}} expanded={new Set(o.expanded ?? [])} onToggle={() => {}}
+      showAll={o.showAll ?? false} onShowAll={() => {}} joined={o.joined ?? false} onJoin={() => {}} onUndo={() => {}} />
+  </MemoryRouter>);
+const rowsOf = (h: string) => h.split('data-network-row=').slice(1);
+
+it('header: title, Illustrative chip, meta line, and a Join button when not joined', () => {
+  const h = view();
+  expect(h).toMatch(/<h1[^>]*>Buying network<\/h1>/);
+  expect(h).toMatch(/<span[^>]*>Illustrative<\/span>/);
+  expect(h).toContain('Concept. Your volumes come from the sample data; network figures are synthetic.');
+  expect(h).toMatch(/<button[^>]*>Join the pool<\/button>/);
+  expect(h).not.toContain('Opted in');
+});
+
+it('three headline numbers from the data', () => {
+  const h = view();
+  expect(h).toContain(money(summary.eligibleSpend));
+  expect(h).toContain('a year across 125 fasteners and bearings');
+  expect(h).toContain(`${summary.volumeMultiple.toFixed(0)}× yours`);
+  expect(h).toContain(money(summary.saving));
+  expect(h).toContain(`on ${summary.joining} of 125 parts that pass the test`);
+});
+
+it('default list: top 10 by spend, Chainring Bolts first with its unit, and Show all', () => {
+  const h = view();
+  expect(rowsOf(h)).toHaveLength(10);
+  const first = rowsOf(h)[0];
+  expect(first).toContain('href="/parts/320"'); expect(first).toContain('Chainring Bolts');
+  expect(first).toContain('per canister'); expect(first).toContain('Network buys');
+  expect(first).toContain('Joins the pool, saves');
+  expect(h).toContain('Show all 125 parts');
+});
+
+it('showAll renders every part and drops the Show all button', () => {
+  const h = view({ showAll: true });
+  expect(rowsOf(h)).toHaveLength(125); expect(h).not.toContain('Show all 125 parts');
+});
+
+it('Stays filter shows at least two failing rows, with the reason, and no joiners', () => {
+  const h = view({ filter: 'stays' });
+  expect(rowsOf(h).length).toBeGreaterThanOrEqual(2);
+  expect(h).not.toContain('Joins the pool, saves');
+  expect(h).toContain('Stays with current vendor');
+  expect(h).toContain('Freight at your order size outweighs the pooled price');
+  expect(h).not.toContain('Show all');
+});
+
+it('filter chips carry counts', () => {
+  const h = view();
+  expect(h).toMatch(/aria-pressed="true"[^>]*>All<span[^>]*>125</);
+  expect(h).toContain(`Joins the pool<span`); expect(h).toContain('Stays with current vendor<span');
+});
+
+it('an expanded row shows the delivered-cost breakdown marked synthetic', () => {
+  const h = view({ expanded: ['320'] });
+  const cb = rowsOf(h)[0];
+  for (const s of ['Pooled manufacturer price', 'Distributor fee', 'Freight at your order size', 'Network delivered cost',
+    'Your current effective cost (price + rejects)', 'Lead time and minimum order', 'Rebate tiers', '(synthetic)']) expect(cb).toContain(s);
+  expect(cb).toContain('aria-expanded="true"');
+  expect(rowsOf(h)[1]).toContain('aria-expanded="false"'); expect(rowsOf(h)[1]).not.toContain('Pooled manufacturer price');
+});
+
+it('joined: opt-in message and Undo, no Join button', () => {
+  const h = view({ joined: true });
+  expect(h).toContain('Opted in. Pooled volumes are shared; your prices and part numbers stay private.');
+  expect(h).toMatch(/<button[^>]*>Undo<\/button>/); expect(h).not.toMatch(/<button[^>]*>Join the pool<\/button>/);
+});
+
+it('promise line, privacy and method disclosures, and the not-saved footer', () => {
+  const h = view();
+  expect(h).toContain('Nobody pays more. A part moves into the pool only when it saves money.');
+  expect(h).toContain("What&#x27;s shared and what stays private"); expect(h).toContain('How these numbers are built');
+  expect(h).toContain('Nothing is saved. Joining is kept in this browser tab only.');
+});
+
+it('rows from a deep link highlight the requested part', () => {
+  const h = r(<MemoryRouter><NetworkView rows={rows} filter="all" onFilter={() => {}} expanded={new Set()} onToggle={() => {}}
+    showAll onShowAll={() => {}} joined={false} onJoin={() => {}} onUndo={() => {}} highlightId="321" /></MemoryRouter>);
+  expect(rowsOf(h).filter((x) => x.includes('bg-primary-soft'))).toHaveLength(1);
+});
