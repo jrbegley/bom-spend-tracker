@@ -1,6 +1,6 @@
-// Which main-nav section a path belongs to (SPEC_REVISION_2.md section 4: Product costs, Savings, Match review).
+// Which main-nav section a path belongs to (SPEC_REVISION_2.md section 4: Product costs, Savings, Vendors, Buying network, Match review).
 
-export type NavSection = 'costs' | 'savings' | 'vendors' | 'match';
+export type NavSection = 'costs' | 'savings' | 'vendors' | 'network' | 'match';
 
 const under = (path: string, base: string) => path === base || path.startsWith(`${base}/`);
 
@@ -9,6 +9,7 @@ export function navSection(pathname: string): NavSection | null {
   if (pathname === '/' || under(pathname, '/products') || under(pathname, '/parts')) return 'costs';
   if (under(pathname, '/savings') || under(pathname, '/opportunities')) return 'savings';
   if (under(pathname, '/vendors')) return 'vendors';
+  if (under(pathname, '/network')) return 'network';
   if (under(pathname, '/match-review')) return 'match';
   return null;
 }

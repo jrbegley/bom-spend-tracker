@@ -16,11 +16,14 @@ it('marks the current section, including detail pages', () => {
   expect(activeLinks(shell('/vendors'))).toEqual(['Vendors']);
   expect(activeLinks(shell('/vendors/1678'))).toEqual(['Vendors']);
   expect(activeLinks(shell('/match-review'))).toEqual(['Match review']);
+  expect(activeLinks(shell('/network'))).toEqual(['Buying network']);
 });
-it('four-item nav with the serif wordmark', () => {
+it('five-item nav in order, with the serif wordmark', () => {
   const h = shell('/');
-  for (const l of ['Product costs', 'Savings', 'Vendors', 'Match review']) expect(h).toContain(`>${l}<`);
-  expect(h.match(/<li>/g)).toHaveLength(4);
+  const labels = ['Product costs', 'Savings', 'Vendors', 'Buying network', 'Match review'];
+  for (const l of labels) expect(h).toContain(`>${l}<`);
+  expect(labels.map((l) => h.indexOf(`>${l}<`))).toEqual(labels.map((l) => h.indexOf(`>${l}<`)).sort((a, b) => a - b));
+  expect(h.match(/<li>/g)).toHaveLength(5);
   for (const old of ['>Overview<', '>Products<', '>Opportunities<']) expect(h).not.toContain(old);
   expect(h).toMatch(/font-serif[^>]*>Common Thread</);
 });

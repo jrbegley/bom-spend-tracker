@@ -10,6 +10,9 @@ const at = (url: string) => renderToStaticMarkup(<CoreDataProvider value={core}>
 it.each([['/', 'Product costs'], ['/products', 'Products'], ['/savings', 'Savings'], ['/vendors/1678', 'Proseware, Inc.'],
          ['/vendors', 'Vendors'], ['/match-review', 'Match review'], ['/parts/513', 'Touring Rim'], ['/nope', 'Page not found']])
   ('%s renders h1 %s', (url, text) => expect(at(url)).toMatch(new RegExp(`<h1[^>]*>${text}`)));
+it('/network is routed and shows its loading state until the data arrives', () => {
+  expect(at('/network')).toContain('Loading the buying network…');
+});
 it('level page shows its loading state until the BOM file arrives', () => {
   expect(at('/products/969')).toContain('Loading…');
   expect(at('/products/969/821')).toContain('Loading…');

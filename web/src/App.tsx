@@ -11,6 +11,7 @@ import Opportunities from './pages/Opportunities';
 import Vendors from './pages/Vendors';
 import VendorPage from './pages/VendorPage';
 import MatchReview from './pages/MatchReview';
+import Network from './pages/Network';
 
 // The component test page exists only in dev builds; production drops it entirely.
 const DevPage = import.meta.env.DEV ? lazy(() => import('./pages/DevPage')) : null;
@@ -52,6 +53,7 @@ export function AppRoutes() {
         <Route path="/opportunities" element={<Navigate to="/savings" replace />} />
         <Route path="/vendors" element={<Vendors />} />
         <Route path="/vendors/:vendorId" element={<VendorPage />} />
+        <Route path="/network" element={<Network />} />
         <Route path="/match-review" element={<MatchReview />} />
         {DevPage && <Route path="/dev" element={<Suspense fallback={<p>Loading…</p>}><DevPage /></Suspense>} />}
         <Route path="*" element={<NotFound />} />
