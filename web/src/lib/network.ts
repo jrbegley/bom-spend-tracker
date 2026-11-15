@@ -10,6 +10,8 @@ export type NetworkPart = {
   id: string; synthetic: true; multiple: number; networkYearlyQty: number; discount: number;
   pooledPrice: number; distributorFee: number; freightPerUnit: number; leadTimeDays: number; minOrderQty: number;
   memberCount: number; rebateTiers: RebateTier[];
+  /** Next four quarters of network demand in purchase units; null for parts not on a BOM. */
+  forecast: { quarter: string; qty: number }[] | null;
 };
 export type NetworkRow = {
   member: MemberPart; network: NetworkPart; effective: number; delivered: number;

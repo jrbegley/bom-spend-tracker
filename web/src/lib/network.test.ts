@@ -15,7 +15,7 @@ const mem = (o: Partial<MemberPart> = {}): MemberPart => ({
 });
 const net = (o: Partial<NetworkPart> = {}): NetworkPart => ({
   id: 'x', synthetic: true, multiple: 20, networkYearlyQty: 2000, discount: 0.2, pooledPrice: 40, distributorFee: 1.6,
-  freightPerUnit: 1, leadTimeDays: 8, minOrderQty: 5, memberCount: 12,
+  freightPerUnit: 1, leadTimeDays: 8, minOrderQty: 5, memberCount: 12, forecast: null,
   rebateTiers: [{ minNetworkQty: 2300, rebatePct: 0.02 }, { minNetworkQty: 2700, rebatePct: 0.04 }], ...o,
 });
 
@@ -54,6 +54,17 @@ describe('networkSummary', () => {
     expect(s.volumeMultiple).toBeGreaterThanOrEqual(15); expect(s.volumeMultiple).toBeLessThanOrEqual(40);
   });
   it('empty input gives zeros, not NaN', () => { expect(networkSummary([]).volumeMultiple).toBe(0); });
+});
+
+describe('forecast on the real file', () => {
+  it('only on-BOM parts carry a four-quarter forecast that sums to network demand', () => {
+    for (const r of rows) {
+      if (!r.member.onBom) { expect(r.network.forecast).toBeNull(); continue; }
+      expect(r.network.forecast!.map((f) => f.quarter)).toEqual(['Q4 2025', 'Q1 2026', 'Q2 2026', 'Q3 2026']);
+      expect(r.network.forecast!.reduce((a, f) => a + f.qty, 0)).toBeCloseTo(r.network.networkYearlyQty, 0);
+    }
+    expect(rows.filter((r) => r.network.forecast).length).toBe(7);
+  });
 });
 
 describe('the admission test, branch by branch', () => {

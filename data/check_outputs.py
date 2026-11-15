@@ -93,6 +93,12 @@ else:
     passing = [r for m, r in pairs if admits(m, r)]
     check("network: at least two parts fail the test", len(pairs) - len(passing) >= 2, True)
     check("network: avg discount on passing parts ~18%", sum(r["discount"] for r in passing) / max(1, len(passing)), 0.18, 0.01)
+    QUARTERS = ["Q4 2025", "Q1 2026", "Q2 2026", "Q3 2026"]
+    on_bom = {m["id"] for m in nm if m["onBom"]}
+    check("network: forecast only on BOM parts", {r["id"] for r in ns if r.get("forecast")} == on_bom, True)
+    check("network: forecast quarters", all([f["quarter"] for f in r["forecast"]] == QUARTERS for r in ns if r.get("forecast")), True)
+    check("network: forecast sums to network yearly qty", all(abs(sum(f["qty"] for f in r["forecast"]) - r["networkYearlyQty"]) <= 0.05 for r in ns if r.get("forecast")), True)
+    check("network: forecast null off BOM", all(r.get("forecast") is None for r in ns if r["id"] not in on_bom), True)
 
 print(f"\n{'ALL CHECKS PASSED' if not fails else f'{len(fails)} FAILED: ' + ', '.join(fails)}")
 sys.exit(1 if fails else 0)

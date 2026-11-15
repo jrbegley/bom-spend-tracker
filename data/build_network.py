@@ -2,7 +2,7 @@
 
 Usage: python3 data/build_network.py data/raw web/public/data
 Reads parts.json and summary.json from the output folder (written by build_data.py) and
-ProductVendor.csv and UnitMeasure.csv from the raw folder. Writes:
+ProductVendor.csv, UnitMeasure.csv and WorkOrder.csv from the raw folder. Writes:
   network_member.json     real figures: the member's own pool-eligible purchases, per year
   network_synthetic.json  SYNTHETIC network figures, seeded, every record tagged "synthetic": true
 Does not touch build_data.py or any file it writes."""
@@ -66,6 +66,23 @@ for i, m in enumerate(member):
         "memberCount": rng.randint(10, 20),
         "rebateTiers": [{"minNetworkQty": round(nq * 1.15), "rebatePct": 0.02}, {"minNetworkQty": round(nq * 1.35), "rebatePct": 0.04}],
     })
+
+# --- Supplier forecast (no randomness, so it never changes the draws above). For on-BOM parts: members' BOMs x planned builds.
+# Work orders run 2022-06-02 to 2025-06-01, so each forecast quarter takes its shape from the latest COMPLETE same calendar quarter.
+FORECAST = [("Q4 2025", (2024, 4)), ("Q1 2026", (2025, 1)), ("Q2 2026", (2024, 2)), ("Q3 2026", (2024, 3))]
+builds = {}  # (product id, (year, quarter)) -> units planned
+for r in tsv("WorkOrder.csv"):
+    y, mo = int(r[5][:4]), int(r[5][5:7])
+    key = (r[1], (y, (mo - 1) // 3 + 1))
+    builds[key] = builds.get(key, 0) + float(r[2])
+for m, sy in zip(member, synthetic):
+    sy["forecast"] = None
+    if not m["onBom"]: continue
+    use = [(w["productId"], w["qtyPerUnit"]) for w in parts[m["id"]]["whereUsed"]]
+    shape = [sum(q * builds.get((bike, src), 0) for bike, q in use) for _, src in FORECAST]
+    total = sum(shape)
+    sy["forecast"] = [{"quarter": label, "qty": round(sy["networkYearlyQty"] * v / total, 2) if total else 0.0}
+                      for (label, _), v in zip(FORECAST, shape)]
 
 def admits(m, s):
     eff = m["avgPrice"] * (1 + m["rejectRate"])

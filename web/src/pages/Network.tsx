@@ -7,6 +7,7 @@ import { money, unitMoney } from '../lib/format';
 import { networkRows, networkSummary, type MemberPart, type NetworkPart, type NetworkRow } from '../lib/network';
 
 export type ResultFilter = 'all' | 'joins' | 'stays';
+export type NetworkTab = 'yours' | 'suppliers';
 const FILTERS: ResultFilter[] = ['all', 'joins', 'stays'];
 const TOP = 10;
 const META = 'Concept. Your volumes come from the sample data; network figures are synthetic.';
@@ -86,9 +87,44 @@ type ViewProps = {
   rows: NetworkRow[]; filter: ResultFilter; onFilter: (f: ResultFilter) => void;
   expanded: ReadonlySet<string>; onToggle: (id: string) => void; showAll: boolean; onShowAll: () => void;
   joined: boolean; onJoin: () => void; onUndo: () => void; highlightId?: string | null;
+  view?: NetworkTab; onView?: (v: NetworkTab) => void; supplierId?: string | null; onSupplierId?: (id: string) => void;
 };
 
-export function NetworkView({ rows, filter, onFilter, expanded, onToggle, showAll, onShowAll, joined, onJoin, onUndo, highlightId }: ViewProps) {
+/** What a supplier would see: pooled demand and a forecast for one standard part. No member names, prices or part numbers. */
+function SupplierView({ rows, supplierId, onSupplierId }: { rows: NetworkRow[]; supplierId?: string | null; onSupplierId?: (id: string) => void }) {
+  const options = rows.filter((r) => r.network.forecast);
+  const sel = options.find((r) => r.member.id === supplierId) ?? options.find((r) => r.member.id === '320') ?? options[0];
+  if (!sel) return null;
+  const { member: m, network: n } = sel;
+  const forecast = n.forecast ?? [];
+  const peak = Math.max(1, ...forecast.map((f) => f.qty));
+  return (
+    <Panel title="What suppliers see"
+      subtitle="Pooled volume and a forecast built from members' BOMs and planned builds. Never member names, prices or part numbers."
+      actions={
+        <select aria-label="Standard part" value={m.id} onChange={(e) => onSupplierId?.(e.target.value)}
+          className="h-[38px] rounded-md border border-input bg-card px-3 text-[14px]">
+          {options.map((o) => <option key={o.member.id} value={o.member.id}>{o.member.name}</option>)}
+        </select>}
+      footer={<><p>Awarded to the lowest delivered cost. Every supplier pays the same fee on volume won.</p><p className="mt-1">Fee: 2% (illustrative)</p></>}>
+      <div className="px-6 py-5">
+        <div className="num text-[24px] font-medium">{`Network yearly demand: ${qtyFmt(n.networkYearlyQty)} ${units(m.unit)}`}</div>
+        <div className="mt-1 text-[14px] text-muted-foreground">{`Demand from ${n.memberCount} manufacturers`}</div>
+        <ul className="mt-5 space-y-2" aria-label="Quarterly forecast">
+          {forecast.map((f) => (
+            <li key={f.quarter} className="flex items-center gap-3 text-[13px]">
+              <span className="w-[64px] text-muted-foreground">{f.quarter}</span>
+              <span className="h-2 flex-1 rounded-full bg-muted"><span className="block h-2 rounded-full bg-primary" style={{ width: `${(100 * f.qty) / peak}%` }} /></span>
+              <span className="num w-[110px] text-right">{`${qtyFmt(f.qty)} ${units(m.unit)}`}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Panel>
+  );
+}
+
+export function NetworkView({ rows, filter, onFilter, expanded, onToggle, showAll, onShowAll, joined, onJoin, onUndo, highlightId, view = 'yours', onView, supplierId, onSupplierId }: ViewProps) {
   const s = networkSummary(rows);
   const shown = rows.filter((r) => filter === 'all' || (filter === 'joins') === r.admitted);
   const visible = showAll ? shown : shown.slice(0, TOP);
@@ -121,31 +157,38 @@ export function NetworkView({ rows, filter, onFilter, expanded, onToggle, showAl
         </div>
       </header>
 
-      <StatRow>
-        <Stat label="Your pool-eligible spend" value={money(s.eligibleSpend)} caption={`a year across ${s.partCount} fasteners and bearings`} />
-        <Stat label="Network volume on these parts" value={`${s.volumeMultiple.toFixed(0)}× yours`}
-          caption={`synthetic network purchases, valued at your prices: ${money(s.networkSpendAtYourPrices)} a year`} />
-        <Stat label="Saving if you join" value={money(s.saving)} tone="savings" caption={`a year, on ${s.joining} of ${s.partCount} parts that pass the test`} />
-      </StatRow>
+      <FilterChips label="View" value={view} onChange={(v) => onView?.(v)}
+        options={[{ value: 'yours', label: 'Your view' }, { value: 'suppliers', label: 'What suppliers see' }]} />
 
-      <Panel title="The admission test, part by part"
-        subtitle="Your pool-eligible parts, biggest yearly spend first. A part joins only if the network's delivered cost beats what you pay now."
-        actions={<FilterChips label="Show parts that" value={filter} onChange={onFilter}
-          options={[
-            { value: 'all', label: 'All', count: s.partCount },
-            { value: 'joins', label: 'Joins the pool', count: s.joining },
-            { value: 'stays', label: 'Stays with current vendor', count: s.staying },
-          ]} />}
-        footer={PROMISE}>
-        <ul>
-          {visible.map((r) => <PartRow key={r.member.id} r={r} open={expanded.has(r.member.id)} onToggle={() => onToggle(r.member.id)} highlighted={r.member.id === highlightId} />)}
-        </ul>
-        {!showAll && shown.length > TOP && (
-          <div className="border-t border-hairline px-6 py-3">
-            <button type="button" onClick={onShowAll} className="text-[14px] text-primary hover:text-primary/80">{`Show all ${shown.length} parts`}</button>
-          </div>
-        )}
-      </Panel>
+      {view === 'suppliers' ? <SupplierView rows={rows} supplierId={supplierId} onSupplierId={onSupplierId} /> : (
+        <>
+        <StatRow>
+          <Stat label="Your pool-eligible spend" value={money(s.eligibleSpend)} caption={`a year across ${s.partCount} fasteners and bearings`} />
+          <Stat label="Network volume on these parts" value={`${s.volumeMultiple.toFixed(0)}× yours`}
+            caption={`synthetic network purchases, valued at your prices: ${money(s.networkSpendAtYourPrices)} a year`} />
+          <Stat label="Saving if you join" value={money(s.saving)} tone="savings" caption={`a year, on ${s.joining} of ${s.partCount} parts that pass the test`} />
+        </StatRow>
+
+        <Panel title="The admission test, part by part"
+          subtitle="Your pool-eligible parts, biggest yearly spend first. A part joins only if the network's delivered cost beats what you pay now."
+          actions={<FilterChips label="Show parts that" value={filter} onChange={onFilter}
+            options={[
+              { value: 'all', label: 'All', count: s.partCount },
+              { value: 'joins', label: 'Joins the pool', count: s.joining },
+              { value: 'stays', label: 'Stays with current vendor', count: s.staying },
+            ]} />}
+          footer={PROMISE}>
+          <ul>
+            {visible.map((r) => <PartRow key={r.member.id} r={r} open={expanded.has(r.member.id)} onToggle={() => onToggle(r.member.id)} highlighted={r.member.id === highlightId} />)}
+          </ul>
+          {!showAll && shown.length > TOP && (
+            <div className="border-t border-hairline px-6 py-3">
+              <button type="button" onClick={onShowAll} className="text-[14px] text-primary hover:text-primary/80">{`Show all ${shown.length} parts`}</button>
+            </div>
+          )}
+        </Panel>
+        </>
+      )}
 
       <Disclosure title="What's shared and what stays private">
         <dl className="space-y-4 px-6 py-5 text-[14px]">
@@ -189,6 +232,9 @@ export default function Network() {
     <NetworkView rows={rows} filter={filter} highlightId={params.get('part')}
       onFilter={(f) => setParams((p) => { const n = new URLSearchParams(p); if (f === 'all') n.delete('result'); else n.set('result', f); return n; }, { replace: true })}
       expanded={expanded} onToggle={toggle} showAll={showAll} onShowAll={() => setShowAll(true)}
-      joined={joined} onJoin={() => setJoined(true)} onUndo={() => setJoined(false)} />
+      joined={joined} onJoin={() => setJoined(true)} onUndo={() => setJoined(false)}
+      view={params.get('view') === 'suppliers' ? 'suppliers' : 'yours'} supplierId={params.get('supplier')}
+      onView={(v) => setParams((p) => { const n = new URLSearchParams(p); if (v === 'yours') n.delete('view'); else n.set('view', v); return n; }, { replace: true })}
+      onSupplierId={(id) => setParams((p) => { const n = new URLSearchParams(p); n.set('supplier', id); return n; }, { replace: true })} />
   );
 }

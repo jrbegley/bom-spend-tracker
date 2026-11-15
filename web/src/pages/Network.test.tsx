@@ -95,3 +95,30 @@ it('minimum order of 1 reads "1 canister", not "1 canisters"', () => {
   const h = view({ expanded: ['320'] });
   expect(h).toContain('1 canister (yours:'); expect(h).not.toMatch(/\b1 canisters/);
 });
+
+const supplierHtml = (id?: string) => r(
+  <MemoryRouter><NetworkView rows={rows} filter="all" onFilter={() => {}} expanded={new Set()} onToggle={() => {}} showAll={false} onShowAll={() => {}}
+    joined={false} onJoin={() => {}} onUndo={() => {}} view="suppliers" onView={() => {}} supplierId={id} onSupplierId={() => {}} /></MemoryRouter>);
+
+it('tabs: Your view and What suppliers see', () => {
+  const h = view();
+  expect(h).toMatch(/aria-pressed="true"[^>]*>Your view</); expect(h).toMatch(/aria-pressed="false"[^>]*>What suppliers see</);
+});
+
+it('supplier view: demand, four quarters, member count only, award rule and fee, no member prices', () => {
+  const h = supplierHtml();
+  const cb = rows.find((x) => x.member.id === '320')!;
+  expect(h).toContain(`Demand from ${cb.network.memberCount} manufacturers`);
+  expect(h).toContain(`Network yearly demand: ${Math.round(cb.network.networkYearlyQty).toLocaleString('en-US')} canisters`);
+  for (const q of ['Q4 2025', 'Q1 2026', 'Q2 2026', 'Q3 2026']) expect(h).toContain(q);
+  expect(h).toContain('Awarded to the lowest delivered cost. Every supplier pays the same fee on volume won.');
+  expect(h).toContain('Fee: 2% (illustrative)');
+  expect(h).not.toMatch(/\$\d/); expect(h).not.toContain('Your pool-eligible spend');
+});
+
+it('supplier view part select lists only the on-BOM pool parts and honours the chosen part', () => {
+  const h = supplierHtml('321');
+  expect([...h.matchAll(/<option/g)]).toHaveLength(rows.filter((x) => x.member.onBom).length);
+  const chosen = rows.find((x) => x.member.id === '321')!;
+  expect(h).toContain(`Demand from ${chosen.network.memberCount} manufacturers`);
+});
