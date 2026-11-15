@@ -1,4 +1,4 @@
-# Spendline
+# Common Thread
 
 A BOM to spend cube explorer. It links every purchased part to the products that use it, rolls real purchase prices up the bill of materials, and shows two gaps at every level:
 

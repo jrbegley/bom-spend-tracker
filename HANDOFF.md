@@ -1,6 +1,6 @@
 # Handoff: where to pick up
 
-Spendline (BOM to spend cube explorer). Read in this order:
+Common Thread, formerly Spendline (BOM to spend cube explorer). Read in this order:
 1. `BUILD_SPEC.md` sections 1, 2, 4 and 5 (the original spec and the data method).
 2. `SPEC_REVISION_2.md`. **It wins wherever it disagrees with `BUILD_SPEC.md` or with older decisions below.** Its section 10 covers the Lovable design port.
 3. `SPEC_VENDOR_PAGE.md`. It wins for vendor pages and the nav.
@@ -21,7 +21,7 @@ Spendline (BOM to spend cube explorer). Read in this order:
 
 ## What 5a changed
 
-- **Tokens and fonts:** `web/src/index.css` now holds the tokens from `design/lovable-tokens.css` (oklch palette, radius scale, `num`, `eyebrow` and animation utilities). Inter is used for everything, with Newsreader only for the "Spendline" wordmark. Every old class name was renamed to the new token names. Use `text-primary` for links (Lovable's `accent` is a pale neutral). `bg-ppv` and `bg-savings` are bar fills; `text-ppv-ink` and `text-savings-ink` are their text colors.
+- **Tokens and fonts:** `web/src/index.css` now holds the tokens from `design/lovable-tokens.css` (oklch palette, radius scale, `num`, `eyebrow` and animation utilities). Inter is used for everything, with Newsreader only for the "Common Thread" wordmark. Every old class name was renamed to the new token names. Use `text-primary` for links (Lovable's `accent` is a pale neutral). `bg-ppv` and `bg-savings` are bar fills; `text-ppv-ink` and `text-savings-ink` are their text colors.
 - **Shell:** the nav is Product costs `/`, Savings `/savings` and Match review. The top bar holds search, a disabled year selector ("All years") and a disabled Assumptions button, both placeholders for 5c. Navigation state comes from `lib/nav.ts`.
 - **Product costs `/`** (replaces Overview):
   - three stats: standard cost, total variance, verified

@@ -22,7 +22,7 @@ it('four-item nav with the serif wordmark', () => {
   for (const l of ['Product costs', 'Savings', 'Vendors', 'Match review']) expect(h).toContain(`>${l}<`);
   expect(h.match(/<li>/g)).toHaveLength(4);
   for (const old of ['>Overview<', '>Products<', '>Opportunities<']) expect(h).not.toContain(old);
-  expect(h).toMatch(/font-serif[^>]*>Spendline</);
+  expect(h).toMatch(/font-serif[^>]*>Common Thread</);
 });
 it('top bar: search, disabled year and Assumptions placeholders, content width', () => {
   const h = shell('/');

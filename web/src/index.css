@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Spendline tokens, ported from design/lovable-tokens.css (SPEC_REVISION_2.md section 10.1). */
+/* Common Thread tokens, ported from design/lovable-tokens.css (SPEC_REVISION_2.md section 10.1). */
 
 @theme inline {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
