@@ -60,7 +60,7 @@ function Breakdown({ r }: { r: NetworkRow }) {
 function PartRow({ r, open, onToggle, highlighted }: { r: NetworkRow; open: boolean; onToggle: () => void; highlighted: boolean }) {
   const { member: m } = r;
   return (
-    <li data-network-row={m.id} className={`border-t border-hairline first:border-t-0 ${highlighted ? 'bg-primary-soft' : ''}`}>
+    <li data-network-row={m.id} data-highlight={highlighted ? '' : undefined} className={`border-t border-hairline first:border-t-0 ${highlighted ? 'bg-primary-soft' : ''}`}>
       <div className="flex flex-wrap items-center gap-x-6 gap-y-3 px-6 py-4">
         <div className="min-w-[200px] flex-1">
           <div className="flex items-center gap-2">
@@ -225,6 +225,8 @@ function NetworkLoaded({ rows }: { rows: NetworkRow[] }) {
   const raw = params.get('result');
   const deepLinked = highlightId !== null && rows.some((r) => r.member.id === highlightId);
   const filter = deepLinked ? 'all' : FILTERS.find((f) => f === raw) ?? 'all';
+  // A deep link from a Part page lands on its row, which may be far down the list.
+  useEffect(() => { if (deepLinked) document.querySelector('[data-highlight]')?.scrollIntoView({ block: 'center' }); }, []);
   const toggle = (id: string) => setExpanded((s) => { const n = new Set(s); if (n.has(id)) n.delete(id); else n.add(id); return n; });
   const update = (fn: (n: URLSearchParams) => void) => setParams((p) => { const n = new URLSearchParams(p); fn(n); return n; }, { replace: true });
   return (

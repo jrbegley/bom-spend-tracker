@@ -130,5 +130,7 @@ it('a deep link past the top 10 opens the full list with that row expanded and h
     showAll={init.showAll} onShowAll={() => {}} joined={false} onJoin={() => {}} onUndo={() => {}} highlightId={target} /></MemoryRouter>);
   const row = rowsOf(h).find((x) => x.startsWith(`"${target}"`))!;
   expect(row).toContain('Pooled manufacturer price'); expect(row).toContain('bg-primary-soft');
+  expect(row).toContain('data-highlight'); // the page scrolls to this marker
+  expect(h.match(/data-highlight/g)).toHaveLength(1);
   expect(h).not.toContain('Show all');
 });
