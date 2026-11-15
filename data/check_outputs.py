@@ -67,5 +67,32 @@ check("Superior single-source", v["singleSource"], 2)
 
 check("unmapped count", len(unm), 178); check("unmapped total", sum(x["spend"] for x in unm), 3180009, T)
 
+# --- Buying network (SPEC_PITCH_DEMO.md section 5; data/build_network.py) ---
+if not os.path.exists(os.path.join(OUT, "network_member.json")) or not os.path.exists(os.path.join(OUT, "network_synthetic.json")):
+    check("network files present", False, True)
+else:
+    nm, ns = j("network_member.json"), j("network_synthetic.json")
+    check("network: pool parts", len(nm), 125)
+    check("network: pool yearly spend", sum(m["yearlySpend"] for m in nm), 136841, 5)
+    check("network: pool parts on a BOM", sum(1 for m in nm if m["onBom"]), 7)
+    check("network: member sorted by yearly spend desc", [m["yearlySpend"] for m in nm] == sorted((m["yearlySpend"] for m in nm), reverse=True), True)
+    cb = next(m for m in nm if m["id"] == "320")
+    check("network: 320 unit", cb["unit"], "canister")
+    check("network: 320 yearly qty", cb["yearlyQty"], 109.14, 0.01)
+    check("network: 320 avg price", cb["avgPrice"], 47.4784, 0.0001)
+    check("network: 320 reject rate", cb["rejectRate"], 0.008, 0.0001)
+    check("network: synthetic ids match member", [r["id"] for r in ns] == [m["id"] for m in nm], True)
+    check("network: every synthetic record tagged", all(r["synthetic"] is True for r in ns), True)
+    check("network: multiples in 15-40", all(15 <= r["multiple"] <= 40 for r in ns), True)
+    check("network: discounts in 12-24%", all(0.12 <= r["discount"] <= 0.24 for r in ns), True)
+    def admits(m, r):
+        eff = m["avgPrice"] * (1 + m["rejectRate"])
+        return (r["pooledPrice"] + r["distributorFee"] + r["freightPerUnit"] < eff
+                and r["leadTimeDays"] <= m["leadTimeDays"] and r["minOrderQty"] <= m["minOrderQty"])
+    pairs = list(zip(nm, ns))
+    passing = [r for m, r in pairs if admits(m, r)]
+    check("network: at least two parts fail the test", len(pairs) - len(passing) >= 2, True)
+    check("network: avg discount on passing parts ~18%", sum(r["discount"] for r in passing) / max(1, len(passing)), 0.18, 0.01)
+
 print(f"\n{'ALL CHECKS PASSED' if not fails else f'{len(fails)} FAILED: ' + ', '.join(fails)}")
 sys.exit(1 if fails else 0)

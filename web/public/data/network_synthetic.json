@@ -1,0 +1,2877 @@
+[
+ {
+  "id": "320",
+  "synthetic": true,
+  "multiple": 23.1,
+  "networkYearlyQty": 2521.13,
+  "discount": 0.184,
+  "pooledPrice": 38.7404,
+  "distributorFee": 1.5496,
+  "freightPerUnit": 0.5498,
+  "leadTimeDays": 13,
+  "minOrderQty": 1,
+  "memberCount": 17,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 2899,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 3404,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "321",
+  "synthetic": true,
+  "multiple": 18.77,
+  "networkYearlyQty": 2048.56,
+  "discount": 0.1893,
+  "pooledPrice": 34.4688,
+  "distributorFee": 1.3788,
+  "freightPerUnit": 0.5498,
+  "leadTimeDays": 15,
+  "minOrderQty": 1,
+  "memberCount": 19,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 2356,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 2766,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "4",
+  "synthetic": true,
+  "multiple": 31.27,
+  "networkYearlyQty": 1392.45,
+  "discount": 0.1798,
+  "pooledPrice": 46.7742,
+  "distributorFee": 1.871,
+  "freightPerUnit": 1.3474,
+  "leadTimeDays": 10,
+  "minOrderQty": 1,
+  "memberCount": 19,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 1601,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 1880,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "343",
+  "synthetic": true,
+  "multiple": 16.81,
+  "networkYearlyQty": 851.26,
+  "discount": 0.1794,
+  "pooledPrice": 38.9835,
+  "distributorFee": 1.5593,
+  "freightPerUnit": 1.1848,
+  "leadTimeDays": 10,
+  "minOrderQty": 1,
+  "memberCount": 15,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 979,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 1149,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "341",
+  "synthetic": true,
+  "multiple": 28.4,
+  "networkYearlyQty": 1462.88,
+  "discount": 0.2149,
+  "pooledPrice": 35.6209,
+  "distributorFee": 1.4248,
+  "freightPerUnit": 1.1648,
+  "leadTimeDays": 10,
+  "minOrderQty": 1,
+  "memberCount": 13,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 1682,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 1975,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "346",
+  "synthetic": true,
+  "multiple": 24.14,
+  "networkYearlyQty": 1222.45,
+  "discount": 0.2125,
+  "pooledPrice": 35.7577,
+  "distributorFee": 1.4303,
+  "freightPerUnit": 1.1848,
+  "leadTimeDays": 11,
+  "minOrderQty": 1,
+  "memberCount": 20,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 1406,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 1650,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "342",
+  "synthetic": true,
+  "multiple": 16.45,
+  "networkYearlyQty": 847.34,
+  "discount": 0.184,
+  "pooledPrice": 35.3084,
+  "distributorFee": 1.4123,
+  "freightPerUnit": 1.1648,
+  "leadTimeDays": 12,
+  "minOrderQty": 1,
+  "memberCount": 19,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 974,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 1144,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "344",
+  "synthetic": true,
+  "multiple": 27.69,
+  "networkYearlyQty": 1402.22,
+  "discount": 0.1989,
+  "pooledPrice": 34.6315,
+  "distributorFee": 1.3853,
+  "freightPerUnit": 1.1848,
+  "leadTimeDays": 10,
+  "minOrderQty": 1,
+  "memberCount": 11,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 1613,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 1893,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "349",
+  "synthetic": true,
+  "multiple": 15.94,
+  "networkYearlyQty": 793.33,
+  "discount": 0.2188,
+  "pooledPrice": 33.886,
+  "distributorFee": 1.3554,
+  "freightPerUnit": 1.2055,
+  "leadTimeDays": 13,
+  "minOrderQty": 1,
+  "memberCount": 17,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 912,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 1071,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "402",
+  "synthetic": true,
+  "multiple": 25.84,
+  "networkYearlyQty": 1150.66,
+  "discount": 0.2037,
+  "pooledPrice": 37.8004,
+  "distributorFee": 1.512,
+  "freightPerUnit": 1.3474,
+  "leadTimeDays": 10,
+  "minOrderQty": 1,
+  "memberCount": 12,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 1323,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 1553,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "345",
+  "synthetic": true,
+  "multiple": 16.75,
+  "networkYearlyQty": 848.22,
+  "discount": 0.1755,
+  "pooledPrice": 33.9143,
+  "distributorFee": 1.3566,
+  "freightPerUnit": 1.1848,
+  "leadTimeDays": 12,
+  "minOrderQty": 1,
+  "memberCount": 14,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 975,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 1145,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "347",
+  "synthetic": true,
+  "multiple": 17.27,
+  "networkYearlyQty": 859.53,
+  "discount": 0.1995,
+  "pooledPrice": 32.984,
+  "distributorFee": 1.3194,
+  "freightPerUnit": 1.2055,
+  "leadTimeDays": 15,
+  "minOrderQty": 1,
+  "memberCount": 12,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 988,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 1160,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "348",
+  "synthetic": true,
+  "multiple": 25.61,
+  "networkYearlyQty": 1274.61,
+  "discount": 0.2071,
+  "pooledPrice": 31.0064,
+  "distributorFee": 1.2403,
+  "freightPerUnit": 1.2055,
+  "leadTimeDays": 11,
+  "minOrderQty": 1,
+  "memberCount": 18,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 1466,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 1721,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "2",
+  "synthetic": true,
+  "multiple": 35.67,
+  "networkYearlyQty": 1557.35,
+  "discount": 0.2007,
+  "pooledPrice": 33.5019,
+  "distributorFee": 1.3401,
+  "freightPerUnit": 1.3743,
+  "leadTimeDays": 18,
+  "minOrderQty": 1,
+  "memberCount": 10,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 1791,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 2102,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "404",
+  "synthetic": true,
+  "multiple": 18.1,
+  "networkYearlyQty": 695.4,
+  "discount": 0.2066,
+  "pooledPrice": 36.7813,
+  "distributorFee": 1.4713,
+  "freightPerUnit": 1.5617,
+  "leadTimeDays": 12,
+  "minOrderQty": 1,
+  "memberCount": 20,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 800,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 939,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "403",
+  "synthetic": true,
+  "multiple": 20.58,
+  "networkYearlyQty": 790.68,
+  "discount": 0.2187,
+  "pooledPrice": 35.9082,
+  "distributorFee": 1.4363,
+  "freightPerUnit": 1.5617,
+  "leadTimeDays": 15,
+  "minOrderQty": 1,
+  "memberCount": 14,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 909,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 1067,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "405",
+  "synthetic": true,
+  "multiple": 30.69,
+  "networkYearlyQty": 1179.11,
+  "discount": 0.2063,
+  "pooledPrice": 35.6871,
+  "distributorFee": 1.4275,
+  "freightPerUnit": 1.5617,
+  "leadTimeDays": 11,
+  "minOrderQty": 1,
+  "memberCount": 15,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 1356,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 1592,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "407",
+  "synthetic": true,
+  "multiple": 38.69,
+  "networkYearlyQty": 1486.47,
+  "discount": 0.2249,
+  "pooledPrice": 34.3076,
+  "distributorFee": 1.3723,
+  "freightPerUnit": 1.5617,
+  "leadTimeDays": 14,
+  "minOrderQty": 1,
+  "memberCount": 18,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 1709,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 2007,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "406",
+  "synthetic": true,
+  "multiple": 29.43,
+  "networkYearlyQty": 1130.7,
+  "discount": 0.2209,
+  "pooledPrice": 34.171,
+  "distributorFee": 1.3668,
+  "freightPerUnit": 1.5617,
+  "leadTimeDays": 12,
+  "minOrderQty": 1,
+  "memberCount": 20,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 1300,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 1526,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "408",
+  "synthetic": true,
+  "multiple": 24.92,
+  "networkYearlyQty": 913.82,
+  "discount": 0.1856,
+  "pooledPrice": 34.8056,
+  "distributorFee": 1.3922,
+  "freightPerUnit": 1.6362,
+  "leadTimeDays": 11,
+  "minOrderQty": 1,
+  "memberCount": 13,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 1051,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 1234,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "409",
+  "synthetic": true,
+  "multiple": 39.41,
+  "networkYearlyQty": 1445.16,
+  "discount": 0.2267,
+  "pooledPrice": 32.2782,
+  "distributorFee": 1.2911,
+  "freightPerUnit": 1.6362,
+  "leadTimeDays": 15,
+  "minOrderQty": 1,
+  "memberCount": 13,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 1662,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 1951,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "497",
+  "synthetic": true,
+  "multiple": 16.16,
+  "networkYearlyQty": 719.6,
+  "discount": 0.176,
+  "pooledPrice": 28.17,
+  "distributorFee": 1.1268,
+  "freightPerUnit": 1.3474,
+  "leadTimeDays": 17,
+  "minOrderQty": 1,
+  "memberCount": 15,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 828,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 971,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "424",
+  "synthetic": true,
+  "multiple": 36.46,
+  "networkYearlyQty": 1082.5,
+  "discount": 0.2176,
+  "pooledPrice": 38.9674,
+  "distributorFee": 1.5587,
+  "freightPerUnit": 2.0209,
+  "leadTimeDays": 10,
+  "minOrderQty": 1,
+  "memberCount": 14,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 1245,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 1461,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "422",
+  "synthetic": true,
+  "multiple": 22.24,
+  "networkYearlyQty": 660.31,
+  "discount": 0.1851,
+  "pooledPrice": 38.8129,
+  "distributorFee": 1.5525,
+  "freightPerUnit": 2.0209,
+  "leadTimeDays": 11,
+  "minOrderQty": 1,
+  "memberCount": 19,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 759,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 891,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "427",
+  "synthetic": true,
+  "multiple": 18.61,
+  "networkYearlyQty": 536.15,
+  "discount": 0.204,
+  "pooledPrice": 37.9702,
+  "distributorFee": 1.5188,
+  "freightPerUnit": 2.0826,
+  "leadTimeDays": 13,
+  "minOrderQty": 1,
+  "memberCount": 15,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 617,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 724,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "423",
+  "synthetic": true,
+  "multiple": 17.94,
+  "networkYearlyQty": 532.64,
+  "discount": 0.2025,
+  "pooledPrice": 36.3115,
+  "distributorFee": 1.4525,
+  "freightPerUnit": 2.0209,
+  "leadTimeDays": 12,
+  "minOrderQty": 1,
+  "memberCount": 11,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 613,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 719,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "425",
+  "synthetic": true,
+  "multiple": 22.71,
+  "networkYearlyQty": 674.26,
+  "discount": 0.171,
+  "pooledPrice": 37.7453,
+  "distributorFee": 1.5098,
+  "freightPerUnit": 2.0209,
+  "leadTimeDays": 11,
+  "minOrderQty": 1,
+  "memberCount": 17,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 775,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 910,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "430",
+  "synthetic": true,
+  "multiple": 35.4,
+  "networkYearlyQty": 1019.87,
+  "discount": 0.185,
+  "pooledPrice": 37.1639,
+  "distributorFee": 1.4866,
+  "freightPerUnit": 2.0826,
+  "leadTimeDays": 11,
+  "minOrderQty": 1,
+  "memberCount": 17,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 1173,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 1377,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "426",
+  "synthetic": true,
+  "multiple": 19.52,
+  "networkYearlyQty": 579.55,
+  "discount": 0.1865,
+  "pooledPrice": 35.3309,
+  "distributorFee": 1.4132,
+  "freightPerUnit": 2.0209,
+  "leadTimeDays": 14,
+  "minOrderQty": 1,
+  "memberCount": 10,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 666,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 782,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "433",
+  "synthetic": true,
+  "multiple": 29.54,
+  "networkYearlyQty": 851.05,
+  "discount": 0.1986,
+  "pooledPrice": 34.8618,
+  "distributorFee": 1.3945,
+  "freightPerUnit": 2.0826,
+  "leadTimeDays": 15,
+  "minOrderQty": 1,
+  "memberCount": 15,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 979,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 1149,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "428",
+  "synthetic": true,
+  "multiple": 30.97,
+  "networkYearlyQty": 892.25,
+  "discount": 0.2198,
+  "pooledPrice": 33.8846,
+  "distributorFee": 1.3554,
+  "freightPerUnit": 2.0826,
+  "leadTimeDays": 10,
+  "minOrderQty": 1,
+  "memberCount": 20,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 1026,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 1205,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "429",
+  "synthetic": true,
+  "multiple": 24.31,
+  "networkYearlyQty": 700.37,
+  "discount": 0.1693,
+  "pooledPrice": 34.3315,
+  "distributorFee": 1.3733,
+  "freightPerUnit": 2.0826,
+  "leadTimeDays": 13,
+  "minOrderQty": 1,
+  "memberCount": 13,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 805,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 946,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "431",
+  "synthetic": true,
+  "multiple": 28.69,
+  "networkYearlyQty": 826.56,
+  "discount": 0.1971,
+  "pooledPrice": 33.1835,
+  "distributorFee": 1.3273,
+  "freightPerUnit": 2.0826,
+  "leadTimeDays": 11,
+  "minOrderQty": 1,
+  "memberCount": 16,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 951,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 1116,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "436",
+  "synthetic": true,
+  "multiple": 16.57,
+  "networkYearlyQty": 462.97,
+  "discount": 0.1862,
+  "pooledPrice": 33.6904,
+  "distributorFee": 1.3476,
+  "freightPerUnit": 2.1475,
+  "leadTimeDays": 12,
+  "minOrderQty": 1,
+  "memberCount": 11,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 532,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 625,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "375",
+  "synthetic": true,
+  "multiple": 16.49,
+  "networkYearlyQty": 431.87,
+  "discount": 0.1835,
+  "pooledPrice": 35.3489,
+  "distributorFee": 1.414,
+  "freightPerUnit": 2.291,
+  "leadTimeDays": 15,
+  "minOrderQty": 1,
+  "memberCount": 16,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 497,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 583,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "432",
+  "synthetic": true,
+  "multiple": 20.15,
+  "networkYearlyQty": 580.52,
+  "discount": 0.1773,
+  "pooledPrice": 32.2726,
+  "distributorFee": 1.2909,
+  "freightPerUnit": 2.0826,
+  "leadTimeDays": 15,
+  "minOrderQty": 1,
+  "memberCount": 11,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 668,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 784,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "434",
+  "synthetic": true,
+  "multiple": 32.01,
+  "networkYearlyQty": 922.21,
+  "discount": 0.2162,
+  "pooledPrice": 30.7457,
+  "distributorFee": 1.2298,
+  "freightPerUnit": 2.0826,
+  "leadTimeDays": 11,
+  "minOrderQty": 1,
+  "memberCount": 12,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 1061,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 1245,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "376",
+  "synthetic": true,
+  "multiple": 25.69,
+  "networkYearlyQty": 672.82,
+  "discount": 0.1589,
+  "pooledPrice": 35.8262,
+  "distributorFee": 1.433,
+  "freightPerUnit": 2.291,
+  "leadTimeDays": 14,
+  "minOrderQty": 1,
+  "memberCount": 17,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 774,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 908,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "377",
+  "synthetic": true,
+  "multiple": 22.85,
+  "networkYearlyQty": 598.44,
+  "discount": 0.1998,
+  "pooledPrice": 33.5226,
+  "distributorFee": 1.3409,
+  "freightPerUnit": 2.291,
+  "leadTimeDays": 11,
+  "minOrderQty": 1,
+  "memberCount": 19,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 688,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 808,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "380",
+  "synthetic": true,
+  "multiple": 29.64,
+  "networkYearlyQty": 750.48,
+  "discount": 0.2156,
+  "pooledPrice": 33.4376,
+  "distributorFee": 1.3375,
+  "freightPerUnit": 2.3697,
+  "leadTimeDays": 13,
+  "minOrderQty": 1,
+  "memberCount": 20,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 863,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 1013,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "378",
+  "synthetic": true,
+  "multiple": 26.33,
+  "networkYearlyQty": 689.58,
+  "discount": 0.2169,
+  "pooledPrice": 32.2601,
+  "distributorFee": 1.2904,
+  "freightPerUnit": 2.291,
+  "leadTimeDays": 11,
+  "minOrderQty": 1,
+  "memberCount": 18,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 793,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 931,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "435",
+  "synthetic": true,
+  "multiple": 22.49,
+  "networkYearlyQty": 647.94,
+  "discount": 0.1882,
+  "pooledPrice": 30.1398,
+  "distributorFee": 1.2056,
+  "freightPerUnit": 2.0826,
+  "leadTimeDays": 10,
+  "minOrderQty": 1,
+  "memberCount": 10,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 745,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 875,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "381",
+  "synthetic": true,
+  "multiple": 34.86,
+  "networkYearlyQty": 882.66,
+  "discount": 0.2193,
+  "pooledPrice": 32.7714,
+  "distributorFee": 1.3109,
+  "freightPerUnit": 2.3697,
+  "leadTimeDays": 15,
+  "minOrderQty": 1,
+  "memberCount": 20,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 1015,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 1192,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "361",
+  "synthetic": true,
+  "multiple": 32.47,
+  "networkYearlyQty": 680.25,
+  "discount": 0.1654,
+  "pooledPrice": 41.5499,
+  "distributorFee": 1.662,
+  "freightPerUnit": 2.864,
+  "leadTimeDays": 12,
+  "minOrderQty": 1,
+  "memberCount": 16,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 782,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 918,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "437",
+  "synthetic": true,
+  "multiple": 21.1,
+  "networkYearlyQty": 589.53,
+  "discount": 0.2102,
+  "pooledPrice": 29.3239,
+  "distributorFee": 1.173,
+  "freightPerUnit": 2.1475,
+  "leadTimeDays": 11,
+  "minOrderQty": 1,
+  "memberCount": 13,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 678,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 796,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "379",
+  "synthetic": true,
+  "multiple": 29.36,
+  "networkYearlyQty": 743.4,
+  "discount": 0.1667,
+  "pooledPrice": 33.6031,
+  "distributorFee": 1.3441,
+  "freightPerUnit": 2.3697,
+  "leadTimeDays": 11,
+  "minOrderQty": 1,
+  "memberCount": 14,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 855,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 1004,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "364",
+  "synthetic": true,
+  "multiple": 28.13,
+  "networkYearlyQty": 589.32,
+  "discount": 0.1806,
+  "pooledPrice": 39.0727,
+  "distributorFee": 1.5629,
+  "freightPerUnit": 2.864,
+  "leadTimeDays": 15,
+  "minOrderQty": 1,
+  "memberCount": 14,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 678,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 796,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "359",
+  "synthetic": true,
+  "multiple": 36.88,
+  "networkYearlyQty": 772.64,
+  "discount": 0.1991,
+  "pooledPrice": 38.0434,
+  "distributorFee": 1.5217,
+  "freightPerUnit": 2.864,
+  "leadTimeDays": 12,
+  "minOrderQty": 1,
+  "memberCount": 10,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 889,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 1043,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "360",
+  "synthetic": true,
+  "multiple": 33.24,
+  "networkYearlyQty": 696.38,
+  "discount": 0.2162,
+  "pooledPrice": 35.6688,
+  "distributorFee": 1.4268,
+  "freightPerUnit": 2.864,
+  "leadTimeDays": 15,
+  "minOrderQty": 1,
+  "memberCount": 17,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 801,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 940,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "362",
+  "synthetic": true,
+  "multiple": 22.2,
+  "networkYearlyQty": 465.09,
+  "discount": 0.1791,
+  "pooledPrice": 37.3576,
+  "distributorFee": 1.4943,
+  "freightPerUnit": 2.864,
+  "leadTimeDays": 16,
+  "minOrderQty": 1,
+  "memberCount": 18,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 535,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 628,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "367",
+  "synthetic": true,
+  "multiple": 39.5,
+  "networkYearlyQty": 793.16,
+  "discount": 0.1753,
+  "pooledPrice": 37.5903,
+  "distributorFee": 1.5036,
+  "freightPerUnit": 2.988,
+  "leadTimeDays": 12,
+  "minOrderQty": 1,
+  "memberCount": 18,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 912,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 1071,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "363",
+  "synthetic": true,
+  "multiple": 17.95,
+  "networkYearlyQty": 376.05,
+  "discount": 0.1608,
+  "pooledPrice": 36.4285,
+  "distributorFee": 1.4571,
+  "freightPerUnit": 2.864,
+  "leadTimeDays": 17,
+  "minOrderQty": 1,
+  "memberCount": 12,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 432,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 508,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "365",
+  "synthetic": true,
+  "multiple": 25.45,
+  "networkYearlyQty": 533.18,
+  "discount": 0.1822,
+  "pooledPrice": 35.5011,
+  "distributorFee": 1.42,
+  "freightPerUnit": 2.864,
+  "leadTimeDays": 12,
+  "minOrderQty": 1,
+  "memberCount": 12,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 613,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 720,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "370",
+  "synthetic": true,
+  "multiple": 33.93,
+  "networkYearlyQty": 681.31,
+  "discount": 0.1682,
+  "pooledPrice": 36.1668,
+  "distributorFee": 1.4467,
+  "freightPerUnit": 2.988,
+  "leadTimeDays": 11,
+  "minOrderQty": 1,
+  "memberCount": 18,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 784,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 920,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "421",
+  "synthetic": true,
+  "multiple": 18.8,
+  "networkYearlyQty": 344.79,
+  "discount": 0.1314,
+  "pooledPrice": 40.4837,
+  "distributorFee": 1.6193,
+  "freightPerUnit": 3.2715,
+  "leadTimeDays": 17,
+  "minOrderQty": 1,
+  "memberCount": 11,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 397,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 465,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "439",
+  "synthetic": true,
+  "multiple": 27.22,
+  "networkYearlyQty": 499.21,
+  "discount": 0.1957,
+  "pooledPrice": 36.6202,
+  "distributorFee": 1.4648,
+  "freightPerUnit": 3.2715,
+  "leadTimeDays": 10,
+  "minOrderQty": 1,
+  "memberCount": 13,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 574,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 674,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "413",
+  "synthetic": true,
+  "multiple": 15.98,
+  "networkYearlyQty": 306.98,
+  "discount": 0.1353,
+  "pooledPrice": 37.4593,
+  "distributorFee": 1.4984,
+  "freightPerUnit": 3.1234,
+  "leadTimeDays": 10,
+  "minOrderQty": 1,
+  "memberCount": 11,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 353,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 414,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "373",
+  "synthetic": true,
+  "multiple": 31.71,
+  "networkYearlyQty": 636.74,
+  "discount": 0.1843,
+  "pooledPrice": 33.7512,
+  "distributorFee": 1.35,
+  "freightPerUnit": 2.988,
+  "leadTimeDays": 10,
+  "minOrderQty": 1,
+  "memberCount": 11,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 732,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 860,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "366",
+  "synthetic": true,
+  "multiple": 34.11,
+  "networkYearlyQty": 684.93,
+  "discount": 0.1868,
+  "pooledPrice": 33.5912,
+  "distributorFee": 1.3436,
+  "freightPerUnit": 2.988,
+  "leadTimeDays": 13,
+  "minOrderQty": 1,
+  "memberCount": 14,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 788,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 925,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "368",
+  "synthetic": true,
+  "multiple": 29.33,
+  "networkYearlyQty": 588.95,
+  "discount": 0.1771,
+  "pooledPrice": 33.9884,
+  "distributorFee": 1.3595,
+  "freightPerUnit": 2.988,
+  "leadTimeDays": 17,
+  "minOrderQty": 1,
+  "memberCount": 18,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 677,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 795,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "447",
+  "synthetic": true,
+  "multiple": 36.89,
+  "networkYearlyQty": 676.56,
+  "discount": 0.2147,
+  "pooledPrice": 35.3225,
+  "distributorFee": 1.4129,
+  "freightPerUnit": 3.2715,
+  "leadTimeDays": 15,
+  "minOrderQty": 1,
+  "memberCount": 18,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 778,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 913,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "440",
+  "synthetic": true,
+  "multiple": 22.84,
+  "networkYearlyQty": 418.89,
+  "discount": 0.1866,
+  "pooledPrice": 36.5385,
+  "distributorFee": 1.4615,
+  "freightPerUnit": 3.2715,
+  "leadTimeDays": 12,
+  "minOrderQty": 1,
+  "memberCount": 18,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 482,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 565,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "449",
+  "synthetic": true,
+  "multiple": 32.38,
+  "networkYearlyQty": 565.35,
+  "discount": 0.2016,
+  "pooledPrice": 37.5386,
+  "distributorFee": 1.5015,
+  "freightPerUnit": 3.4364,
+  "leadTimeDays": 11,
+  "minOrderQty": 1,
+  "memberCount": 17,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 650,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 763,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "414",
+  "synthetic": true,
+  "multiple": 29.86,
+  "networkYearlyQty": 547.63,
+  "discount": 0.1553,
+  "pooledPrice": 37.4689,
+  "distributorFee": 1.4988,
+  "freightPerUnit": 3.2715,
+  "leadTimeDays": 11,
+  "minOrderQty": 1,
+  "memberCount": 16,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 630,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 739,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "386",
+  "synthetic": true,
+  "multiple": 29.5,
+  "networkYearlyQty": 515.07,
+  "discount": 0.1707,
+  "pooledPrice": 38.5348,
+  "distributorFee": 1.5414,
+  "freightPerUnit": 3.4364,
+  "leadTimeDays": 10,
+  "minOrderQty": 1,
+  "memberCount": 20,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 592,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 695,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "415",
+  "synthetic": true,
+  "multiple": 26.41,
+  "networkYearlyQty": 484.36,
+  "discount": 0.1557,
+  "pooledPrice": 37.2792,
+  "distributorFee": 1.4912,
+  "freightPerUnit": 3.2715,
+  "leadTimeDays": 11,
+  "minOrderQty": 1,
+  "memberCount": 13,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 557,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 654,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "438",
+  "synthetic": true,
+  "multiple": 36.0,
+  "networkYearlyQty": 660.24,
+  "discount": 0.1965,
+  "pooledPrice": 35.3482,
+  "distributorFee": 1.4139,
+  "freightPerUnit": 3.2715,
+  "leadTimeDays": 16,
+  "minOrderQty": 1,
+  "memberCount": 11,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 759,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 891,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "442",
+  "synthetic": true,
+  "multiple": 38.62,
+  "networkYearlyQty": 708.29,
+  "discount": 0.2164,
+  "pooledPrice": 34.0336,
+  "distributorFee": 1.3613,
+  "freightPerUnit": 3.2715,
+  "leadTimeDays": 11,
+  "minOrderQty": 1,
+  "memberCount": 20,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 815,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 956,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "455",
+  "synthetic": true,
+  "multiple": 26.85,
+  "networkYearlyQty": 468.8,
+  "discount": 0.1799,
+  "pooledPrice": 37.3539,
+  "distributorFee": 1.4942,
+  "freightPerUnit": 3.4364,
+  "leadTimeDays": 11,
+  "minOrderQty": 1,
+  "memberCount": 14,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 539,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 633,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "456",
+  "synthetic": true,
+  "multiple": 31.6,
+  "networkYearlyQty": 551.74,
+  "discount": 0.2006,
+  "pooledPrice": 36.0733,
+  "distributorFee": 1.4429,
+  "freightPerUnit": 3.4364,
+  "leadTimeDays": 13,
+  "minOrderQty": 1,
+  "memberCount": 13,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 634,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 745,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "369",
+  "synthetic": true,
+  "multiple": 16.52,
+  "networkYearlyQty": 331.72,
+  "discount": 0.1711,
+  "pooledPrice": 32.4975,
+  "distributorFee": 1.2999,
+  "freightPerUnit": 2.988,
+  "leadTimeDays": 11,
+  "minOrderQty": 1,
+  "memberCount": 16,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 381,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 448,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "371",
+  "synthetic": true,
+  "multiple": 32.54,
+  "networkYearlyQty": 653.4,
+  "discount": 0.2089,
+  "pooledPrice": 31.0151,
+  "distributorFee": 1.2406,
+  "freightPerUnit": 2.988,
+  "leadTimeDays": 12,
+  "minOrderQty": 1,
+  "memberCount": 20,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 751,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 882,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "448",
+  "synthetic": true,
+  "multiple": 31.18,
+  "networkYearlyQty": 571.84,
+  "discount": 0.1985,
+  "pooledPrice": 34.3689,
+  "distributorFee": 1.3748,
+  "freightPerUnit": 3.2715,
+  "leadTimeDays": 11,
+  "minOrderQty": 1,
+  "memberCount": 16,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 658,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 772,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "443",
+  "synthetic": true,
+  "multiple": 39.83,
+  "networkYearlyQty": 730.48,
+  "discount": 0.2242,
+  "pooledPrice": 33.223,
+  "distributorFee": 1.3289,
+  "freightPerUnit": 3.2715,
+  "leadTimeDays": 13,
+  "minOrderQty": 1,
+  "memberCount": 15,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 840,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 986,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "452",
+  "synthetic": true,
+  "multiple": 35.55,
+  "networkYearlyQty": 620.7,
+  "discount": 0.1782,
+  "pooledPrice": 36.9153,
+  "distributorFee": 1.4766,
+  "freightPerUnit": 3.4364,
+  "leadTimeDays": 12,
+  "minOrderQty": 1,
+  "memberCount": 15,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 714,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 838,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "383",
+  "synthetic": true,
+  "multiple": 22.11,
+  "networkYearlyQty": 386.04,
+  "discount": 0.1376,
+  "pooledPrice": 38.2841,
+  "distributorFee": 1.5314,
+  "freightPerUnit": 3.4364,
+  "leadTimeDays": 12,
+  "minOrderQty": 1,
+  "memberCount": 10,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 444,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 521,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "417",
+  "synthetic": true,
+  "multiple": 24.64,
+  "networkYearlyQty": 451.9,
+  "discount": 0.1572,
+  "pooledPrice": 35.6153,
+  "distributorFee": 1.4246,
+  "freightPerUnit": 3.2715,
+  "leadTimeDays": 17,
+  "minOrderQty": 1,
+  "memberCount": 17,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 520,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 610,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "411",
+  "synthetic": true,
+  "multiple": 31.72,
+  "networkYearlyQty": 609.34,
+  "discount": 0.1941,
+  "pooledPrice": 32.3617,
+  "distributorFee": 1.2945,
+  "freightPerUnit": 3.1234,
+  "leadTimeDays": 16,
+  "minOrderQty": 1,
+  "memberCount": 15,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 701,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 823,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "412",
+  "synthetic": true,
+  "multiple": 15.56,
+  "networkYearlyQty": 298.91,
+  "discount": 0.1535,
+  "pooledPrice": 33.9945,
+  "distributorFee": 1.3598,
+  "freightPerUnit": 3.1234,
+  "leadTimeDays": 14,
+  "minOrderQty": 1,
+  "memberCount": 18,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 344,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 404,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "418",
+  "synthetic": true,
+  "multiple": 26.54,
+  "networkYearlyQty": 486.74,
+  "discount": 0.1994,
+  "pooledPrice": 33.6688,
+  "distributorFee": 1.3468,
+  "freightPerUnit": 3.2715,
+  "leadTimeDays": 11,
+  "minOrderQty": 1,
+  "memberCount": 13,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 560,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 657,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "454",
+  "synthetic": true,
+  "multiple": 19.2,
+  "networkYearlyQty": 335.23,
+  "discount": 0.1851,
+  "pooledPrice": 35.9745,
+  "distributorFee": 1.439,
+  "freightPerUnit": 3.4364,
+  "leadTimeDays": 10,
+  "minOrderQty": 1,
+  "memberCount": 11,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 386,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 453,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "441",
+  "synthetic": true,
+  "multiple": 17.93,
+  "networkYearlyQty": 328.84,
+  "discount": 0.1417,
+  "pooledPrice": 35.9529,
+  "distributorFee": 1.4381,
+  "freightPerUnit": 3.2715,
+  "leadTimeDays": 10,
+  "minOrderQty": 1,
+  "memberCount": 12,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 378,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 444,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "458",
+  "synthetic": true,
+  "multiple": 16.47,
+  "networkYearlyQty": 287.57,
+  "discount": 0.1382,
+  "pooledPrice": 37.4469,
+  "distributorFee": 1.4979,
+  "freightPerUnit": 3.4364,
+  "leadTimeDays": 11,
+  "minOrderQty": 1,
+  "memberCount": 16,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 331,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 388,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "445",
+  "synthetic": true,
+  "multiple": 34.21,
+  "networkYearlyQty": 627.41,
+  "discount": 0.2044,
+  "pooledPrice": 32.8857,
+  "distributorFee": 1.3154,
+  "freightPerUnit": 3.2715,
+  "leadTimeDays": 15,
+  "minOrderQty": 1,
+  "memberCount": 14,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 722,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 847,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "388",
+  "synthetic": true,
+  "multiple": 18.23,
+  "networkYearlyQty": 318.3,
+  "discount": 0.1487,
+  "pooledPrice": 36.8669,
+  "distributorFee": 1.4747,
+  "freightPerUnit": 3.4364,
+  "leadTimeDays": 14,
+  "minOrderQty": 1,
+  "memberCount": 18,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 366,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 430,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "389",
+  "synthetic": true,
+  "multiple": 21.19,
+  "networkYearlyQty": 369.98,
+  "discount": 0.1639,
+  "pooledPrice": 36.2086,
+  "distributorFee": 1.4483,
+  "freightPerUnit": 3.4364,
+  "leadTimeDays": 15,
+  "minOrderQty": 1,
+  "memberCount": 15,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 425,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 499,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "416",
+  "synthetic": true,
+  "multiple": 24.77,
+  "networkYearlyQty": 454.28,
+  "discount": 0.1433,
+  "pooledPrice": 35.1435,
+  "distributorFee": 1.4057,
+  "freightPerUnit": 3.2715,
+  "leadTimeDays": 10,
+  "minOrderQty": 1,
+  "memberCount": 12,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 522,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 613,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "459",
+  "synthetic": true,
+  "multiple": 36.79,
+  "networkYearlyQty": 642.35,
+  "discount": 0.1804,
+  "pooledPrice": 35.2632,
+  "distributorFee": 1.4105,
+  "freightPerUnit": 3.4364,
+  "leadTimeDays": 10,
+  "minOrderQty": 1,
+  "memberCount": 14,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 739,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 867,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "410",
+  "synthetic": true,
+  "multiple": 17.01,
+  "networkYearlyQty": 326.76,
+  "discount": 0.1811,
+  "pooledPrice": 31.9933,
+  "distributorFee": 1.2797,
+  "freightPerUnit": 3.1234,
+  "leadTimeDays": 11,
+  "minOrderQty": 1,
+  "memberCount": 14,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 376,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 441,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "446",
+  "synthetic": true,
+  "multiple": 26.23,
+  "networkYearlyQty": 481.06,
+  "discount": 0.1458,
+  "pooledPrice": 34.7835,
+  "distributorFee": 1.3913,
+  "freightPerUnit": 3.2715,
+  "leadTimeDays": 16,
+  "minOrderQty": 1,
+  "memberCount": 13,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 553,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 649,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "450",
+  "synthetic": true,
+  "multiple": 28.74,
+  "networkYearlyQty": 501.8,
+  "discount": 0.1472,
+  "pooledPrice": 36.4524,
+  "distributorFee": 1.4581,
+  "freightPerUnit": 3.4364,
+  "leadTimeDays": 16,
+  "minOrderQty": 1,
+  "memberCount": 11,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 577,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 677,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "372",
+  "synthetic": true,
+  "multiple": 37.08,
+  "networkYearlyQty": 744.57,
+  "discount": 0.1927,
+  "pooledPrice": 29.9546,
+  "distributorFee": 1.1982,
+  "freightPerUnit": 2.988,
+  "leadTimeDays": 15,
+  "minOrderQty": 1,
+  "memberCount": 18,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 856,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 1005,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "374",
+  "synthetic": true,
+  "multiple": 35.48,
+  "networkYearlyQty": 712.44,
+  "discount": 0.1881,
+  "pooledPrice": 30.1246,
+  "distributorFee": 1.205,
+  "freightPerUnit": 2.988,
+  "leadTimeDays": 14,
+  "minOrderQty": 1,
+  "memberCount": 19,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 819,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 962,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "387",
+  "synthetic": true,
+  "multiple": 36.6,
+  "networkYearlyQty": 639.04,
+  "discount": 0.1621,
+  "pooledPrice": 35.3762,
+  "distributorFee": 1.415,
+  "freightPerUnit": 3.4364,
+  "leadTimeDays": 14,
+  "minOrderQty": 1,
+  "memberCount": 13,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 735,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 863,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "385",
+  "synthetic": true,
+  "multiple": 21.96,
+  "networkYearlyQty": 383.42,
+  "discount": 0.1879,
+  "pooledPrice": 34.266,
+  "distributorFee": 1.3706,
+  "freightPerUnit": 3.4364,
+  "leadTimeDays": 11,
+  "minOrderQty": 1,
+  "memberCount": 14,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 441,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 518,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "420",
+  "synthetic": true,
+  "multiple": 25.38,
+  "networkYearlyQty": 465.47,
+  "discount": 0.1429,
+  "pooledPrice": 34.4218,
+  "distributorFee": 1.3769,
+  "freightPerUnit": 3.2715,
+  "leadTimeDays": 13,
+  "minOrderQty": 1,
+  "memberCount": 14,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 535,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 628,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "457",
+  "synthetic": true,
+  "multiple": 23.97,
+  "networkYearlyQty": 418.52,
+  "discount": 0.1713,
+  "pooledPrice": 34.8437,
+  "distributorFee": 1.3937,
+  "freightPerUnit": 3.4364,
+  "leadTimeDays": 14,
+  "minOrderQty": 1,
+  "memberCount": 13,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 481,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 565,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "397",
+  "synthetic": true,
+  "multiple": 37.1,
+  "networkYearlyQty": 615.49,
+  "discount": 0.1698,
+  "pooledPrice": 36.7175,
+  "distributorFee": 1.4687,
+  "freightPerUnit": 3.6166,
+  "leadTimeDays": 14,
+  "minOrderQty": 1,
+  "memberCount": 20,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 708,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 831,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "444",
+  "synthetic": true,
+  "multiple": 38.94,
+  "networkYearlyQty": 714.16,
+  "discount": 0.1742,
+  "pooledPrice": 32.8581,
+  "distributorFee": 1.3143,
+  "freightPerUnit": 3.2715,
+  "leadTimeDays": 12,
+  "minOrderQty": 1,
+  "memberCount": 10,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 821,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 964,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "391",
+  "synthetic": true,
+  "multiple": 18.77,
+  "networkYearlyQty": 327.72,
+  "discount": 0.185,
+  "pooledPrice": 33.5843,
+  "distributorFee": 1.3434,
+  "freightPerUnit": 3.4364,
+  "leadTimeDays": 10,
+  "minOrderQty": 1,
+  "memberCount": 10,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 377,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 442,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "392",
+  "synthetic": true,
+  "multiple": 19.41,
+  "networkYearlyQty": 338.9,
+  "discount": 0.1284,
+  "pooledPrice": 35.9178,
+  "distributorFee": 1.4367,
+  "freightPerUnit": 3.4364,
+  "leadTimeDays": 14,
+  "minOrderQty": 1,
+  "memberCount": 18,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 390,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 458,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "394",
+  "synthetic": true,
+  "multiple": 20.8,
+  "networkYearlyQty": 345.07,
+  "discount": 0.1869,
+  "pooledPrice": 35.1941,
+  "distributorFee": 1.4078,
+  "freightPerUnit": 3.6166,
+  "leadTimeDays": 14,
+  "minOrderQty": 1,
+  "memberCount": 17,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 397,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 466,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "395",
+  "synthetic": true,
+  "multiple": 20.83,
+  "networkYearlyQty": 345.57,
+  "discount": 0.1435,
+  "pooledPrice": 36.8825,
+  "distributorFee": 1.4753,
+  "freightPerUnit": 3.6166,
+  "leadTimeDays": 13,
+  "minOrderQty": 1,
+  "memberCount": 11,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 397,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 467,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "419",
+  "synthetic": true,
+  "multiple": 27.12,
+  "networkYearlyQty": 497.38,
+  "discount": 0.1818,
+  "pooledPrice": 31.8464,
+  "distributorFee": 1.2739,
+  "freightPerUnit": 3.2715,
+  "leadTimeDays": 16,
+  "minOrderQty": 1,
+  "memberCount": 20,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 572,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 671,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "451",
+  "synthetic": true,
+  "multiple": 29.73,
+  "networkYearlyQty": 519.09,
+  "discount": 0.1744,
+  "pooledPrice": 33.5578,
+  "distributorFee": 1.3423,
+  "freightPerUnit": 3.4364,
+  "leadTimeDays": 16,
+  "minOrderQty": 1,
+  "memberCount": 16,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 597,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 701,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "453",
+  "synthetic": true,
+  "multiple": 21.57,
+  "networkYearlyQty": 376.61,
+  "discount": 0.1889,
+  "pooledPrice": 32.969,
+  "distributorFee": 1.3188,
+  "freightPerUnit": 3.4364,
+  "leadTimeDays": 12,
+  "minOrderQty": 1,
+  "memberCount": 13,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 433,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 508,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "382",
+  "synthetic": true,
+  "multiple": 15.1,
+  "networkYearlyQty": 263.65,
+  "discount": 0.1804,
+  "pooledPrice": 32.8828,
+  "distributorFee": 1.3153,
+  "freightPerUnit": 3.4364,
+  "leadTimeDays": 12,
+  "minOrderQty": 1,
+  "memberCount": 13,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 303,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 356,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "384",
+  "synthetic": true,
+  "multiple": 25.47,
+  "networkYearlyQty": 444.71,
+  "discount": 0.1859,
+  "pooledPrice": 32.6619,
+  "distributorFee": 1.3065,
+  "freightPerUnit": 3.4364,
+  "leadTimeDays": 15,
+  "minOrderQty": 1,
+  "memberCount": 20,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 511,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 600,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "390",
+  "synthetic": true,
+  "multiple": 24.23,
+  "networkYearlyQty": 423.06,
+  "discount": 0.1429,
+  "pooledPrice": 34.3873,
+  "distributorFee": 1.3755,
+  "freightPerUnit": 3.4364,
+  "leadTimeDays": 12,
+  "minOrderQty": 1,
+  "memberCount": 10,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 487,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 571,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "460",
+  "synthetic": true,
+  "multiple": 29.16,
+  "networkYearlyQty": 509.13,
+  "discount": 0.1939,
+  "pooledPrice": 32.1982,
+  "distributorFee": 1.2879,
+  "freightPerUnit": 3.4364,
+  "leadTimeDays": 10,
+  "minOrderQty": 1,
+  "memberCount": 11,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 586,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 687,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "393",
+  "synthetic": true,
+  "multiple": 38.83,
+  "networkYearlyQty": 677.97,
+  "discount": 0.1962,
+  "pooledPrice": 30.5595,
+  "distributorFee": 1.2224,
+  "freightPerUnit": 3.4364,
+  "leadTimeDays": 12,
+  "minOrderQty": 1,
+  "memberCount": 16,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 780,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 915,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "396",
+  "synthetic": true,
+  "multiple": 32.26,
+  "networkYearlyQty": 535.19,
+  "discount": 0.1559,
+  "pooledPrice": 33.7248,
+  "distributorFee": 1.349,
+  "freightPerUnit": 3.6166,
+  "leadTimeDays": 10,
+  "minOrderQty": 1,
+  "memberCount": 20,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 615,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 723,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "465",
+  "synthetic": true,
+  "multiple": 27.89,
+  "networkYearlyQty": 365.36,
+  "discount": 0.1797,
+  "pooledPrice": 40.7675,
+  "distributorFee": 1.6307,
+  "freightPerUnit": 4.5802,
+  "leadTimeDays": 18,
+  "minOrderQty": 1,
+  "memberCount": 20,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 420,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 493,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "463",
+  "synthetic": true,
+  "multiple": 30.44,
+  "networkYearlyQty": 398.76,
+  "discount": 0.1908,
+  "pooledPrice": 38.4539,
+  "distributorFee": 1.5382,
+  "freightPerUnit": 4.5802,
+  "leadTimeDays": 13,
+  "minOrderQty": 1,
+  "memberCount": 14,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 459,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 538,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "464",
+  "synthetic": true,
+  "multiple": 31.91,
+  "networkYearlyQty": 418.02,
+  "discount": 0.1358,
+  "pooledPrice": 39.2555,
+  "distributorFee": 1.5702,
+  "freightPerUnit": 4.5802,
+  "leadTimeDays": 12,
+  "minOrderQty": 1,
+  "memberCount": 12,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 481,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 564,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "466",
+  "synthetic": true,
+  "multiple": 16.35,
+  "networkYearlyQty": 214.19,
+  "discount": 0.1366,
+  "pooledPrice": 39.217,
+  "distributorFee": 1.5687,
+  "freightPerUnit": 4.5802,
+  "leadTimeDays": 10,
+  "minOrderQty": 1,
+  "memberCount": 14,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 246,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 289,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "468",
+  "synthetic": true,
+  "multiple": 37.49,
+  "networkYearlyQty": 458.13,
+  "discount": 0.1602,
+  "pooledPrice": 39.9698,
+  "distributorFee": 1.5988,
+  "freightPerUnit": 4.91,
+  "leadTimeDays": 15,
+  "minOrderQty": 1,
+  "memberCount": 18,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 527,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 618,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "467",
+  "synthetic": true,
+  "multiple": 34.5,
+  "networkYearlyQty": 451.95,
+  "discount": 0.1568,
+  "pooledPrice": 36.5286,
+  "distributorFee": 1.4611,
+  "freightPerUnit": 4.5802,
+  "leadTimeDays": 10,
+  "minOrderQty": 1,
+  "memberCount": 14,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 520,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 610,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "471",
+  "synthetic": true,
+  "multiple": 36.86,
+  "networkYearlyQty": 450.43,
+  "discount": 0.1495,
+  "pooledPrice": 38.6937,
+  "distributorFee": 1.5477,
+  "freightPerUnit": 4.91,
+  "leadTimeDays": 12,
+  "minOrderQty": 1,
+  "memberCount": 10,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 518,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 608,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "474",
+  "synthetic": true,
+  "multiple": 34.95,
+  "networkYearlyQty": 427.09,
+  "discount": 0.1551,
+  "pooledPrice": 36.6648,
+  "distributorFee": 1.4666,
+  "freightPerUnit": 4.91,
+  "leadTimeDays": 11,
+  "minOrderQty": 1,
+  "memberCount": 17,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 491,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 577,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "469",
+  "synthetic": true,
+  "multiple": 24.81,
+  "networkYearlyQty": 303.18,
+  "discount": 0.1396,
+  "pooledPrice": 37.2734,
+  "distributorFee": 1.4909,
+  "freightPerUnit": 4.91,
+  "leadTimeDays": 13,
+  "minOrderQty": 1,
+  "memberCount": 13,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 349,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 409,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "470",
+  "synthetic": true,
+  "multiple": 24.97,
+  "networkYearlyQty": 305.13,
+  "discount": 0.1537,
+  "pooledPrice": 34.8882,
+  "distributorFee": 1.3955,
+  "freightPerUnit": 4.91,
+  "leadTimeDays": 10,
+  "minOrderQty": 1,
+  "memberCount": 11,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 351,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 412,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "472",
+  "synthetic": true,
+  "multiple": 17.59,
+  "networkYearlyQty": 214.95,
+  "discount": 0.1368,
+  "pooledPrice": 35.583,
+  "distributorFee": 1.4233,
+  "freightPerUnit": 4.91,
+  "leadTimeDays": 11,
+  "minOrderQty": 1,
+  "memberCount": 12,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 247,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 290,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "473",
+  "synthetic": true,
+  "multiple": 30.86,
+  "networkYearlyQty": 377.11,
+  "discount": 0.1551,
+  "pooledPrice": 33.055,
+  "distributorFee": 1.3222,
+  "freightPerUnit": 4.91,
+  "leadTimeDays": 10,
+  "minOrderQty": 1,
+  "memberCount": 16,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 434,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 509,
+    "rebatePct": 0.04
+   }
+  ]
+ },
+ {
+  "id": "475",
+  "synthetic": true,
+  "multiple": 16.56,
+  "networkYearlyQty": 202.36,
+  "discount": 0.1213,
+  "pooledPrice": 34.3754,
+  "distributorFee": 1.375,
+  "freightPerUnit": 4.91,
+  "leadTimeDays": 14,
+  "minOrderQty": 1,
+  "memberCount": 20,
+  "rebateTiers": [
+   {
+    "minNetworkQty": 233,
+    "rebatePct": 0.02
+   },
+   {
+    "minNetworkQty": 273,
+    "rebatePct": 0.04
+   }
+  ]
+ }
+]
