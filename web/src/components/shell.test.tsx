@@ -24,9 +24,15 @@ it('four-item nav with the serif wordmark', () => {
   for (const old of ['>Overview<', '>Products<', '>Opportunities<']) expect(h).not.toContain(old);
   expect(h).toMatch(/font-serif[^>]*>Common Thread</);
 });
-it('top bar: search, disabled year and Assumptions placeholders, content width', () => {
+it('top bar: sample-data line with hover sentence, no year or Assumptions controls by default', () => {
   const h = shell('/');
+  expect(h).toContain('Sample data: AdventureWorks, Microsoft&#x27;s demo ERP for a fictional bike maker');
+  expect(h).toContain('title="Every figure is a real calculation on that dataset; no real company spent or saved this money."');
+  expect(h).not.toMatch(/<select/); expect(h).not.toContain('>Assumptions<');
+  expect(h).toContain('role="combobox"'); expect(h).toContain('max-w-[1120px]');
+});
+it('5c flag on: year select and Assumptions button come back disabled', () => {
+  const h = renderToStaticMarkup(<CoreDataProvider value={core}><MemoryRouter initialEntries={["/"]}><AppShell showYearAndAssumptions>x</AppShell></MemoryRouter></CoreDataProvider>);
   expect(h).toMatch(/<select[^>]*disabled[^>]*>/); expect(h).toContain('All years');
   expect(h).toMatch(/<button[^>]*disabled[^>]*>Assumptions<\/button>/);
-  expect(h).toContain('role="combobox"'); expect(h).toContain('max-w-[1120px]');
 });
