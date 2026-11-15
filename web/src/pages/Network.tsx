@@ -226,7 +226,7 @@ function NetworkLoaded({ rows }: { rows: NetworkRow[] }) {
   const deepLinked = highlightId !== null && rows.some((r) => r.member.id === highlightId);
   const filter = deepLinked ? 'all' : FILTERS.find((f) => f === raw) ?? 'all';
   // A deep link from a Part page lands on its row, which may be far down the list.
-  useEffect(() => { if (deepLinked) document.querySelector('[data-highlight]')?.scrollIntoView({ block: 'center' }); }, []);
+  useEffect(() => { if (deepLinked) document.querySelector('[data-highlight]')?.scrollIntoView({ block: 'center' }); }, [deepLinked]);
   const toggle = (id: string) => setExpanded((s) => { const n = new Set(s); if (n.has(id)) n.delete(id); else n.add(id); return n; });
   const update = (fn: (n: URLSearchParams) => void) => setParams((p) => { const n = new URLSearchParams(p); fn(n); return n; }, { replace: true });
   return (
