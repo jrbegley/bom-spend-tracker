@@ -76,7 +76,7 @@ function PartRow({ r, open, onToggle, highlighted }: { r: NetworkRow; open: bool
             : <span title={r.reason ?? undefined}><Chip>Stays with current vendor</Chip><span className="mt-1 block text-muted-foreground">{r.reason}</span></span>}
         </div>
         <button type="button" aria-expanded={open} aria-controls={`net-${m.id}`} onClick={onToggle}
-          className="text-[13px] text-primary hover:text-primary/80">{open ? 'Hide cost breakdown' : 'Cost breakdown'}</button>
+          className="w-[130px] text-right text-[13px] text-primary hover:text-primary/80">{open ? 'Hide cost breakdown' : 'Cost breakdown'}</button>
       </div>
       {open && <div className="border-t border-hairline bg-muted/30 pb-2"><Breakdown r={r} /></div>}
     </li>

@@ -4,7 +4,8 @@ Common Thread, formerly Spendline (BOM to spend cube explorer). Read in this ord
 1. `BUILD_SPEC.md` sections 1, 2, 4 and 5 (the original spec and the data method).
 2. `SPEC_REVISION_2.md`. **It wins wherever it disagrees with `BUILD_SPEC.md` or with older decisions below.** Its section 10 covers the Lovable design port.
 3. `SPEC_VENDOR_PAGE.md`. It wins for vendor pages and the nav.
-4. This file.
+4. `SPEC_PITCH_DEMO.md`. **For the pitch demo it wins over `SPEC_REVISION_2.md`.**
+5. This file.
 
 ## Status (branch `main`)
 
@@ -14,10 +15,32 @@ Common Thread, formerly Spendline (BOM to spend cube explorer). Read in this ord
 | **5a Lovable look, current data** | **Done and merged** (`docs/superpowers/plans/2026-11-14-phase-5a-lovable-look.md`). Walked through in Chrome with no console errors. Opus whole-branch review: no Critical issues. Three fixes are on `main` (see "Review follow-ups"). |
 | **Vendor page** (`SPEC_VENDOR_PAGE.md`) | **Done and merged** (`docs/superpowers/plans/2026-11-14-vendor-page.md`). Section 6 acceptance passes. Walked through in Chrome. Opus review: no Critical issues, three Important fixes on `main` (see "Vendor page"). |
 | **Match review feedback** | **Done and merged** (`docs/superpowers/plans/2026-11-14-match-feedback.md`). Working review workflow on the page, held in page state, nothing saved (by request). Walked through in Chrome. Opus review: no Critical issues; two fixes on `main` (see "Match review feedback"). |
+| **Pitch demo** (`SPEC_PITCH_DEMO.md`) | **P0 and P1 built on branch `pitch-demo`** (`docs/superpowers/plans/2026-11-14-pitch-demo.md`): rename, sample-data label, hidden 5c controls, `/network`, supplier view, Part page link. See "Pitch demo" below. |
 | **5b Data** (`SPEC_REVISION_2.md` 10.4) | **Not started. Blocked on the team settling `SPEC_REVISION_2.md` section 3.6.** |
 | 5c Finance features | Not started (depends on 5b). |
 
-193 tests pass (`cd web && npm test`). `npm run build` and `npx oxlint src` are clean. `python3 data/check_outputs.py web/public/data` prints `ALL CHECKS PASSED`.
+237 tests pass (`cd web && npm test`). `npm run build` and `npx oxlint src` are clean. `python3 data/check_outputs.py web/public/data` prints `ALL CHECKS PASSED`.
+
+## Pitch demo (after match feedback)
+
+- **Name:** the app is **Common Thread** (was Spendline). `src/test/noOldName.test.ts` guards against the old name in `web/src` and `web/index.html`.
+- **Sample-data line:** every page's top bar says "Sample data: AdventureWorks, Microsoft's demo ERP for a fictional bike maker", with a hover sentence.
+- **Hidden controls:** the "All years" select and "Assumptions" button are behind `FEATURES.yearAndAssumptions` in `lib/features.ts` (off). **Phase 5c: flip it to `true`.**
+- **`/network` (Buying network, after Vendors):** an Illustrative concept page.
+  - Three headline numbers, then the part-by-part admission test: top 10, "Show all", filter chips (All / Joins the pool / Stays with current vendor), and a click-to-expand delivered-cost breakdown per row.
+  - **Join the pool** is page state only, nothing is saved, and it resets on reload.
+  - A second tab, **What suppliers see**, for the 7 on-BOM pool parts: network demand, a four-quarter forecast, member count only, and the 2% fee (illustrative).
+  - **Deep link:** `/network?part=:id` opens the full list with that row expanded.
+  - Part pages for pool parts have a line under the vendor cards linking to their row.
+- **Data:** `python3 data/build_network.py data/raw web/public/data` writes `network_member.json` (real) and `network_synthetic.json` (seeded, every record `"synthetic": true`). Rerunning gives identical files. The tuned values (`SEED = 7`, `W = 0.5`, `FREIGHT_PER_DELIVERY = 5.0`) give 121 parts passing and 4 failing (Lock Washer 1, 2, 9, 11), with a 18.2% average discount on passing parts. `check_outputs.py` covers both files. Logic is in `lib/network.ts`.
+- **Where the data differs from the spec:**
+  - The pool is **125 parts / $136.8K a year**, not 127 / $137K, and **7** are on a BOM, not 8.
+  - Chainring Bolts are bought by the **canister**, so the page says "per canister" and never mixes per-piece figures.
+  - Every sample PO line is 3 units, so "freight at your order size" assumes one network delivery a month.
+  - Lead time and minimum order are drawn at or under the member's, so only price and freight can fail a part. Those two branches are unit-tested only.
+- **Saving figure:** the page says **$15.1K a year** (about 11% of pool spend). The deck's "18% lower" is the pooled price before fee and freight.
+- **For Joe (spec 5.3, slide 9):** swap the screw numbers for Chainring Bolts: you buy **109 canisters a year** (real), the network buys **2,521** (synthetic), 17 manufacturers.
+- **Screenshots for the deck:** `docs/pitch/slide-6-touring-rim.png` and `docs/pitch/slide-9-network.png`, taken at 1440 px.
 
 ## What 5a changed
 
